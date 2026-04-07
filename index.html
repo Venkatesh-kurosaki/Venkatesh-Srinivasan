@@ -11,61 +11,41 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg-dark: #0b0b0c;
   --ink: #e8e8e8;
-  --fade: #8a8a8f;
+  --fade: #aaaaaa;
 }
 
 body {
-  background: var(--bg-dark);
+  background: #000;
   color: var(--ink);
   font-family: 'IM Fell English', serif;
   overflow-x: hidden;
 }
 
-/* Background gradient */
+/* 🔥 BACKGROUND IMAGE */
 .sakura-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
 
   background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
-    url("images/bg.png");
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url("./images/Oni%20vs%20Samurai%20cyber%20duel.png");
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* ONI + SAMURAI */
-.oni-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px;
-  opacity: 0.06;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.samurai-bg {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 260px;
-  opacity: 0.06;
-  z-index: 1;
-  pointer-events: none;
-}
-
 /* NAV */
 nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   padding: 1.2rem 2rem;
-  background: rgba(10,10,12,0.6);
+  background: rgba(0,0,0,0.5);
   backdrop-filter: blur(10px);
 }
 
@@ -86,6 +66,7 @@ nav {
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 2rem;
 }
 
 .hero-name {
@@ -94,15 +75,15 @@ nav {
 }
 
 .hero-bio {
-  color: var(--fade);
   font-size: 1rem;
+  color: var(--fade);
 }
 
 .hero-sub {
   font-family: 'Space Mono', monospace;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
-  color: #666;
+  color: #777;
 }
 
 /* SECTION */
@@ -122,7 +103,7 @@ section {
   display: flex;
   justify-content: space-between;
   padding: 1.2rem 0;
-  border-bottom: 1px solid #1f1f22;
+  border-bottom: 1px solid #222;
   text-decoration: none;
   color: inherit;
 }
@@ -138,33 +119,30 @@ section {
 }
 
 .link-arrow {
-  color: #555;
+  color: #666;
 }
 
 /* FOOTER */
 footer {
   text-align: center;
   padding: 3rem;
-  color: #555;
+  color: #666;
 }
-
 </style>
 </head>
 
 <body>
 
+<!-- 🔥 BACKGROUND -->
 <div class="sakura-bg"></div>
 
-<!-- ONI + SAMURAI -->
-<img src="images/oni.png" class="oni-bg">
-<img src="images/samurai.png" class="samurai-bg">
-
+<!-- NAV -->
 <nav>
   <span class="nav-name">Venkatesh Srinivasan</span>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-
   <h1 class="hero-name">Exploring</h1>
 
   <p class="hero-bio">
@@ -172,9 +150,9 @@ footer {
   </p>
 
   <p class="hero-sub">探求</p>
-
 </div>
 
+<!-- LINKS -->
 <section>
   <div class="section-inner">
 
@@ -205,6 +183,7 @@ footer {
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <p>探求し続ける</p>
 </footer>
