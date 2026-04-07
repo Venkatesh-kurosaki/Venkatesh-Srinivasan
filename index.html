@@ -4,749 +4,364 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=IM+Fell+English:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=IM+Fell+English:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --ink: #e8e0d0;
-  --paper: #0d0b09;
-  --mid: #1a1612;
-  --fade: #6b6358;
-  --red: #c0392b;
-  --pink: #e8a0a8;
-  --line: rgba(232,224,208,0.08);
-  --line-mid: rgba(232,224,208,0.15);
+  --pink-deep: #8b3a5a;
+  --pink-mid: #c4687e;
+  --pink-light: #f2b8c6;
+  --pink-pale: #fde8ef;
+  --ink: #1a0a10;
+  --fade: #7a4a58;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
-  background: var(--paper);
+  background: var(--pink-pale);
   color: var(--ink);
   font-family: 'IM Fell English', Georgia, serif;
-  min-height: 100vh;
   overflow-x: hidden;
+  min-height: 100vh;
 }
-
-::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-track { background: var(--paper); }
-::-webkit-scrollbar-thumb { background: var(--fade); }
-
+.sakura-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, #f9c8d8 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, #f5aec4 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, #fde8ef 0%, #f7c0d0 100%);
+}
+.petals-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 50;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
-  background: rgba(13,11,9,0.88);
-  backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid var(--line);
+  padding: 1.25rem 3rem;
+  background: rgba(253,232,239,0.75);
+  backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid rgba(139,58,90,0.12);
 }
-
 .nav-name {
   font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 0.18em;
-  color: var(--fade);
-  text-transform: uppercase;
-}
-
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-
-.nav-links a {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--fade);
-  text-decoration: none;
-  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--ink); }
-
 .hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 6rem 3rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 4rem;
-}
-
-.hero-left { position: relative; }
-
-.hero-eyebrow {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: rise 0.9s ease forwards 0.2s;
-}
-
-.hero-name {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.05;
-  color: var(--ink);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: rise 0.9s ease forwards 0.4s;
-}
-
-.hero-divider {
-  width: 2.5rem;
-  height: 0.5px;
-  background: var(--red);
-  margin-bottom: 1.75rem;
-  opacity: 0;
-  animation: expand 0.9s ease forwards 0.6s;
-}
-
-.hero-statement {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  line-height: 1.85;
-  color: var(--fade);
-  max-width: 32rem;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: rise 0.9s ease forwards 0.8s;
-}
-
-.hero-statement strong {
-  color: var(--ink);
-  font-style: italic;
-}
-
-.hero-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  opacity: 0;
-  animation: rise 0.9s ease forwards 1s;
-}
-
-.tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fade);
-  padding: 0.3rem 0.7rem;
-  border: 0.5px solid var(--line-mid);
-}
-
-.tag.active {
-  color: var(--red);
-  border-color: rgba(192,57,43,0.3);
-}
-
-.hero-right {
   position: relative;
+  z-index: 10;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  animation: rise 1.2s ease forwards 0.6s;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
 }
-
-.sakura-cluster {
-  position: absolute;
-  top: -2rem;
-  right: 0;
+.musashi-frame {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(139,58,90,0.2);
+  margin-bottom: 2rem;
+  background: #1e0e14;
+  box-shadow: 0 0 0 8px rgba(242,184,198,0.25), 0 0 0 16px rgba(242,184,198,0.08);
 }
-
-.samurai-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-}
-
-section {
-  padding: 7rem 3rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-family: 'IM Fell English', serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 3rem;
-  color: var(--ink);
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.about-text p {
-  font-size: 1rem;
-  line-height: 1.95;
-  color: var(--fade);
-  margin-bottom: 1.25rem;
-}
-
-.about-text p strong { color: var(--ink); font-style: italic; }
-
-.about-now {
-  padding: 1.5rem;
-  border: 0.5px solid var(--line-mid);
-  border-left: 2px solid var(--red);
-  margin-top: 2rem;
-}
-
-.about-now-label {
+.musashi-frame svg { width: 100%; height: 100%; }
+.hero-eyebrow {
   font-family: 'Space Mono', monospace;
   font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--pink-deep);
   margin-bottom: 0.75rem;
 }
-
-.about-now-text {
-  font-style: italic;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--ink);
-}
-
-.interests-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-
-.interest-row {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.9rem 0;
-  border-bottom: 0.5px solid var(--line);
-}
-
-.interest-row:first-child { border-top: 0.5px solid var(--line); }
-
-.interest-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.58rem;
-  color: var(--red);
-  min-width: 1.5rem;
-}
-
-.interest-name {
+.hero-name {
   font-family: 'IM Fell English', serif;
-  font-size: 1rem;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.08;
   color: var(--ink);
-  flex: 1;
+  margin-bottom: 1rem;
 }
-
-.interest-note {
+.hero-divider {
+  width: 2rem;
+  height: 0.5px;
+  background: var(--pink-mid);
+  margin: 0 auto 1.5rem;
+}
+.hero-bio {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--fade);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.hero-sub {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(139,58,90,0.45);
+  letter-spacing: 0.12em;
+}
+.scroll-cue {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.scroll-cue span {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(139,58,90,0.35);
+}
+.scroll-line {
+  width: 0.5px;
+  height: 3rem;
+  background: linear-gradient(to bottom, rgba(139,58,90,0.35), transparent);
+  animation: grow 2s ease-in-out infinite;
+}
+section {
+  position: relative;
+  z-index: 10;
+  padding: 6rem 2rem;
+}
+.section-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.section-label {
   font-family: 'Space Mono', monospace;
   font-size: 0.58rem;
-  color: var(--fade);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin-bottom: 0.75rem;
 }
-
-.projects-list {
+.section-title {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+.about-text {
+  font-size: 1.05rem;
+  line-height: 1.95;
+  color: var(--fade);
+  font-style: italic;
+}
+.links-list {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-
-.project-row {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr auto 1.5rem;
+.link-row {
+  display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem 0;
-  border-bottom: 0.5px solid var(--line);
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 0.5px solid rgba(139,58,90,0.12);
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
   transition: all 0.2s;
 }
-
-.project-row:first-child { border-top: 0.5px solid var(--line); }
-.project-row:hover .project-name { color: var(--red); }
-.project-row:hover .project-arrow { transform: translateX(5px); color: var(--red); }
-
-.project-index {
+.link-row:first-child { border-top: 0.5px solid rgba(139,58,90,0.12); }
+.link-row:hover .link-name { color: var(--pink-deep); }
+.link-row:hover .link-arrow { transform: translateX(5px); color: var(--pink-deep); }
+.link-left { display: flex; flex-direction: column; gap: 0.2rem; }
+.link-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--fade);
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
 }
-
-.project-info { display: flex; flex-direction: column; gap: 0.2rem; }
-
-.project-name {
+.link-name {
   font-family: 'IM Fell English', serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--ink);
   transition: color 0.2s;
 }
-
-.project-desc {
+.link-desc {
   font-family: 'Space Mono', monospace;
   font-size: 0.58rem;
   color: var(--fade);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
-
-.project-tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--red);
-  padding: 0.18rem 0.5rem;
-  border: 0.5px solid rgba(192,57,43,0.25);
-  white-space: nowrap;
-}
-
-.project-arrow {
-  color: var(--fade);
+.link-arrow {
+  font-size: 1rem;
+  color: var(--pink-mid);
   transition: all 0.2s;
-  font-size: 0.9rem;
 }
-
-.connect-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5px;
-  background: var(--line);
-}
-
-.connect-card {
-  background: var(--paper);
-  padding: 2rem;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.2s;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.connect-card:hover { background: var(--mid); }
-
-.connect-platform {
-  font-family: 'IM Fell English', serif;
-  font-size: 1.3rem;
-  color: var(--ink);
-}
-
-.connect-desc {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--fade);
-  letter-spacing: 0.05em;
-  line-height: 1.6;
-}
-
-.connect-arrow {
-  font-size: 0.8rem;
-  color: var(--red);
-  margin-top: 0.5rem;
-}
-
 footer {
+  position: relative;
+  z-index: 10;
   text-align: center;
-  padding: 3rem;
-  border-top: 0.5px solid var(--line);
+  padding: 3rem 2rem;
+  border-top: 0.5px solid rgba(139,58,90,0.08);
 }
-
-.footer-text {
+.footer-kanji {
   font-family: 'Noto Serif JP', serif;
   font-size: 0.9rem;
   font-weight: 300;
-  color: var(--fade);
-  letter-spacing: 0.3em;
-  margin-bottom: 0.5rem;
+  color: rgba(139,58,90,0.25);
+  letter-spacing: 0.4em;
+  margin-bottom: 0.4rem;
 }
-
-.footer-sub {
+.footer-name {
   font-family: 'Space Mono', monospace;
-  font-size: 0.55rem;
-  color: rgba(107,99,88,0.5);
+  font-size: 0.52rem;
+  color: rgba(139,58,90,0.3);
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes grow {
+  0%, 100% { height: 2rem; opacity: 0.4; }
+  50% { height: 3.5rem; opacity: 0.8; }
 }
-
-@keyframes expand {
-  from { opacity: 0; width: 0; }
-  to { opacity: 1; width: 2.5rem; }
-}
-
-@keyframes sway {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-}
-
-@keyframes fall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(120px) rotate(180deg); opacity: 0; }
-}
-
-.petal {
-  animation: fall linear infinite;
-  transform-origin: center;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.25rem; }
-  .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
-  .hero-right { display: none; }
-  section { padding: 5rem 1.5rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .connect-grid { grid-template-columns: 1fr; }
+  section { padding: 4rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 
+<div class="sakura-bg"></div>
+
+<svg class="petals-layer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+  <ellipse cx="120" cy="50" rx="14" ry="8" fill="#e8a0b8" transform="rotate(-20 120 50)">
+    <animateTransform attributeName="transform" type="translate" values="0,-50; 30,950" dur="8s" repeatCount="indefinite" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.7;0.5;0" dur="8s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="350" cy="0" rx="12" ry="7" fill="#d48898" transform="rotate(15 350 0)">
+    <animateTransform attributeName="transform" type="translate" values="0,-30; -20,950" dur="10s" repeatCount="indefinite" begin="2s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.6;0.4;0" dur="10s" repeatCount="indefinite" begin="2s"/>
+  </ellipse>
+  <ellipse cx="600" cy="20" rx="13" ry="7" fill="#f0b0c4" transform="rotate(-10 600 20)">
+    <animateTransform attributeName="transform" type="translate" values="0,-20; 15,950" dur="9s" repeatCount="indefinite" begin="4s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.65;0.4;0" dur="9s" repeatCount="indefinite" begin="4s"/>
+  </ellipse>
+  <ellipse cx="900" cy="10" rx="11" ry="6" fill="#e8a0b8" transform="rotate(25 900 10)">
+    <animateTransform attributeName="transform" type="translate" values="0,-40; -25,950" dur="11s" repeatCount="indefinite" begin="1s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.55;0.35;0" dur="11s" repeatCount="indefinite" begin="1s"/>
+  </ellipse>
+  <ellipse cx="1150" cy="30" rx="12" ry="7" fill="#d48898" transform="rotate(-30 1150 30)">
+    <animateTransform attributeName="transform" type="translate" values="0,-30; 10,950" dur="7s" repeatCount="indefinite" begin="3s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.6;0.4;0" dur="7s" repeatCount="indefinite" begin="3s"/>
+  </ellipse>
+  <ellipse cx="780" cy="0" rx="11" ry="6" fill="#d48898" transform="rotate(20 780 0)">
+    <animateTransform attributeName="transform" type="translate" values="0,-20; -10,950" dur="10.5s" repeatCount="indefinite" begin="7s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.55;0.35;0" dur="10.5s" repeatCount="indefinite" begin="7s"/>
+  </ellipse>
+  <ellipse cx="240" cy="0" rx="9" ry="5" fill="#e8a0b8" transform="rotate(-15 240 0)">
+    <animateTransform attributeName="transform" type="translate" values="0,-10; 20,950" dur="9.5s" repeatCount="indefinite" begin="6s" additive="sum"/>
+    <animate attributeName="opacity" values="0;0.5;0.3;0" dur="9.5s" repeatCount="indefinite" begin="6s"/>
+  </ellipse>
+</svg>
+
 <nav>
   <span class="nav-name">Venkatesh Srinivasan</span>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#connect">Connect</a></li>
-  </ul>
 </nav>
 
 <div class="hero">
-  <div class="hero-left">
-    <p class="hero-eyebrow">Venkatesh Srinivasan</p>
-    <h1 class="hero-name">Lived 27 years.<br><em>Did not live life.</em><br>Time to prove<br>otherwise.</h1>
-    <div class="hero-divider"></div>
-    <p class="hero-statement">
-      <strong>Explorative by nature.</strong> I want to take in inspiration, build things, tinker around — 
-      with finance, with AI, with health, with ideas that have no clear destination yet.
-    </p>
-    <div class="hero-tags">
-      <span class="tag active">Building</span>
-      <span class="tag active">Tinkering</span>
-      <span class="tag">Finance</span>
-      <span class="tag">AI</span>
-      <span class="tag">Health</span>
-      <span class="tag">Anime</span>
-      <span class="tag">Valorant</span>
-      <span class="tag active">Figuring it out</span>
-    </div>
+  <div class="musashi-frame">
+    <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+      <rect width="160" height="160" fill="#1e0e14"/>
+      <ellipse cx="80" cy="80" rx="80" ry="80" fill="#2a1218"/>
+      <ellipse cx="55" cy="65" rx="45" ry="55" fill="#1a0c10" opacity="0.4"/>
+      <path d="M25 160 Q35 115 45 100 Q58 82 80 80 Q102 82 115 100 Q125 115 135 160Z" fill="#0d0608"/>
+      <path d="M45 100 Q58 86 80 84 L80 160 Z" fill="#150a0e"/>
+      <path d="M80 84 Q102 86 115 100 L80 160 Z" fill="#0d0608"/>
+      <path d="M67 98 Q80 108 93 98 L80 84 Z" fill="#1a0e12"/>
+      <rect x="71" y="70" width="18" height="16" rx="4" fill="#3a2020"/>
+      <ellipse cx="80" cy="55" rx="30" ry="34" fill="#3a2020"/>
+      <ellipse cx="80" cy="58" rx="24" ry="27" fill="#2e1818"/>
+      <ellipse cx="70" cy="55" rx="5" ry="3.5" fill="#1a0a08"/>
+      <ellipse cx="90" cy="55" rx="5" ry="3.5" fill="#1a0a08"/>
+      <ellipse cx="70.5" cy="55" rx="2.5" ry="2.5" fill="#0a0404"/>
+      <ellipse cx="90.5" cy="55" rx="2.5" ry="2.5" fill="#0a0404"/>
+      <circle cx="71" cy="54" r="0.8" fill="rgba(255,240,220,0.4)"/>
+      <circle cx="91" cy="54" r="0.8" fill="rgba(255,240,220,0.4)"/>
+      <path d="M64 49 Q70 47 76 48" stroke="#1a0a08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M84 48 Q90 47 96 49" stroke="#1a0a08" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M77 61 Q75 67 80 70 Q85 67 83 61" stroke="#241010" stroke-width="1" fill="none"/>
+      <path d="M72 76 Q80 79 88 76" stroke="#1e0e10" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <path d="M50 48 Q48 30 55 18 Q67 5 80 3 Q93 5 105 18 Q112 30 110 48" fill="#0d0608"/>
+      <path d="M54 45 Q52 30 60 18 Q71 8 80 6 Q89 8 100 18 Q108 30 106 45" fill="#150a0e"/>
+      <ellipse cx="80" cy="10" rx="10" ry="6" fill="#0d0608"/>
+      <ellipse cx="80" cy="7" rx="6" ry="4" fill="#150a0e"/>
+      <rect x="74" y="13" width="12" height="3" rx="1.5" fill="#1e1008"/>
+      <path d="M50 52 Q44 58 46 70 Q49 63 55 60" fill="#0d0608"/>
+      <path d="M110 52 Q116 58 114 70 Q111 63 105 60" fill="#0d0608"/>
+      <ellipse cx="80" cy="80" rx="78" ry="78" fill="none" stroke="#0d0608" stroke-width="6" opacity="0.7"/>
+    </svg>
   </div>
 
-  <div class="hero-right">
-    <svg width="100%" viewBox="0 0 400 580" xmlns="http://www.w3.org/2000/svg">
+  <p class="hero-eyebrow">Venkatesh Srinivasan</p>
+  <h1 class="hero-name">Explorative<br><em>Human.</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-bio">I am exploring.</p>
+  <p class="hero-sub">探求する人間</p>
 
-      <defs>
-        <filter id="soft">
-          <feGaussianBlur stdDeviation="1.5"/>
-        </filter>
-      </defs>
-
-      <!-- Sakura petals floating -->
-      <g opacity="0.7">
-        <ellipse cx="60" cy="80" rx="14" ry="8" fill="#c87a8a" transform="rotate(-25 60 80)" opacity="0.6">
-          <animateTransform attributeName="transform" type="translate" values="0,0;8,-15;0,0" dur="4s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="75" cy="65" rx="12" ry="7" fill="#e8a0b0" transform="rotate(15 75 65)" opacity="0.5">
-          <animateTransform attributeName="transform" type="translate" values="0,0;-5,-10;0,0" dur="5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="85" cy="88" rx="13" ry="7" fill="#d4889a" transform="rotate(-10 85 88)" opacity="0.6">
-          <animateTransform attributeName="transform" type="translate" values="0,0;12,-8;0,0" dur="3.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <circle cx="70" cy="78" r="5" fill="#b05070" opacity="0.5"/>
-
-        <ellipse cx="320" cy="50" rx="12" ry="7" fill="#c87a8a" transform="rotate(20 320 50)" opacity="0.5">
-          <animateTransform attributeName="transform" type="translate" values="0,0;-8,-12;0,0" dur="4.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="335" cy="38" rx="11" ry="6" fill="#e8a0b0" transform="rotate(-15 335 38)" opacity="0.4">
-          <animateTransform attributeName="transform" type="translate" values="0,0;5,-8;0,0" dur="3.8s" repeatCount="indefinite"/>
-        </ellipse>
-        <circle cx="327" cy="46" r="4" fill="#b05070" opacity="0.4"/>
-
-        <!-- Falling petals -->
-        <ellipse cx="150" cy="30" rx="9" ry="5" fill="#d4889a" opacity="0.3" transform="rotate(10 150 30)">
-          <animateTransform attributeName="transform" type="translate" values="0,-30;20,140" dur="6s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0;0.4;0" dur="6s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="280" cy="10" rx="8" ry="5" fill="#c87a8a" opacity="0.3" transform="rotate(-20 280 10)">
-          <animateTransform attributeName="transform" type="translate" values="0,-20;-15,160" dur="7s" repeatCount="indefinite" begin="2s"/>
-          <animate attributeName="opacity" values="0;0.35;0" dur="7s" repeatCount="indefinite" begin="2s"/>
-        </ellipse>
-        <ellipse cx="200" cy="0" rx="7" ry="4" fill="#e8a0b0" opacity="0.3" transform="rotate(5 200 0)">
-          <animateTransform attributeName="transform" type="translate" values="0,-15;10,130" dur="5.5s" repeatCount="indefinite" begin="3.5s"/>
-          <animate attributeName="opacity" values="0;0.3;0" dur="5.5s" repeatCount="indefinite" begin="3.5s"/>
-        </ellipse>
-      </g>
-
-      <!-- Sakura branch top left -->
-      <g opacity="0.4">
-        <path d="M30 20 Q80 60 120 90 Q140 105 160 120" stroke="#5a3040" stroke-width="2" fill="none"/>
-        <path d="M80 60 Q60 40 50 20" stroke="#5a3040" stroke-width="1.5" fill="none"/>
-        <path d="M120 90 Q130 70 125 50" stroke="#5a3040" stroke-width="1" fill="none"/>
-
-        <ellipse cx="52" cy="22" rx="10" ry="6" fill="#c87a8a" transform="rotate(-30 52 22)" opacity="0.7"/>
-        <ellipse cx="64" cy="14" rx="9" ry="5" fill="#e8a0b0" transform="rotate(10 64 14)" opacity="0.6"/>
-        <ellipse cx="44" cy="32" rx="8" ry="5" fill="#d4889a" transform="rotate(-50 44 32)" opacity="0.6"/>
-        <circle cx="56" cy="20" r="3" fill="#902050" opacity="0.5"/>
-
-        <ellipse cx="127" cy="52" rx="9" ry="5" fill="#c87a8a" transform="rotate(20 127 52)" opacity="0.6"/>
-        <ellipse cx="118" cy="42" rx="8" ry="5" fill="#e8a0b0" transform="rotate(-10 118 42)" opacity="0.5"/>
-        <circle cx="124" cy="48" r="3" fill="#902050" opacity="0.4"/>
-      </g>
-
-      <!-- Ground line -->
-      <line x1="20" y1="555" x2="380" y2="555" stroke="rgba(232,224,208,0.08)" stroke-width="0.5"/>
-
-      <!-- Shadow -->
-      <ellipse cx="200" cy="558" rx="90" ry="6" fill="rgba(0,0,0,0.3)" filter="url(#soft)"/>
-
-      <!-- Samurai figure — sitting in seiza meditation -->
-
-      <!-- Hakama / robes - wide, flowing -->
-      <path d="M130 420 Q140 480 120 555 L280 555 Q260 480 270 420 Z" fill="#1a1008"/>
-      <path d="M135 422 Q145 475 125 552 L200 552 L200 422 Z" fill="#221508"/>
-      <path d="M200 422 L200 552 L275 552 Q255 475 265 422 Z" fill="#1a1008"/>
-
-      <!-- Hakama folds -->
-      <line x1="200" y1="422" x2="200" y2="552" stroke="rgba(232,224,208,0.06)" stroke-width="1"/>
-      <line x1="168" y1="425" x2="158" y2="550" stroke="rgba(232,224,208,0.04)" stroke-width="0.5"/>
-      <line x1="232" y1="425" x2="242" y2="550" stroke="rgba(232,224,208,0.04)" stroke-width="0.5"/>
-
-      <!-- Kimono body -->
-      <path d="M155 250 Q145 320 130 420 L270 420 Q255 320 245 250 Z" fill="#161008"/>
-      <path d="M155 250 Q160 300 155 350 L200 360 L200 250 Z" fill="#1e1610"/>
-      <path d="M200 250 L200 360 L245 350 Q240 300 245 250 Z" fill="#161008"/>
-
-      <!-- Kimono collar / overlap -->
-      <path d="M180 250 Q185 300 182 360 L200 355 L200 250 Z" fill="#2a1e10" opacity="0.6"/>
-      <path d="M220 250 Q215 300 218 360 L200 355 L200 250 Z" fill="#110c06" opacity="0.6"/>
-
-      <!-- Obi / belt -->
-      <rect x="148" y="330" width="104" height="28" rx="2" fill="#2c1a08"/>
-      <rect x="150" y="332" width="100" height="24" rx="2" fill="#1e1206"/>
-      <rect x="190" y="330" width="20" height="28" fill="#3a2410" opacity="0.8"/>
-
-      <!-- Katana at side -->
-      <rect x="258" y="290" width="4" height="160" rx="2" fill="#2a2010" transform="rotate(8 258 290)"/>
-      <rect x="259" y="291" width="2" height="158" rx="1" fill="#3a3020" transform="rotate(8 258 290)" opacity="0.5"/>
-      <rect x="254" y="288" width="12" height="10" rx="1" fill="#4a3820" transform="rotate(8 258 290)"/>
-      <rect x="256" y="275" width="8" height="18" rx="1" fill="#5a4830" transform="rotate(8 258 290)"/>
-      <!-- Tsuba (guard) -->
-      <ellipse cx="261" cy="292" rx="10" ry="5" fill="#3a2c18" transform="rotate(8 261 292)"/>
-
-      <!-- Shoulders -->
-      <path d="M145 255 Q120 265 110 290 L145 295 Z" fill="#161008"/>
-      <path d="M255 255 Q280 265 290 290 L255 295 Z" fill="#161008"/>
-
-      <!-- Arms resting on knees -->
-      <path d="M148 300 Q135 350 140 400 Q145 415 155 415" stroke="#1e1610" stroke-width="18" fill="none" stroke-linecap="round"/>
-      <path d="M252 300 Q265 350 260 400 Q255 415 245 415" stroke="#161008" stroke-width="18" fill="none" stroke-linecap="round"/>
-
-      <!-- Hands on knees -->
-      <ellipse cx="148" cy="415" rx="14" ry="9" fill="#3a2c1e" transform="rotate(-10 148 415)"/>
-      <ellipse cx="252" cy="415" rx="14" ry="9" fill="#2e2418" transform="rotate(10 252 415)"/>
-
-      <!-- Neck -->
-      <rect x="188" y="218" width="24" height="38" rx="4" fill="#3a2c1e"/>
-
-      <!-- Head -->
-      <ellipse cx="200" cy="200" rx="42" ry="48" fill="#3a2c1e"/>
-      <!-- Face shading -->
-      <ellipse cx="200" cy="205" rx="36" ry="40" fill="#332618"/>
-      <!-- Chin definition -->
-      <path d="M172 230 Q200 248 228 230" stroke="#2a1e10" stroke-width="2" fill="none"/>
-
-      <!-- Eyes — closed, meditative -->
-      <path d="M180 196 Q188 200 196 196" stroke="#1a1008" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M204 196 Q212 200 220 196" stroke="#1a1008" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-      <!-- Nose -->
-      <path d="M197 206 Q195 214 200 218 Q205 214 203 206" stroke="#2a1e10" stroke-width="1" fill="none"/>
-
-      <!-- Mouth — slight serious expression -->
-      <path d="M190 226 Q200 228 210 226" stroke="#2a1e10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-      <!-- Topknot hair -->
-      <path d="M165 175 Q160 155 170 140 Q185 120 200 118 Q215 120 230 140 Q240 155 235 175" fill="#0d0805"/>
-      <path d="M175 168 Q172 150 180 138 Q190 125 200 123 Q210 125 220 138 Q228 150 225 168" fill="#151008"/>
-      <!-- Topknot bun -->
-      <ellipse cx="200" cy="130" rx="16" ry="10" fill="#0d0805"/>
-      <ellipse cx="200" cy="125" rx="10" ry="6" fill="#1a1208"/>
-      <!-- Hair tie -->
-      <rect x="193" y="134" width="14" height="4" rx="2" fill="#2c1a08"/>
-
-      <!-- Kanji watermark -->
-      <text x="350" y="400" font-family="'Noto Serif JP', serif" font-size="80" font-weight="300" fill="rgba(232,224,208,0.04)" text-anchor="middle" writing-mode="vertical-rl">探</text>
-
-      <!-- Subtle glow around figure -->
-      <ellipse cx="200" cy="380" rx="130" ry="180" fill="none" stroke="rgba(192,57,43,0.04)" stroke-width="40"/>
-
-    </svg>
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
   </div>
 </div>
 
-<section id="about" style="border-top: 0.5px solid var(--line);">
-  <div class="about-grid">
-    <div class="about-text">
-      <p class="section-label">About</p>
-      <h2 class="section-title">Who I am<br><em>right now.</em></h2>
-      <p>Finance student. <strong>Accidental builder.</strong> Person who spent 27 years existing without really living — and decided that's enough of that.</p>
-      <p>I am naturally explorative. I want to understand how things work, break them apart, put them back differently. <strong>Finance, AI, health, games, philosophy</strong> — I don't separate these. Everything connects.</p>
-      <p>I build things because building forces you to understand. Every project is a question I'm trying to answer about the world.</p>
-      <div class="about-now">
-        <p class="about-now-label">Right now I am</p>
-        <p class="about-now-text">Taking in inspiration from everywhere. Building AI tools. Learning ML. Managing T2D with curiosity not fear. Trying to close the gap between the life I was living and the life I want to live.</p>
-      </div>
+<section>
+  <div class="section-inner">
+    <div class="links-list">
+      <a class="link-row" href="#">
+        <div class="link-left">
+          <span class="link-label">Writing</span>
+          <span class="link-name">Substack</span>
+          <span class="link-desc">Notes, essays and thoughts</span>
+        </div>
+        <span class="link-arrow">&#x2192;</span>
+      </a>
+      <a class="link-row" href="#">
+        <div class="link-left">
+          <span class="link-label">Work</span>
+          <span class="link-name">Projects</span>
+          <span class="link-desc">Things I have built</span>
+        </div>
+        <span class="link-arrow">&#x2192;</span>
+      </a>
+      <a class="link-row" href="#">
+        <div class="link-left">
+          <span class="link-label">Thinking</span>
+          <span class="link-name">Notes</span>
+          <span class="link-desc">What I am learning and exploring</span>
+        </div>
+        <span class="link-arrow">&#x2192;</span>
+      </a>
     </div>
-    <div>
-      <p class="section-label" style="margin-bottom: 2rem;">Things I explore</p>
-      <div class="interests-grid">
-        <div class="interest-row">
-          <span class="interest-num">01</span>
-          <span class="interest-name">Artificial Intelligence</span>
-          <span class="interest-note">Building with it daily</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">02</span>
-          <span class="interest-name">Finance & Markets</span>
-          <span class="interest-note">CA background</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">03</span>
-          <span class="interest-name">Health & Longevity</span>
-          <span class="interest-note">Personal mission</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">04</span>
-          <span class="interest-name">Anime & Manga</span>
-          <span class="interest-note">Lifelong passion</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">05</span>
-          <span class="interest-name">Valorant</span>
-          <span class="interest-note">Strategy & reaction</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">06</span>
-          <span class="interest-name">Due Diligence</span>
-          <span class="interest-note">Questioning everything</span>
-        </div>
-        <div class="interest-row">
-          <span class="interest-num">07</span>
-          <span class="interest-name">Philosophy</span>
-          <span class="interest-note">First principles always</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects" style="border-top: 0.5px solid var(--line); background: var(--mid);">
-  <p class="section-label">Work</p>
-  <h2 class="section-title">Things I have<br><em>built.</em></h2>
-  <div class="projects-list">
-    <div class="project-row">
-      <span class="project-index">01</span>
-      <div class="project-info">
-        <span class="project-name">VenkyDoesDD</span>
-        <span class="project-desc">Due diligence assistant — Graham, Buffett, Munger style financial analysis with industry KPIs</span>
-      </div>
-      <span class="project-tag">Finance AI</span>
-      <span class="project-arrow">→</span>
-    </div>
-    <div class="project-row">
-      <span class="project-index">02</span>
-      <div class="project-info">
-        <span class="project-name">Am I Obsolete?</span>
-        <span class="project-desc">Career risk analyser built on Anthropic's 2026 labor market report — first principles thinking</span>
-      </div>
-      <span class="project-tag">Career AI</span>
-      <span class="project-arrow">→</span>
-    </div>
-    <div class="project-row">
-      <span class="project-index">03</span>
-      <div class="project-info">
-        <span class="project-name">AnimeAMA</span>
-        <span class="project-desc">Ask me anything about anime, manga, movies and TV series — powered by LLaMA via Groq</span>
-      </div>
-      <span class="project-tag">Fun</span>
-      <span class="project-arrow">→</span>
-    </div>
-    <div class="project-row">
-      <span class="project-index">04</span>
-      <div class="project-info">
-        <span class="project-name">ML Health Models</span>
-        <span class="project-desc">Heart disease and CHD risk models — 86.89% accurate, trained on Framingham and Cleveland datasets</span>
-      </div>
-      <span class="project-tag">ML</span>
-      <span class="project-arrow">→</span>
-    </div>
-  </div>
-</section>
-
-<section id="connect" style="border-top: 0.5px solid var(--line);">
-  <p class="section-label">Connect</p>
-  <h2 class="section-title">Find me<br><em>here.</em></h2>
-  <div class="connect-grid">
-    <a class="connect-card" href="https://github.com/VenkyBaka">
-      <p class="connect-platform">GitHub</p>
-      <p class="connect-desc">VenkyBaka<br>Code, projects, experiments</p>
-      <p class="connect-arrow">→</p>
-    </a>
-    <a class="connect-card" href="#">
-      <p class="connect-platform">Substack</p>
-      <p class="connect-desc">Writing on finance, AI and<br>the explorative life</p>
-      <p class="connect-arrow">→</p>
-    </a>
-    <a class="connect-card" href="#">
-      <p class="connect-platform">LinkedIn</p>
-      <p class="connect-desc">Venkatesh Srinivasan<br>Professional updates</p>
-      <p class="connect-arrow">→</p>
-    </a>
-    <a class="connect-card" href="#">
-      <p class="connect-platform">Hugging Face</p>
-      <p class="connect-desc">VenkyBaka<br>Deployed AI apps and models</p>
-      <p class="connect-arrow">→</p>
-    </a>
   </div>
 </section>
 
 <footer>
-  <p class="footer-text">今日も探求</p>
-  <p class="footer-sub">Explore today also — Venkatesh Srinivasan</p>
+  <p class="footer-kanji">今日も探求</p>
+  <p class="footer-name">Venkatesh Srinivasan</p>
 </footer>
 
 </body>
