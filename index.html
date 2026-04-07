@@ -12,20 +12,18 @@
 
 :root {
   --bg-dark: #0b0b0c;
-  --bg-soft: #111114;
   --ink: #e8e8e8;
   --fade: #8a8a8f;
-  --accent: #6f4b5e;
 }
 
 body {
   background: var(--bg-dark);
   color: var(--ink);
-  font-family: 'IM Fell English', Georgia, serif;
+  font-family: 'IM Fell English', serif;
   overflow-x: hidden;
 }
 
-/* subtle dark gradient */
+/* Background gradient */
 .sakura-bg {
   position: fixed;
   inset: 0;
@@ -36,21 +34,41 @@ body {
     var(--bg-dark);
 }
 
+/* ONI + SAMURAI */
+.oni-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  opacity: 0.06;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.samurai-bg {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 260px;
+  opacity: 0.06;
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* NAV */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 1.2rem 2.5rem;
+  padding: 1.2rem 2rem;
   background: rgba(10,10,12,0.6);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
 }
 
 .nav-name {
   font-family: 'Space Mono', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--fade);
 }
 
@@ -64,29 +82,16 @@ nav {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 6rem 2rem;
 }
 
-.musashi-frame {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-}
-
-/* TEXT */
 .hero-name {
   font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 400;
   margin-bottom: 1rem;
 }
 
 .hero-bio {
-  font-size: 1rem;
   color: var(--fade);
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
 
 .hero-sub {
@@ -94,17 +99,6 @@ nav {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   color: #666;
-}
-
-/* SCROLL */
-.scroll-cue {
-  margin-top: 3rem;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, #444, transparent);
 }
 
 /* SECTION */
@@ -115,7 +109,7 @@ section {
 }
 
 .section-inner {
-  max-width: 520px;
+  max-width: 500px;
   margin: auto;
 }
 
@@ -157,15 +151,15 @@ footer {
 
 <div class="sakura-bg"></div>
 
+<!-- ONI + SAMURAI -->
+<img src="images/oni.png" class="oni-bg">
+<img src="images/samurai.png" class="samurai-bg">
+
 <nav>
   <span class="nav-name">Venkatesh Srinivasan</span>
 </nav>
 
 <div class="hero">
-
-  <div class="musashi-frame">
-    <!-- keep your existing SVG here -->
-  </div>
 
   <h1 class="hero-name">Exploring</h1>
 
@@ -174,10 +168,6 @@ footer {
   </p>
 
   <p class="hero-sub">探求</p>
-
-  <div class="scroll-cue">
-    <div class="scroll-line"></div>
-  </div>
 
 </div>
 
