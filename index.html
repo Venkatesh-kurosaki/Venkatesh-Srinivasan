@@ -4,21 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --black: #0a0a0a;
-  --white: #f5f2ee;
-  --mid: #1a1a1a;
-  --fade: #6b6b6b;
-  --line: rgba(245,242,238,0.08);
-  --accent: #f5f2ee;
+  --black: #080808;
+  --white: #f0ece4;
+  --fade: #5a5a5a;
+  --mid: #111111;
+  --line: rgba(240,236,228,0.07);
+  --accent: #c8b89a;
 }
-
-html { font-size: 16px; scroll-behavior: smooth; }
-
+html { scroll-behavior: smooth; }
 body {
   background: var(--black);
   color: var(--white);
@@ -26,30 +23,41 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
-
-/* Custom cursor */
 .cursor {
   position: fixed;
-  width: 8px; height: 8px;
+  width: 6px; height: 6px;
   background: var(--white);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
 }
-.cursor-follower {
+.cursor-ring {
   position: fixed;
-  width: 32px; height: 32px;
-  border: 0.5px solid rgba(245,242,238,0.3);
+  width: 28px; height: 28px;
+  border: 0.5px solid rgba(240,236,228,0.2);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: all 0.15s ease;
+  transform: translate(-50%,-50%);
+  transition: all 0.18s ease;
+}
+.cursor.hover { width: 10px; height: 10px; background: var(--accent); }
+.cursor-ring.hover { width: 44px; height: 44px; border-color: rgba(200,184,154,0.35); }
+
+/* ONI CORNER */
+.oni-corner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.85;
 }
 
-/* Nav */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -57,289 +65,385 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 3rem;
-  mix-blend-mode: normal;
+  padding: 1.75rem 3rem;
 }
-
 .nav-logo {
   font-family: 'Syne Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
   color: var(--fade);
   text-transform: uppercase;
 }
-
-.nav-right {
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
   font-family: 'Syne Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   letter-spacing: 0.12em;
-  color: var(--fade);
   text-transform: uppercase;
+  color: var(--fade);
+  text-decoration: none;
+  transition: color 0.2s;
 }
+.nav-links a:hover { color: var(--white); }
 
-/* Hero */
+/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 3rem 4rem;
+  padding: 0 3rem 6rem;
   position: relative;
   overflow: hidden;
 }
 
-.hero-number {
+.hero-bg-text {
   position: absolute;
-  top: 50%;
-  right: 3rem;
-  transform: translateY(-50%);
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(20vw, 28vw, 35vw);
+  bottom: -2rem;
+  right: -1rem;
+  font-size: clamp(18vw, 24vw, 30vw);
   font-weight: 800;
-  color: rgba(245,242,238,0.03);
+  color: rgba(240,236,228,0.025);
   line-height: 1;
   user-select: none;
   pointer-events: none;
-  letter-spacing: -0.05em;
-}
-
-.hero-top {
-  position: absolute;
-  top: 50%;
-  left: 3rem;
-  transform: translateY(-70%);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
 }
 
 .hero-eyebrow {
   font-family: 'Syne Mono', monospace;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--fade);
+  color: var(--accent);
   margin-bottom: 1.5rem;
   opacity: 0;
   animation: fadeUp 0.8s ease forwards 0.3s;
 }
 
 .hero-name {
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: clamp(3.5rem, 7vw, 6rem);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  line-height: 0.93;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  margin-bottom: 2.5rem;
   opacity: 0;
   animation: fadeUp 0.9s ease forwards 0.5s;
-}
-
-.hero-name span {
-  display: block;
-  color: var(--white);
-}
-
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 1s;
+  max-width: 16ch;
 }
 
 .hero-statement {
-  font-size: clamp(1rem, 1.8vw, 1.4rem);
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--white);
-  max-width: 36rem;
-}
-
-.hero-statement em {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.75;
   color: var(--fade);
-  font-style: normal;
-}
-
-.hero-meta {
-  text-align: right;
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--fade);
-  line-height: 2;
-  text-transform: uppercase;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  max-width: 38rem;
+  margin-bottom: 3.5rem;
   opacity: 0;
-  animation: fadeUp 0.8s ease forwards 1.4s;
+  animation: fadeUp 0.8s ease forwards 0.8s;
+}
+.hero-statement strong { color: var(--white); font-weight: 600; }
+
+.hero-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.05s;
 }
 
-.scroll-line {
-  width: 0.5px;
-  height: 4rem;
-  background: linear-gradient(to bottom, var(--fade), transparent);
-  animation: scrollPulse 2s ease-in-out infinite 2s;
-}
+.hero-cta { display: flex; gap: 1.5rem; align-items: center; }
 
-.scroll-text {
+.btn-primary {
   font-family: 'Syne Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fade);
-  writing-mode: vertical-rl;
-}
-
-/* Sections */
-section {
-  padding: 8rem 3rem;
-  border-top: 0.5px solid var(--line);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-num {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.15em;
-  color: var(--fade);
-  margin-bottom: 4rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.section-num::after {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 0.5px;
-  background: var(--fade);
-}
-
-/* About */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-  align-items: start;
-}
-
-.about-big {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.about-big em {
-  color: var(--fade);
-  font-style: normal;
-}
-
-.about-right {
-  padding-top: 0.5rem;
-}
-
-.about-text {
-  font-size: 1rem;
-  line-height: 1.9;
-  color: var(--fade);
-  margin-bottom: 1.5rem;
-}
-
-.about-text strong { color: var(--white); font-weight: 600; }
-
-.age-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 1.2rem;
-  border: 0.5px solid var(--line);
-  border-radius: 100px;
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--fade);
   text-transform: uppercase;
-  margin-top: 2rem;
-}
-
-.age-badge::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: blink 2s ease-in-out infinite;
-}
-
-/* Links / Work */
-.links-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5px;
-  background: var(--line);
-}
-
-.link-card {
-  background: var(--black);
-  padding: 2.5rem 3rem;
+  color: var(--black);
+  background: var(--white);
+  padding: 0.85rem 2rem;
   text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: background 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  border-radius: 100px;
+  transition: background 0.25s;
 }
+.btn-primary:hover { background: var(--accent); }
 
-.link-card::after {
-  content: '↗';
-  position: absolute;
-  top: 2.5rem;
-  right: 3rem;
-  font-size: 1.2rem;
-  color: var(--fade);
-  transition: all 0.3s ease;
-}
-
-.link-card:hover { background: var(--mid); }
-.link-card:hover::after { transform: translate(4px, -4px); color: var(--white); }
-.link-card:hover .link-name { color: var(--white); }
-
-.link-cat {
+.btn-ghost {
   font-family: 'Syne Mono', monospace;
   font-size: 0.58rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--fade);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--white); }
+
+.hero-meta {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--fade);
+  text-transform: uppercase;
+  text-align: right;
+  line-height: 2;
 }
 
-.link-name {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+/* SECTIONS */
+.wrap { max-width: 1400px; margin: 0 auto; }
+
+.section {
+  padding: 9rem 3rem;
+  border-top: 0.5px solid var(--line);
+}
+
+.section-marker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+.section-num {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.section-bar { width: 3rem; height: 0.5px; background: var(--fade); }
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 8rem;
+  align-items: start;
+}
+
+.about-headline {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 3rem;
+}
+.about-headline em { color: var(--accent); font-style: normal; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+  margin-top: 3.5rem;
+}
+.stat { background: var(--black); padding: 1.5rem; }
+.stat-n {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+.stat-l {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--fade);
+  text-transform: uppercase;
+}
+
+.about-body p {
+  font-size: 0.98rem;
+  line-height: 1.95;
+  color: var(--fade);
+  margin-bottom: 1.2rem;
+}
+.about-body p strong { color: var(--white); font-weight: 600; }
+
+.gita-quote {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid var(--accent);
+  background: rgba(200,184,154,0.04);
+}
+.gita-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.7;
+  margin-bottom: 0.4rem;
+}
+.gita-ref {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--fade);
+  text-transform: uppercase;
+}
+
+.interests {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0;
+}
+.interest-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 0.5px solid var(--line);
+}
+.interest-row:first-child { border-top: 0.5px solid var(--line); }
+.int-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.int-name { font-size: 0.92rem; color: var(--white); font-weight: 500; flex: 1; }
+.int-note {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: var(--fade);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* TOOLS */
+.tools-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+.tools-headline {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+.tools-intro { font-size: 0.95rem; line-height: 1.8; color: var(--fade); }
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+
+.tool {
+  background: var(--black);
+  padding: 2.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.25s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.tool:hover { background: #101010; }
+.tool:hover .tool-nm { color: var(--accent); }
+.tool:hover .t-arrow { transform: translate(3px,-3px); color: var(--white); }
+
+.t-arrow {
+  position: absolute;
+  top: 2.25rem; right: 2.25rem;
+  font-size: 0.9rem;
+  color: var(--fade);
+  transition: all 0.25s;
+}
+.tool-tag {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.tool-nm {
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--white);
-  transition: color 0.3s;
-  padding-right: 3rem;
+  transition: color 0.25s;
+  padding-right: 2rem;
 }
-
-.link-desc {
-  font-size: 0.85rem;
+.tool-wh {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.25rem;
+}
+.tool-desc { font-size: 0.8rem; line-height: 1.7; color: var(--fade); }
+.tool-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--line);
+}
+.pill {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--fade);
-  line-height: 1.6;
-  max-width: 28rem;
+  padding: 0.18rem 0.5rem;
+  border: 0.5px solid var(--line);
+  border-radius: 100px;
 }
 
-/* Footer */
+/* CONNECT */
+.connect-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
+}
+.connect-big {
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+.connect-big em { color: var(--accent); font-style: normal; }
+
+.c-links { display: flex; flex-direction: column; gap: 0; }
+.c-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.3rem 0;
+  border-bottom: 0.5px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+.c-row:first-child { border-top: 0.5px solid var(--line); }
+.c-row:hover .c-name { color: var(--accent); }
+.c-row:hover .c-arr { transform: translate(3px,-3px); color: var(--accent); }
+.c-left { display: flex; flex-direction: column; gap: 0.15rem; }
+.c-label {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fade);
+}
+.c-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--white);
+  transition: color 0.2s;
+}
+.c-arr { font-size: 0.85rem; color: var(--fade); transition: all 0.2s; }
+
 footer {
-  padding: 3rem;
+  padding: 2.25rem 3rem;
   border-top: 0.5px solid var(--line);
   display: flex;
   justify-content: space-between;
@@ -347,195 +451,427 @@ footer {
   max-width: 1400px;
   margin: 0 auto;
 }
-
-.footer-left {
+.ft {
   font-family: 'Syne Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
   color: var(--fade);
   text-transform: uppercase;
 }
 
-.footer-right {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  color: var(--fade);
-  text-transform: uppercase;
-}
-
-/* Animations */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scrollPulse {
-  0%, 100% { height: 4rem; opacity: 0.4; }
-  50% { height: 5.5rem; opacity: 0.8; }
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   nav { padding: 1.5rem; }
-  .hero { padding: 0 1.5rem 4rem; }
-  .hero-number { font-size: 50vw; right: 0; }
-  section { padding: 5rem 1.5rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .links-section { grid-template-columns: 1fr; }
-  .link-card { padding: 2rem; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  .nav-links { gap: 1.5rem; }
+  .hero { padding: 0 1.5rem 5rem; }
+  .section { padding: 5rem 1.5rem; }
+  .about-grid, .connect-grid, .tools-head { grid-template-columns: 1fr; gap: 3rem; }
+  .tools-grid { grid-template-columns: 1fr; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+  .oni-corner { width: 90px; height: 90px; }
 }
 </style>
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
-<div class="cursor-follower" id="follower"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ONI MASK — TOP RIGHT CORNER -->
+<div class="oni-corner">
+<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+  <!-- Atmospheric glow -->
+  <radialGradient id="oniGlow" cx="50%" cy="55%" r="45%">
+    <stop offset="0%" stop-color="#8b0000" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#080808" stop-opacity="0"/>
+  </radialGradient>
+  <ellipse cx="70" cy="75" rx="55" ry="60" fill="url(#oniGlow)"/>
+
+  <!-- Horns -->
+  <path d="M42 42 Q36 20 40 4 Q44 -2 48 6 Q52 18 50 40Z" fill="#1a0c0c"/>
+  <path d="M44 40 Q38 20 42 6 Q45 0 48 8 Q51 19 49 39Z" fill="#2a1010"/>
+  <path d="M98 42 Q104 20 100 4 Q96 -2 92 6 Q88 18 90 40Z" fill="#1a0c0c"/>
+  <path d="M96 40 Q102 20 98 6 Q95 0 92 8 Q89 19 91 39Z" fill="#2a1010"/>
+
+  <!-- Small side horns -->
+  <path d="M30 55 Q18 45 20 32 Q23 26 28 32 Q32 40 32 54Z" fill="#1a0c0c"/>
+  <path d="M110 55 Q122 45 120 32 Q117 26 112 32 Q108 40 108 54Z" fill="#1a0c0c"/>
+
+  <!-- Face base -->
+  <ellipse cx="70" cy="78" rx="48" ry="55" fill="#1e1008"/>
+  <ellipse cx="70" cy="80" rx="42" ry="48" fill="#180e06"/>
+
+  <!-- Face texture/shading -->
+  <ellipse cx="55" cy="65" rx="20" ry="25" fill="#1a0e08" opacity="0.5"/>
+  <ellipse cx="85" cy="65" rx="20" ry="25" fill="#160c06" opacity="0.4"/>
+
+  <!-- Heavy brow ridge -->
+  <path d="M28 62 Q48 50 70 52 Q92 50 112 62 Q100 56 70 58 Q40 56 28 62Z" fill="#120808"/>
+
+  <!-- Left eye socket -->
+  <ellipse cx="50" cy="72" rx="16" ry="11" fill="#0d0404"/>
+  <!-- Right eye socket -->
+  <ellipse cx="90" cy="72" rx="16" ry="11" fill="#0d0404"/>
+
+  <!-- Eyes — burning red -->
+  <ellipse cx="50" cy="72" rx="11" ry="8" fill="#5a0000"/>
+  <ellipse cx="90" cy="72" rx="11" ry="8" fill="#5a0000"/>
+  <ellipse cx="50" cy="72" rx="7" ry="5" fill="#8b0000"/>
+  <ellipse cx="90" cy="72" rx="7" ry="5" fill="#8b0000"/>
+  <ellipse cx="50" cy="72" rx="4" ry="4" fill="#cc0000"/>
+  <ellipse cx="90" cy="72" rx="4" ry="4" fill="#cc0000"/>
+  <ellipse cx="50" cy="72" rx="2" ry="2" fill="#ff2020" opacity="0.9"/>
+  <ellipse cx="90" cy="72" rx="2" ry="2" fill="#ff2020" opacity="0.9"/>
+  <!-- Eye shine -->
+  <circle cx="53" cy="70" r="1.2" fill="rgba(255,180,160,0.5)"/>
+  <circle cx="93" cy="70" r="1.2" fill="rgba(255,180,160,0.5)"/>
+  <!-- Eye glow pulse -->
+  <ellipse cx="50" cy="72" rx="13" ry="10" fill="none" stroke="#8b0000" stroke-width="1" opacity="0.4">
+    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="90" cy="72" rx="13" ry="10" fill="none" stroke="#8b0000" stroke-width="1" opacity="0.4">
+    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite" begin="0.3s"/>
+  </ellipse>
+
+  <!-- Eyebrows — heavy, angled menacing -->
+  <path d="M34 60 Q46 54 60 58" stroke="#0d0404" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M80 58 Q94 54 106 60" stroke="#0d0404" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M62 84 Q58 92 63 98 Q70 102 77 98 Q82 92 78 84 Q74 80 70 82 Q66 80 62 84Z" fill="#160e06"/>
+  <ellipse cx="62" cy="96" rx="5" ry="3.5" fill="#1a1008"/>
+  <ellipse cx="78" cy="96" rx="5" ry="3.5" fill="#1a1008"/>
+
+  <!-- Mouth — wide, menacing with fangs -->
+  <path d="M38 112 Q55 105 70 108 Q85 105 102 112 Q85 118 70 116 Q55 118 38 112Z" fill="#0d0404"/>
+  <!-- Teeth -->
+  <rect x="52" y="108" width="8" height="7" rx="1" fill="#d0c8b8"/>
+  <rect x="62" y="107" width="7" height="8" rx="1" fill="#c8c0b0"/>
+  <rect x="71" y="107" width="7" height="8" rx="1" fill="#c8c0b0"/>
+  <rect x="80" y="108" width="8" height="7" rx="1" fill="#d0c8b8"/>
+  <!-- Fangs -->
+  <path d="M46 111 L44 122 L50 111Z" fill="#e8e0d0"/>
+  <path d="M94 111 L96 122 L90 111Z" fill="#e8e0d0"/>
+
+  <!-- Face markings -->
+  <path d="M28 75 L35 95 L30 75" stroke="#6b0000" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M112 75 L105 95 L110 75" stroke="#6b0000" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- Hair wisps at top -->
+  <path d="M35 45 Q25 30 30 15" stroke="#150e08" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M30 50 Q18 38 22 20" stroke="#150e08" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M105 45 Q115 30 110 15" stroke="#150e08" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M110 50 Q122 38 118 20" stroke="#150e08" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Vignette -->
+  <ellipse cx="70" cy="70" rx="68" ry="68" fill="none" stroke="#080808" stroke-width="20" opacity="0.6"/>
+</svg>
+</div>
 
 <nav>
-  <span class="nav-logo">VS — 2026</span>
-  <span class="nav-right">Bengaluru, India</span>
+  <span class="nav-logo">Venkatesh Srinivasan</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tools">Work</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-number">27</div>
-
-  <div class="hero-top">
-    <p class="hero-eyebrow">Venkatesh Srinivasan</p>
-    <h1 class="hero-name">
-      <span>I Tinker.</span>
-      <span>I Explore.</span>
-      <span>I Solve.</span>
-    </h1>
-  </div>
-
+  <div class="hero-bg-text">VS</div>
+  <p class="hero-eyebrow">Chartered Accountant &nbsp;&bull;&nbsp; AI Builder &nbsp;&bull;&nbsp; Bengaluru</p>
+  <h1 class="hero-name">Venkatesh<br>Srinivasan.</h1>
+  <p class="hero-statement">
+    By profession, I work in <strong>finance</strong> — audit, financial due diligence, and data-driven analysis.<br>
+    At heart, I am a <strong>learner</strong>. I tinker, I explore, I build things.<br>
+    Currently: funmaxxing. Everything is in the process.
+  </p>
   <div class="hero-bottom">
-    <p class="hero-statement">
-      27 years old. <em>Didn't live life — just let it move.</em><br>
-      Now I want to experience everything life has to offer.
-    </p>
+    <div class="hero-cta">
+      <a href="#tools" class="btn-primary">See my work</a>
+      <a href="#connect" class="btn-ghost">Get in touch &rarr;</a>
+    </div>
     <div class="hero-meta">
-      <div>Finance</div>
-      <div>Artificial Intelligence</div>
-      <div>Health Technology</div>
-      <div>Always Curious</div>
+      <div>Finance &amp; Due Diligence</div>
+      <div>Machine Learning</div>
+      <div>Building in Public</div>
+      <div>Always Learning</div>
     </div>
   </div>
 </div>
 
-<div style="max-width:1400px;margin:0 auto;">
+<div class="wrap">
 
-<section id="about">
-  <div class="section-num">01 — About</div>
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="section-marker">
+    <span class="section-num">01 &mdash; About</span>
+    <div class="section-bar"></div>
+  </div>
   <div class="about-grid">
-    <div class="about-big">
-      A finance student<br>
-      who builds things<br>
-      with <em>AI.</em>
+    <div>
+      <h2 class="about-headline">
+        Finance, structured<br>
+        thinking, and a mind<br>
+        that <em>never stops.</em>
+      </h2>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-n">CA</div>
+          <div class="stat-l">Qualified background</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">5+</div>
+          <div class="stat-l">AI tools shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">87%</div>
+          <div class="stat-l">ML model accuracy</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">&infin;</div>
+          <div class="stat-l">Things left to explore</div>
+        </div>
+      </div>
     </div>
-    <div class="about-right">
-      <p class="about-text">
-        I am <strong>naturally explorative</strong> — drawn to ideas across finance, technology, health and everything in between. I build AI tools not because I have to, but because building forces me to understand.
-      </p>
-      <p class="about-text">
-        Background in <strong>Chartered Accountancy</strong>. Currently exploring ML, due diligence automation and what it means to live with full intention.
-      </p>
-      <p class="about-text">
-        I believe the most interesting things happen at intersections — where finance meets code, where ancient philosophy meets modern problems, where curiosity has no ceiling.
-      </p>
-      <div class="age-badge">Available for interesting conversations</div>
+    <div>
+      <div class="about-body">
+        <p>I work in the <strong>finance domain</strong> — across audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking, whether that means breaking down complex financial systems or building models to extract insight from data.</p>
+        <p>Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning applications in finance — predictive modelling, decision frameworks and tools that make financial analysis sharper and faster.</p>
+        <p>I value <strong>clarity, discipline and continuous improvement</strong>. I train consistently — exercise is how I stay grounded. I am also building a minimal digital space to write, think and document ideas, ranging from finance to broader reflections on how systems shape the way we live and work.</p>
+        <p>At heart, I am a <strong>learner</strong>. Curious about everything. Committed to the process.</p>
+      </div>
+      <div class="gita-quote">
+        <p class="gita-text">"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions."</p>
+        <p class="gita-ref">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
+      </div>
+      <div class="interests" style="margin-top:2rem;">
+        <div class="interest-row">
+          <div class="int-dot"></div>
+          <span class="int-name">Finance &amp; Due Diligence</span>
+          <span class="int-note">CA background</span>
+        </div>
+        <div class="interest-row">
+          <div class="int-dot"></div>
+          <span class="int-name">Machine Learning in Finance</span>
+          <span class="int-note">Actively building</span>
+        </div>
+        <div class="interest-row">
+          <div class="int-dot"></div>
+          <span class="int-name">Exercise &amp; Fitness</span>
+          <span class="int-note">Daily discipline</span>
+        </div>
+        <div class="interest-row">
+          <div class="int-dot"></div>
+          <span class="int-name">Writing &amp; Systems Thinking</span>
+          <span class="int-note">Substack</span>
+        </div>
+        <div class="interest-row">
+          <div class="int-dot"></div>
+          <span class="int-name">Anime &amp; Philosophy</span>
+          <span class="int-note">Always</span>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<section id="work" style="padding-top:0;border-top:none;">
-  <div class="section-num">02 — Work & Links</div>
-  <div class="links-section">
+<!-- TOOLS -->
+<div class="section" id="tools">
+  <div class="section-marker">
+    <span class="section-num">02 &mdash; Work &amp; Tools</span>
+    <div class="section-bar"></div>
+  </div>
+  <div class="tools-head">
+    <h2 class="tools-headline">Things I have<br>built and shipped.</h2>
+    <p class="tools-intro">Every tool here was built to solve a real problem — for myself or for anyone who needs it. Finance meets AI, shipped in public.</p>
+  </div>
+  <div class="tools-grid">
 
-    <a class="link-card" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
-      <span class="link-cat">Finance AI · Hugging Face</span>
-      <span class="link-name">FDD AI Toolkit</span>
-      <span class="link-desc">AI-powered financial due diligence — Quality of Earnings, working capital, debt analysis and deal considerations. Built for PE/M&A.</span>
+    <a class="tool" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">Finance AI &bull; Hugging Face</span>
+      <span class="tool-nm">FDD AI Toolkit</span>
+      <p class="tool-wh">What it does</p>
+      <p class="tool-desc">AI-powered Financial Due Diligence — Quality of Earnings normalisation, working capital analysis, debt structuring and deal considerations. Thinks like Graham, Buffett and Munger.</p>
+      <p class="tool-wh">Who uses it</p>
+      <p class="tool-desc">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
+      <p class="tool-wh">End result</p>
+      <p class="tool-desc">Red flag scoring, deal considerations and an investment committee memo — generated from your financial data.</p>
+      <div class="tool-pills">
+        <span class="pill">Streamlit</span>
+        <span class="pill">Groq LLaMA</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">Plotly</span>
+      </div>
     </a>
 
-    <a class="link-card" href="https://huggingface.co/spaces/VenkyBaka/VenkyDoesDD" target="_blank">
-      <span class="link-cat">Finance AI · Hugging Face</span>
-      <span class="link-name">VenkyDoesDD</span>
-      <span class="link-desc">Graham, Buffett and Munger style DD assistant. Conversational, industry-specific, built to question everything.</span>
+    <a class="tool" href="https://huggingface.co/spaces/VenkyBaka/VenkyDoesDD" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">Finance AI &bull; Hugging Face</span>
+      <span class="tool-nm">VenkyDoesDD</span>
+      <p class="tool-wh">What it does</p>
+      <p class="tool-desc">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
+      <p class="tool-wh">Who uses it</p>
+      <p class="tool-desc">Finance analysts, VC associates, students learning financial analysis, anyone evaluating a company.</p>
+      <p class="tool-wh">End result</p>
+      <p class="tool-desc">A rigorous analysis session guided by Munger's inversion framework — forces you to think deeper.</p>
+      <div class="tool-pills">
+        <span class="pill">Streamlit</span>
+        <span class="pill">Groq LLaMA</span>
+        <span class="pill">Industry KPIs</span>
+      </div>
     </a>
 
-    <a class="link-card" href="https://longevitybro.lovable.app" target="_blank">
-      <span class="link-cat">Health AI · Lovable</span>
-      <span class="link-name">LongevityBro</span>
-      <span class="link-desc">Evidence-based health screening. Diabetes, heart disease, VO2 max and lab intelligence powered by ADA and AHA guidelines.</span>
+    <a class="tool" href="https://longevitybro.lovable.app" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">Health AI &bull; Lovable</span>
+      <span class="tool-nm">LongevityBro</span>
+      <p class="tool-wh">What it does</p>
+      <p class="tool-desc">Evidence-based health screening using ADA and AHA guidelines. Diabetes risk, heart disease risk, VO2 max and lab marker interpretation. ML models trained on 13,000+ real patient records.</p>
+      <p class="tool-wh">Who uses it</p>
+      <p class="tool-desc">Anyone wanting to understand their health numbers beyond a standard test report.</p>
+      <p class="tool-wh">End result</p>
+      <p class="tool-desc">Risk scores, population percentile rankings, exercise zones and lifestyle recommendations from published research.</p>
+      <div class="tool-pills">
+        <span class="pill">React</span>
+        <span class="pill">Scikit-learn</span>
+        <span class="pill">Kaggle Data</span>
+        <span class="pill">ADA/AHA</span>
+      </div>
     </a>
 
-    <a class="link-card" href="https://huggingface.co/spaces/VenkyBaka/animeama" target="_blank">
-      <span class="link-cat">Fun · Hugging Face</span>
-      <span class="link-name">AnimeAMA</span>
-      <span class="link-desc">Ask me anything about anime, manga, movies and TV. Powered by LLaMA via Groq.</span>
+    <a class="tool" href="https://huggingface.co/spaces/VenkyBaka/amIobsolete" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">Career AI &bull; Hugging Face</span>
+      <span class="tool-nm">Am I Obsolete?</span>
+      <p class="tool-wh">What it does</p>
+      <p class="tool-desc">Career risk analyser built on Anthropic's 2026 Labor Market Report. Enter your domain and skills — get a brutally honest assessment of your AI obsolescence risk.</p>
+      <p class="tool-wh">Who uses it</p>
+      <p class="tool-desc">Anyone in any profession wondering how AI will affect their career — from engineers to doctors to finance professionals.</p>
+      <p class="tool-wh">End result</p>
+      <p class="tool-desc">Obsolescence score, timeline, what AI does better than you and what to develop urgently.</p>
+      <div class="tool-pills">
+        <span class="pill">Streamlit</span>
+        <span class="pill">Groq LLaMA</span>
+        <span class="pill">Anthropic Research</span>
+      </div>
     </a>
 
-    <a class="link-card" href="#" target="_blank">
-      <span class="link-cat">Writing · Substack</span>
-      <span class="link-name">Writing</span>
-      <span class="link-desc">Notes on finance, AI, health and the explorative life. Thinking out loud in public.</span>
+    <a class="tool" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">Writing &bull; Substack</span>
+      <span class="tool-nm">Writing</span>
+      <p class="tool-wh">What it covers</p>
+      <p class="tool-desc">Finance, machine learning, systems thinking and broader reflections on how the world works. First principles applied to everything.</p>
+      <p class="tool-wh">Who reads it</p>
+      <p class="tool-desc">People curious about the intersection of finance and technology. Those building and learning in public.</p>
+      <p class="tool-wh">Why it exists</p>
+      <p class="tool-desc">A minimal digital space to think out loud, document ideas and build in public — honest, unpolished, continuous.</p>
+      <div class="tool-pills">
+        <span class="pill">Finance</span>
+        <span class="pill">AI</span>
+        <span class="pill">Systems</span>
+        <span class="pill">Learning</span>
+      </div>
     </a>
 
-    <a class="link-card" href="#" target="_blank">
-      <span class="link-cat">Notes · Second Brain</span>
-      <span class="link-name">Notes</span>
-      <span class="link-desc">Things I am learning, patterns I notice, ideas worth keeping. Raw and honest.</span>
+    <a class="tool" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
+      <span class="t-arrow">&#x2197;</span>
+      <span class="tool-tag">ML &bull; Hugging Face Profile</span>
+      <span class="tool-nm">ML Models &amp; Spaces</span>
+      <p class="tool-wh">What is here</p>
+      <p class="tool-desc">All deployed AI models and Streamlit apps — financial due diligence, health screening, career analysis and more. All open and accessible.</p>
+      <p class="tool-wh">Who uses it</p>
+      <p class="tool-desc">Anyone exploring AI-powered finance and health tools. Developers who want to see how the models work.</p>
+      <p class="tool-wh">End result</p>
+      <p class="tool-desc">A living portfolio of working AI applications — not prototypes, not demos. Shipped tools.</p>
+      <div class="tool-pills">
+        <span class="pill">Python</span>
+        <span class="pill">Scikit-learn</span>
+        <span class="pill">Groq</span>
+        <span class="pill">Streamlit</span>
+      </div>
     </a>
 
   </div>
-</section>
+</div>
+
+<!-- CONNECT -->
+<div class="section" id="connect">
+  <div class="section-marker">
+    <span class="section-num">03 &mdash; Connect</span>
+    <div class="section-bar"></div>
+  </div>
+  <div class="connect-grid">
+    <h2 class="connect-big">
+      Let us build<br>
+      something<br>
+      <em>interesting.</em>
+    </h2>
+    <div class="c-links">
+      <a class="c-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
+        <div class="c-left">
+          <span class="c-label">Professional</span>
+          <span class="c-name">LinkedIn</span>
+        </div>
+        <span class="c-arr">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
+        <div class="c-left">
+          <span class="c-label">AI &amp; ML</span>
+          <span class="c-name">Hugging Face</span>
+        </div>
+        <span class="c-arr">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://github.com/Venkatesh-kurosaki" target="_blank">
+        <div class="c-left">
+          <span class="c-label">Code</span>
+          <span class="c-name">GitHub</span>
+        </div>
+        <span class="c-arr">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+        <div class="c-left">
+          <span class="c-label">Writing</span>
+          <span class="c-name">Substack</span>
+        </div>
+        <span class="c-arr">&#x2197;</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 </div>
 
 <footer>
-  <span class="footer-left">Venkatesh Srinivasan &copy; 2026</span>
-  <span class="footer-right">Built with curiosity &mdash; <a href="https://huggingface.co/VenkateshSrinivasan" style="color:var(--fade);text-decoration:none;">huggingface.co/VenkateshSrinivasan</a></span>
+  <span class="ft">Venkatesh Srinivasan &copy; 2026</span>
+  <span class="ft">Bengaluru, India &mdash; Built with curiosity</span>
 </footer>
 
 <script>
 const cursor = document.getElementById('cursor');
-const follower = document.getElementById('follower');
-let mx = 0, my = 0, fx = 0, fy = 0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px';
+  cursor.style.top=my+'px';
 });
-
-function animateFollower() {
-  fx += (mx - fx) * 0.12;
-  fy += (my - fy) *.12;
-  follower.style.left = fx + 'px';
-  follower.style.top = fy + 'px';
-  requestAnimationFrame(animateFollower);
-}
-animateFollower();
-
-document.querySelectorAll('a').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
-    follower.style.transform = 'translate(-50%,-50%) scale(1.5)';
-    follower.style.borderColor = 'rgba(245,242,238,0.6)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-    follower.style.transform = 'translate(-50%,-50%) scale(1)';
-    follower.style.borderColor = 'rgba(245,242,238,0.3)';
-  });
+(function loop(){
+  rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.classList.add('hover');ring.classList.add('hover');});
+  el.addEventListener('mouseleave',()=>{cursor.classList.remove('hover');ring.classList.remove('hover');});
 });
 </script>
-
 </body>
 </html>
