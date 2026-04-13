@@ -4,576 +4,365 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --black: #080808;
-  --white: #f0ece4;
-  --fade: #5a5a5a;
-  --mid: #111111;
-  --line: rgba(240,236,228,0.07);
-  --accent: #c8b89a;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#060606;
+  --white:#f4f1ec;
+  --off:#e8e3da;
+  --fade:#7a7670;
+  --line:rgba(244,241,236,0.1);
+  --accent:#c8b89a;
 }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Syne', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
-}
-.cursor {
-  position: fixed;
-  width: 6px; height: 6px;
-  background: var(--white);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-}
-.cursor-ring {
-  position: fixed;
-  width: 28px; height: 28px;
-  border: 0.5px solid rgba(240,236,228,0.2);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: all 0.18s ease;
-}
-.cursor.hover { width: 10px; height: 10px; background: var(--accent); }
-.cursor-ring.hover { width: 44px; height: 44px; border-color: rgba(200,184,154,0.35); }
-
-/* ONI CORNER */
-.oni-corner {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 140px;
-  height: 140px;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.85;
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
 }
 
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.75rem 3rem;
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.5rem 4rem;
+  mix-blend-mode:normal;
 }
-.nav-logo {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
-  color: var(--fade);
-  text-transform: uppercase;
+.nav-name{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.16em;
+  color:var(--fade);text-transform:uppercase;
 }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fade);
-  text-decoration: none;
-  transition: color 0.2s;
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--fade);
+  text-decoration:none;transition:color 0.2s;
 }
-.nav-links a:hover { color: var(--white); }
+.nav-links a:hover{color:var(--white);}
 
 /* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 3rem 6rem;
-  position: relative;
-  overflow: hidden;
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:8rem 4rem 6rem;
+  position:relative;overflow:hidden;
 }
 
-.hero-bg-text {
-  position: absolute;
-  bottom: -2rem;
-  right: -1rem;
-  font-size: clamp(18vw, 24vw, 30vw);
-  font-weight: 800;
-  color: rgba(240,236,228,0.025);
-  line-height: 1;
-  user-select: none;
-  pointer-events: none;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
+.hero-rule{
+  position:absolute;top:0;left:0;right:0;
+  height:0.5px;background:var(--line);
 }
 
-.hero-eyebrow {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 0.3s;
+.hero-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:2.5rem;
+  opacity:0;animation:up 0.7s ease forwards 0.2s;
 }
 
-.hero-name {
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 800;
-  line-height: 0.93;
-  letter-spacing: -0.035em;
-  color: var(--white);
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.5s;
-  max-width: 16ch;
+.hero-display{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(4rem,9vw,8.5rem);
+  font-weight:900;
+  line-height:0.9;
+  letter-spacing:-0.02em;
+  color:var(--white);
+  margin-bottom:0;
+  opacity:0;animation:up 0.9s ease forwards 0.4s;
 }
 
-.hero-statement {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  line-height: 1.75;
-  color: var(--fade);
-  max-width: 38rem;
-  margin-bottom: 3.5rem;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 0.8s;
-}
-.hero-statement strong { color: var(--white); font-weight: 600; }
-
-.hero-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 1.05s;
+.hero-display .italic{
+  font-style:italic;
+  font-weight:400;
+  color:var(--accent);
 }
 
-.hero-cta { display: flex; gap: 1.5rem; align-items: center; }
-
-.btn-primary {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--black);
-  background: var(--white);
-  padding: 0.85rem 2rem;
-  text-decoration: none;
-  border-radius: 100px;
-  transition: background 0.25s;
+.hero-divider{
+  display:flex;align-items:center;gap:2rem;
+  margin:3rem 0;
+  opacity:0;animation:up 0.7s ease forwards 0.8s;
 }
-.btn-primary:hover { background: var(--accent); }
-
-.btn-ghost {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--fade);
-  text-decoration: none;
-  transition: color 0.2s;
+.hero-divider-line{flex:1;height:0.5px;background:var(--line);}
+.hero-divider-text{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--fade);
+  white-space:nowrap;
 }
-.btn-ghost:hover { color: var(--white); }
 
-.hero-meta {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  color: var(--fade);
-  text-transform: uppercase;
-  text-align: right;
-  line-height: 2;
+.hero-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:start;
+  opacity:0;animation:up 0.7s ease forwards 1s;
 }
+
+.hero-text{
+  font-family:'Inter',sans-serif;
+  font-size:1.05rem;font-weight:300;
+  line-height:1.85;color:var(--fade);
+}
+.hero-text strong{color:var(--white);font-weight:500;}
+
+.hero-meta{
+  display:flex;flex-direction:column;gap:0;
+}
+.hero-meta-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.85rem 0;border-bottom:0.5px solid var(--line);
+}
+.hero-meta-row:first-child{border-top:0.5px solid var(--line);}
+.hm-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--fade);
+}
+.hm-val{
+  font-family:'Playfair Display',serif;
+  font-size:0.95rem;font-style:italic;color:var(--white);
+}
+
+.hero-cta{
+  display:flex;gap:1.5rem;align-items:center;
+  margin-top:3rem;
+  opacity:0;animation:up 0.7s ease forwards 1.2s;
+}
+.btn{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.8rem 1.8rem;border-radius:100px;
+  text-decoration:none;transition:all 0.25s;
+}
+.btn-w{background:var(--white);color:var(--black);}
+.btn-w:hover{background:var(--accent);}
+.btn-g{color:var(--fade);border:0.5px solid var(--line);}
+.btn-g:hover{color:var(--white);border-color:rgba(244,241,236,0.3);}
 
 /* SECTIONS */
-.wrap { max-width: 1400px; margin: 0 auto; }
+.wrap{max-width:1360px;margin:0 auto;}
+.sec{padding:8rem 4rem;border-top:0.5px solid var(--line);}
 
-.section {
-  padding: 9rem 3rem;
-  border-top: 0.5px solid var(--line);
+.sec-label{
+  display:flex;align-items:center;gap:1.5rem;
+  margin-bottom:5rem;
 }
-
-.section-marker {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 5rem;
+.sec-num{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--accent);
 }
-.section-num {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  text-transform: uppercase;
-}
-.section-bar { width: 3rem; height: 0.5px; background: var(--fade); }
+.sec-rule{width:4rem;height:0.5px;background:var(--fade);}
 
 /* ABOUT */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 8rem;
-  align-items: start;
+.about-layout{
+  display:grid;grid-template-columns:5fr 4fr;
+  gap:8rem;align-items:start;
+}
+.about-big{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  font-weight:700;line-height:1.1;
+  letter-spacing:-0.02em;
+  margin-bottom:3rem;
+}
+.about-big em{font-style:italic;font-weight:400;color:var(--accent);}
+
+.about-p{
+  font-size:0.96rem;font-weight:300;
+  line-height:1.95;color:var(--fade);
+  margin-bottom:1.25rem;
+}
+.about-p strong{color:var(--white);font-weight:500;}
+
+.gita{
+  margin-top:2.5rem;
+  padding:1.5rem 0 1.5rem 1.5rem;
+  border-left:1.5px solid var(--accent);
+}
+.gita-q{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-style:italic;
+  color:var(--accent);line-height:1.75;
+  margin-bottom:0.5rem;
+}
+.gita-src{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--fade);
 }
 
-.about-headline {
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  margin-bottom: 3rem;
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--line);
+  margin-bottom:3rem;
 }
-.about-headline em { color: var(--accent); font-style: normal; }
-
-.about-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--line);
-  margin-top: 3.5rem;
+.stat-c{background:var(--black);padding:1.5rem 1.25rem;}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:700;
+  color:var(--white);margin-bottom:0.2rem;
 }
-.stat { background: var(--black); padding: 1.5rem; }
-.stat-n {
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--white);
-  margin-bottom: 0.25rem;
-}
-.stat-l {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  color: var(--fade);
-  text-transform: uppercase;
+.stat-l{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--fade);
 }
 
-.about-body p {
-  font-size: 0.98rem;
-  line-height: 1.95;
-  color: var(--fade);
-  margin-bottom: 1.2rem;
+.int-list{display:flex;flex-direction:column;}
+.int-row{
+  display:flex;align-items:center;gap:1rem;
+  padding:0.9rem 0;border-bottom:0.5px solid var(--line);
 }
-.about-body p strong { color: var(--white); font-weight: 600; }
-
-.gita-quote {
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
-  border-left: 2px solid var(--accent);
-  background: rgba(200,184,154,0.04);
-}
-.gita-text {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 0.9rem;
-  font-style: italic;
-  color: var(--accent);
-  line-height: 1.7;
-  margin-bottom: 0.4rem;
-}
-.gita-ref {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  color: var(--fade);
-  text-transform: uppercase;
-}
-
-.interests {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 0;
-}
-.interest-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 0.5px solid var(--line);
-}
-.interest-row:first-child { border-top: 0.5px solid var(--line); }
-.int-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-.int-name { font-size: 0.92rem; color: var(--white); font-weight: 500; flex: 1; }
-.int-note {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.52rem;
-  letter-spacing: 0.08em;
-  color: var(--fade);
-  text-transform: uppercase;
-  white-space: nowrap;
+.int-row:first-child{border-top:0.5px solid var(--line);}
+.int-d{width:3px;height:3px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.int-t{font-size:0.9rem;font-weight:400;color:var(--white);flex:1;}
+.int-s{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--fade);
+  white-space:nowrap;
 }
 
 /* TOOLS */
-.tools-head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: end;
-  margin-bottom: 5rem;
+.tools-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:end;margin-bottom:5rem;
 }
-.tools-headline {
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+.tools-h{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:700;line-height:1.1;letter-spacing:-0.02em;
 }
-.tools-intro { font-size: 0.95rem; line-height: 1.8; color: var(--fade); }
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
+.tools-sub{
+  font-size:0.9rem;font-weight:300;
+  line-height:1.8;color:var(--fade);
 }
 
-.tool {
-  background: var(--black);
-  padding: 2.25rem;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.25s;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.tools-g{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
 }
-.tool:hover { background: #101010; }
-.tool:hover .tool-nm { color: var(--accent); }
-.tool:hover .t-arrow { transform: translate(3px,-3px); color: var(--white); }
+.tool-c{
+  background:var(--black);padding:2.25rem;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:0.7rem;
+  position:relative;transition:background 0.2s;
+}
+.tool-c:hover{background:#0e0e0e;}
+.tool-c:hover .tool-title{color:var(--accent);}
+.tool-c:hover .tool-arr{transform:translate(3px,-3px);color:var(--white);}
 
-.t-arrow {
-  position: absolute;
-  top: 2.25rem; right: 2.25rem;
-  font-size: 0.9rem;
-  color: var(--fade);
-  transition: all 0.25s;
+.tool-arr{
+  position:absolute;top:2.25rem;right:2.25rem;
+  font-size:0.85rem;color:var(--fade);transition:all 0.2s;
 }
-.tool-tag {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.52rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
+.tool-cat{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent);
 }
-.tool-nm {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--white);
-  transition: color 0.25s;
-  padding-right: 2rem;
+.tool-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;
+  color:var(--white);letter-spacing:-0.01em;
+  padding-right:2rem;transition:color 0.2s;
 }
-.tool-wh {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-top: 0.25rem;
+.tool-kicker{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--accent);
+  margin-top:0.2rem;
 }
-.tool-desc { font-size: 0.8rem; line-height: 1.7; color: var(--fade); }
-.tool-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 0.5px solid var(--line);
+.tool-body{
+  font-size:0.78rem;font-weight:300;
+  line-height:1.7;color:var(--fade);
 }
-.pill {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.5rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--fade);
-  padding: 0.18rem 0.5rem;
-  border: 0.5px solid var(--line);
-  border-radius: 100px;
+.tool-tags{
+  display:flex;flex-wrap:wrap;gap:0.35rem;
+  margin-top:auto;padding-top:1rem;
+  border-top:0.5px solid var(--line);
+}
+.tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.07em;
+  text-transform:uppercase;color:var(--fade);
+  padding:0.15rem 0.45rem;
+  border:0.5px solid var(--line);border-radius:100px;
 }
 
 /* CONNECT */
-.connect-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8rem;
-  align-items: center;
+.connect-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8rem;align-items:center;
 }
-.connect-big {
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+.connect-display{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:900;line-height:1;
+  letter-spacing:-0.025em;
 }
-.connect-big em { color: var(--accent); font-style: normal; }
+.connect-display em{font-style:italic;font-weight:400;color:var(--accent);}
 
-.c-links { display: flex; flex-direction: column; gap: 0; }
-.c-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.3rem 0;
-  border-bottom: 0.5px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.2s;
+.c-list{display:flex;flex-direction:column;}
+.c-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0;border-bottom:0.5px solid var(--line);
+  text-decoration:none;color:inherit;transition:all 0.2s;
 }
-.c-row:first-child { border-top: 0.5px solid var(--line); }
-.c-row:hover .c-name { color: var(--accent); }
-.c-row:hover .c-arr { transform: translate(3px,-3px); color: var(--accent); }
-.c-left { display: flex; flex-direction: column; gap: 0.15rem; }
-.c-label {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.52rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fade);
+.c-row:first-child{border-top:0.5px solid var(--line);}
+.c-row:hover .c-nm{color:var(--accent);}
+.c-row:hover .c-arr{transform:translate(3px,-3px);color:var(--accent);}
+.c-left{display:flex;flex-direction:column;gap:0.15rem;}
+.c-lbl{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--fade);
 }
-.c-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--white);
-  transition: color 0.2s;
+.c-nm{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--white);transition:color 0.2s;
 }
-.c-arr { font-size: 0.85rem; color: var(--fade); transition: all 0.2s; }
+.c-arr{font-size:0.85rem;color:var(--fade);transition:all 0.2s;}
 
-footer {
-  padding: 2.25rem 3rem;
-  border-top: 0.5px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
+footer{
+  padding:2.25rem 4rem;
+  border-top:0.5px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1360px;margin:0 auto;
 }
-.ft {
-  font-family: 'Syne Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  color: var(--fade);
-  text-transform: uppercase;
+.ft{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--fade);
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes up{
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-@media (max-width: 900px) {
-  nav { padding: 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .hero { padding: 0 1.5rem 5rem; }
-  .section { padding: 5rem 1.5rem; }
-  .about-grid, .connect-grid, .tools-head { grid-template-columns: 1fr; gap: 3rem; }
-  .tools-grid { grid-template-columns: 1fr; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
-  .oni-corner { width: 90px; height: 90px; }
+@media(max-width:900px){
+  nav{padding:1.25rem 1.5rem;}
+  .nav-links{gap:1.5rem;}
+  .hero,.sec{padding-left:1.5rem;padding-right:1.5rem;}
+  .hero{padding-top:7rem;}
+  .hero-body,.about-layout,.connect-layout,.tools-intro{grid-template-columns:1fr;gap:3rem;}
+  .tools-g{grid-template-columns:1fr;}
+  footer{padding:2rem 1.5rem;flex-direction:column;gap:0.75rem;text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="ring"></div>
-
-<!-- ONI MASK — TOP RIGHT CORNER -->
-<div class="oni-corner">
-<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-  <!-- Atmospheric glow -->
-  <radialGradient id="oniGlow" cx="50%" cy="55%" r="45%">
-    <stop offset="0%" stop-color="#8b0000" stop-opacity="0.15"/>
-    <stop offset="100%" stop-color="#080808" stop-opacity="0"/>
-  </radialGradient>
-  <ellipse cx="70" cy="75" rx="55" ry="60" fill="url(#oniGlow)"/>
-
-  <!-- Horns -->
-  <path d="M42 42 Q36 20 40 4 Q44 -2 48 6 Q52 18 50 40Z" fill="#1a0c0c"/>
-  <path d="M44 40 Q38 20 42 6 Q45 0 48 8 Q51 19 49 39Z" fill="#2a1010"/>
-  <path d="M98 42 Q104 20 100 4 Q96 -2 92 6 Q88 18 90 40Z" fill="#1a0c0c"/>
-  <path d="M96 40 Q102 20 98 6 Q95 0 92 8 Q89 19 91 39Z" fill="#2a1010"/>
-
-  <!-- Small side horns -->
-  <path d="M30 55 Q18 45 20 32 Q23 26 28 32 Q32 40 32 54Z" fill="#1a0c0c"/>
-  <path d="M110 55 Q122 45 120 32 Q117 26 112 32 Q108 40 108 54Z" fill="#1a0c0c"/>
-
-  <!-- Face base -->
-  <ellipse cx="70" cy="78" rx="48" ry="55" fill="#1e1008"/>
-  <ellipse cx="70" cy="80" rx="42" ry="48" fill="#180e06"/>
-
-  <!-- Face texture/shading -->
-  <ellipse cx="55" cy="65" rx="20" ry="25" fill="#1a0e08" opacity="0.5"/>
-  <ellipse cx="85" cy="65" rx="20" ry="25" fill="#160c06" opacity="0.4"/>
-
-  <!-- Heavy brow ridge -->
-  <path d="M28 62 Q48 50 70 52 Q92 50 112 62 Q100 56 70 58 Q40 56 28 62Z" fill="#120808"/>
-
-  <!-- Left eye socket -->
-  <ellipse cx="50" cy="72" rx="16" ry="11" fill="#0d0404"/>
-  <!-- Right eye socket -->
-  <ellipse cx="90" cy="72" rx="16" ry="11" fill="#0d0404"/>
-
-  <!-- Eyes — burning red -->
-  <ellipse cx="50" cy="72" rx="11" ry="8" fill="#5a0000"/>
-  <ellipse cx="90" cy="72" rx="11" ry="8" fill="#5a0000"/>
-  <ellipse cx="50" cy="72" rx="7" ry="5" fill="#8b0000"/>
-  <ellipse cx="90" cy="72" rx="7" ry="5" fill="#8b0000"/>
-  <ellipse cx="50" cy="72" rx="4" ry="4" fill="#cc0000"/>
-  <ellipse cx="90" cy="72" rx="4" ry="4" fill="#cc0000"/>
-  <ellipse cx="50" cy="72" rx="2" ry="2" fill="#ff2020" opacity="0.9"/>
-  <ellipse cx="90" cy="72" rx="2" ry="2" fill="#ff2020" opacity="0.9"/>
-  <!-- Eye shine -->
-  <circle cx="53" cy="70" r="1.2" fill="rgba(255,180,160,0.5)"/>
-  <circle cx="93" cy="70" r="1.2" fill="rgba(255,180,160,0.5)"/>
-  <!-- Eye glow pulse -->
-  <ellipse cx="50" cy="72" rx="13" ry="10" fill="none" stroke="#8b0000" stroke-width="1" opacity="0.4">
-    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite"/>
-  </ellipse>
-  <ellipse cx="90" cy="72" rx="13" ry="10" fill="none" stroke="#8b0000" stroke-width="1" opacity="0.4">
-    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite" begin="0.3s"/>
-  </ellipse>
-
-  <!-- Eyebrows — heavy, angled menacing -->
-  <path d="M34 60 Q46 54 60 58" stroke="#0d0404" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M80 58 Q94 54 106 60" stroke="#0d0404" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-
-  <!-- Nose -->
-  <path d="M62 84 Q58 92 63 98 Q70 102 77 98 Q82 92 78 84 Q74 80 70 82 Q66 80 62 84Z" fill="#160e06"/>
-  <ellipse cx="62" cy="96" rx="5" ry="3.5" fill="#1a1008"/>
-  <ellipse cx="78" cy="96" rx="5" ry="3.5" fill="#1a1008"/>
-
-  <!-- Mouth — wide, menacing with fangs -->
-  <path d="M38 112 Q55 105 70 108 Q85 105 102 112 Q85 118 70 116 Q55 118 38 112Z" fill="#0d0404"/>
-  <!-- Teeth -->
-  <rect x="52" y="108" width="8" height="7" rx="1" fill="#d0c8b8"/>
-  <rect x="62" y="107" width="7" height="8" rx="1" fill="#c8c0b0"/>
-  <rect x="71" y="107" width="7" height="8" rx="1" fill="#c8c0b0"/>
-  <rect x="80" y="108" width="8" height="7" rx="1" fill="#d0c8b8"/>
-  <!-- Fangs -->
-  <path d="M46 111 L44 122 L50 111Z" fill="#e8e0d0"/>
-  <path d="M94 111 L96 122 L90 111Z" fill="#e8e0d0"/>
-
-  <!-- Face markings -->
-  <path d="M28 75 L35 95 L30 75" stroke="#6b0000" stroke-width="1.5" fill="none" opacity="0.5"/>
-  <path d="M112 75 L105 95 L110 75" stroke="#6b0000" stroke-width="1.5" fill="none" opacity="0.5"/>
-
-  <!-- Hair wisps at top -->
-  <path d="M35 45 Q25 30 30 15" stroke="#150e08" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
-  <path d="M30 50 Q18 38 22 20" stroke="#150e08" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-  <path d="M105 45 Q115 30 110 15" stroke="#150e08" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
-  <path d="M110 50 Q122 38 118 20" stroke="#150e08" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-
-  <!-- Vignette -->
-  <ellipse cx="70" cy="70" rx="68" ry="68" fill="none" stroke="#080808" stroke-width="20" opacity="0.6"/>
-</svg>
-</div>
-
 <nav>
-  <span class="nav-logo">Venkatesh Srinivasan</span>
+  <span class="nav-name">Venkatesh Srinivasan</span>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#tools">Work</a></li>
@@ -581,265 +370,261 @@ footer {
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-bg-text">VS</div>
-  <p class="hero-eyebrow">Chartered Accountant &nbsp;&bull;&nbsp;All things Artifical Intelligence &nbsp;&bull;&nbsp; Bengaluru</p>
-  <h1 class="hero-name">Venkatesh<br>Srinivasan.</h1>
-  <p class="hero-statement">
-    By profession, I work in <strong>finance</strong> — audit, financial due diligence, and data-driven analysis.<br>
-    At heart, I am a <strong>learner</strong>. I tinker, I explore, I build things.<br>
-    Currently: funmaxxing. Everything is in the process.
-  </p>
-  <div class="hero-bottom">
-    <div class="hero-cta">
-      <a href="#tools" class="btn-primary">See my work</a>
-      <a href="#connect" class="btn-ghost">Get in touch &rarr;</a>
-    </div>
+  <div class="hero-rule"></div>
+  <p class="hero-label">Chartered Accountant &nbsp;&middot;&nbsp; AI Builder &nbsp;&middot;&nbsp; Bengaluru, India</p>
+  <h1 class="hero-display">
+    Venkatesh<br>
+    <span class="italic">Srinivasan.</span>
+  </h1>
+  <div class="hero-divider">
+    <div class="hero-divider-line"></div>
+    <span class="hero-divider-text">Finance &times; Technology &times; Continuous Learning</span>
+    <div class="hero-divider-line"></div>
+  </div>
+  <div class="hero-body">
+    <p class="hero-text">
+      By profession, I work in <strong>finance</strong> &mdash; audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking.<br><br>
+      At heart, I am a <strong>learner</strong>. I tinker, I explore, I build things. Currently funmaxxing. Everything is in the process.
+    </p>
     <div class="hero-meta">
-      <div>Finance &amp; Due Diligence</div>
-      <div>Machine Learning</div>
-      <div>Building in Public</div>
-      <div>Always Learning</div>
+      <div class="hero-meta-row">
+        <span class="hm-label">Domain</span>
+        <span class="hm-val">Finance &amp; FDD</span>
+      </div>
+      <div class="hero-meta-row">
+        <span class="hm-label">Building</span>
+        <span class="hm-val">ML in Finance</span>
+      </div>
+      <div class="hero-meta-row">
+        <span class="hm-label">Discipline</span>
+        <span class="hm-val">First Principles</span>
+      </div>
+      <div class="hero-meta-row">
+        <span class="hm-label">Status</span>
+        <span class="hm-val">In the process</span>
+      </div>
     </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#tools" class="btn btn-w">See my work</a>
+    <a href="#connect" class="btn btn-g">Get in touch &rarr;</a>
   </div>
 </div>
 
 <div class="wrap">
 
-<!-- ABOUT -->
-<div class="section" id="about">
-  <div class="section-marker">
-    <span class="section-num">01 &mdash; About</span>
-    <div class="section-bar"></div>
+<div class="sec" id="about">
+  <div class="sec-label">
+    <span class="sec-num">01 &mdash; About</span>
+    <div class="sec-rule"></div>
   </div>
-  <div class="about-grid">
+  <div class="about-layout">
     <div>
-      <h2 class="about-headline">
-        Finance, structured<br>
-        thinking, and a mind<br>
-        that <em>never stops.</em>
+      <h2 class="about-big">
+        Finance, structured thinking,<br>
+        and a mind that<br>
+        <em>never stops learning.</em>
       </h2>
-      <div class="about-stats">
-        <div class="stat">
-          <div class="stat-n">CA</div>
-          <div class="stat-l">Qualified background</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">5+</div>
-          <div class="stat-l">AI tools shipped</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">87%</div>
-          <div class="stat-l">ML model accuracy</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">&infin;</div>
-          <div class="stat-l">Things left to explore</div>
-        </div>
+      <p class="about-p">I work in the <strong>finance domain</strong> &mdash; across audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking, whether that means breaking down complex financial systems or building models to extract insight from data.</p>
+      <p class="about-p">Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning applications in finance &mdash; predictive modelling, decision frameworks and tools that make financial analysis sharper and faster.</p>
+      <p class="about-p">I value <strong>clarity, discipline and continuous improvement</strong>. I train consistently &mdash; exercise is how I stay grounded and focused. I am also building a minimal digital space to write, think and document ideas.</p>
+      <div class="gita">
+        <p class="gita-q">&ldquo;You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.&rdquo;</p>
+        <p class="gita-src">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
       </div>
     </div>
     <div>
-      <div class="about-body">
-        <p>I work in the <strong>finance domain</strong> — across audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking, whether that means breaking down complex financial systems or building models to extract insight from data.</p>
-        <p>Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning applications in finance — predictive modelling, decision frameworks and tools that make financial analysis sharper and faster.</p>
-        <p>I value <strong>clarity, discipline and continuous improvement</strong>. I train consistently — exercise is how I stay grounded. I am also building a minimal digital space to write, think and document ideas, ranging from finance to broader reflections on how systems shape the way we live and work.</p>
-        <p>At heart, I am a <strong>learner</strong>. Curious about everything. Committed to the process.</p>
+      <div class="about-stats">
+        <div class="stat-c">
+          <div class="stat-n">CA</div>
+          <div class="stat-l">Qualified</div>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">5+</div>
+          <div class="stat-l">AI Tools Shipped</div>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">87%</div>
+          <div class="stat-l">ML Accuracy</div>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">&infin;</div>
+          <div class="stat-l">Left to Explore</div>
+        </div>
       </div>
-      <div class="gita-quote">
-        <p class="gita-text">"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions."</p>
-        <p class="gita-ref">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
-      </div>
-      <div class="interests" style="margin-top:2rem;">
-        <div class="interest-row">
-          <div class="int-dot"></div>
-          <span class="int-name">Finance &amp; Due Diligence</span>
-          <span class="int-note">CA background</span>
+      <div class="int-list">
+        <div class="int-row">
+          <div class="int-d"></div>
+          <span class="int-t">Finance &amp; Due Diligence</span>
+          <span class="int-s">CA background</span>
         </div>
-        <div class="interest-row">
-          <div class="int-dot"></div>
-          <span class="int-name">Machine Learning in Finance</span>
-          <span class="int-note">Actively building</span>
+        <div class="int-row">
+          <div class="int-d"></div>
+          <span class="int-t">Machine Learning in Finance</span>
+          <span class="int-s">Actively building</span>
         </div>
-        <div class="interest-row">
-          <div class="int-dot"></div>
-          <span class="int-name">Exercise &amp; Fitness</span>
-          <span class="int-note">Daily discipline</span>
+        <div class="int-row">
+          <div class="int-d"></div>
+          <span class="int-t">Exercise &amp; Fitness</span>
+          <span class="int-s">Daily discipline</span>
         </div>
-        <div class="interest-row">
-          <div class="int-dot"></div>
-          <span class="int-name">Writing &amp; Systems Thinking</span>
-          <span class="int-note">Substack</span>
+        <div class="int-row">
+          <div class="int-d"></div>
+          <span class="int-t">Writing &amp; Systems Thinking</span>
+          <span class="int-s">Substack</span>
         </div>
-        <div class="interest-row">
-          <div class="int-dot"></div>
-          <span class="int-name">Anime &amp; Philosophy</span>
-          <span class="int-note">Always</span>
+        <div class="int-row">
+          <div class="int-d"></div>
+          <span class="int-t">Anime &amp; Philosophy</span>
+          <span class="int-s">Always</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- TOOLS -->
-<div class="section" id="tools">
-  <div class="section-marker">
-    <span class="section-num">02 &mdash; Work &amp; Tools</span>
-    <div class="section-bar"></div>
+<div class="sec" id="tools">
+  <div class="sec-label">
+    <span class="sec-num">02 &mdash; Work &amp; Tools</span>
+    <div class="sec-rule"></div>
   </div>
-  <div class="tools-head">
-    <h2 class="tools-headline">Things I have<br>built and shipped.</h2>
-    <p class="tools-intro">Every tool here was built to solve a real problem — for myself or for anyone who needs it. Finance meets AI, shipped in public.</p>
+  <div class="tools-intro">
+    <h2 class="tools-h">Things I have<br>built and shipped.</h2>
+    <p class="tools-sub">Every tool here was built to solve a real problem &mdash; for myself or for anyone who needs it. Finance meets AI, shipped in public.</p>
   </div>
-  <div class="tools-grid">
+  <div class="tools-g">
 
-    <a class="tool" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">Finance AI &bull; Hugging Face</span>
-      <span class="tool-nm">FDD AI Toolkit</span>
-      <p class="tool-wh">What it does</p>
-      <p class="tool-desc">AI-powered Financial Due Diligence — Quality of Earnings normalisation, working capital analysis, debt structuring and deal considerations. Thinks like Graham, Buffett and Munger.</p>
-      <p class="tool-wh">Who uses it</p>
-      <p class="tool-desc">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
-      <p class="tool-wh">End result</p>
-      <p class="tool-desc">Red flag scoring, deal considerations and an investment committee memo — generated from your financial data.</p>
-      <div class="tool-pills">
-        <span class="pill">Streamlit</span>
-        <span class="pill">Groq LLaMA</span>
-        <span class="pill">Pandas</span>
-        <span class="pill">Plotly</span>
+    <a class="tool-c" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">Finance AI &bull; Hugging Face</span>
+      <span class="tool-title">FDD AI Toolkit</span>
+      <p class="tool-kicker">What it does</p>
+      <p class="tool-body">AI-powered Financial Due Diligence &mdash; Quality of Earnings normalisation, working capital analysis, debt structuring and deal considerations. Thinks like Graham, Buffett and Munger.</p>
+      <p class="tool-kicker">Who uses it</p>
+      <p class="tool-body">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
+      <p class="tool-kicker">End result</p>
+      <p class="tool-body">Red flag scoring, deal considerations and an IC memo &mdash; from your financial data.</p>
+      <div class="tool-tags">
+        <span class="tag">Streamlit</span><span class="tag">Groq LLaMA</span><span class="tag">Pandas</span><span class="tag">Plotly</span>
       </div>
     </a>
 
-    <a class="tool" href="https://huggingface.co/spaces/VenkateshSrinivasan/VenkyydoesDD" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">Finance AI &bull; Hugging Face</span>
-      <span class="tool-nm">VenkyDoesDD</span>
-      <p class="tool-wh">What it does</p>
-      <p class="tool-desc">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
-      <p class="tool-wh">Who uses it</p>
-      <p class="tool-desc">Finance analysts, VC associates, students learning financial analysis, anyone evaluating a company.</p>
-      <p class="tool-wh">End result</p>
-      <p class="tool-desc">A rigorous analysis session guided by Munger's inversion framework — forces you to think deeper.</p>
-      <div class="tool-pills">
-        <span class="pill">Streamlit</span>
-        <span class="pill">Groq LLaMA</span>
-        <span class="pill">Industry KPIs</span>
+    <a class="tool-c" href="https://huggingface.co/spaces/VenkyBaka/VenkyDoesDD" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">Finance AI &bull; Hugging Face</span>
+      <span class="tool-title">VenkyDoesDD</span>
+      <p class="tool-kicker">What it does</p>
+      <p class="tool-body">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
+      <p class="tool-kicker">Who uses it</p>
+      <p class="tool-body">Finance analysts, VC associates, students learning financial analysis, anyone evaluating a company.</p>
+      <p class="tool-kicker">End result</p>
+      <p class="tool-body">A rigorous analysis session guided by Munger&apos;s inversion framework.</p>
+      <div class="tool-tags">
+        <span class="tag">Streamlit</span><span class="tag">Groq LLaMA</span><span class="tag">Industry KPIs</span>
       </div>
     </a>
 
-    <a class="tool" href="https://longevitybro.lovable.app" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">Health AI &bull; Lovable</span>
-      <span class="tool-nm">LongevityBro</span>
-      <p class="tool-wh">What it does</p>
-      <p class="tool-desc">Evidence-based health screening using ADA and AHA guidelines. Diabetes risk, heart disease risk, VO2 max and lab marker interpretation. ML models trained on 13,000+ real patient records.</p>
-      <p class="tool-wh">Who uses it</p>
-      <p class="tool-desc">Anyone wanting to understand their health numbers beyond a standard test report.</p>
-      <p class="tool-wh">End result</p>
-      <p class="tool-desc">Risk scores, population percentile rankings, exercise zones and lifestyle recommendations from published research.</p>
-      <div class="tool-pills">
-        <span class="pill">React</span>
-        <span class="pill">Scikit-learn</span>
-        <span class="pill">Kaggle Data</span>
-        <span class="pill">ADA/AHA</span>
+    <a class="tool-c" href="https://longevitybro.lovable.app" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">Health AI &bull; Lovable</span>
+      <span class="tool-title">LongevityBro</span>
+      <p class="tool-kicker">What it does</p>
+      <p class="tool-body">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max and lab markers. ML models trained on 13,000+ real patient records.</p>
+      <p class="tool-kicker">Who uses it</p>
+      <p class="tool-body">Anyone wanting to understand their health numbers beyond a standard report.</p>
+      <p class="tool-kicker">End result</p>
+      <p class="tool-body">Risk scores, population percentiles and lifestyle recommendations from published research.</p>
+      <div class="tool-tags">
+        <span class="tag">React</span><span class="tag">Scikit-learn</span><span class="tag">ADA/AHA</span>
       </div>
     </a>
 
-    <a class="tool" href="https://huggingface.co/spaces/VenkateshSrinivasan/AMIObselete" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">Career AI &bull; Hugging Face</span>
-      <span class="tool-nm">Am I Obsolete?</span>
-      <p class="tool-wh">What it does</p>
-      <p class="tool-desc">Career risk analyser built on Anthropic's 2026 Labor Market Report. Enter your domain and skills — get a brutally honest assessment of your AI obsolescence risk.</p>
-      <p class="tool-wh">Who uses it</p>
-      <p class="tool-desc">Anyone in any profession wondering how AI will affect their career — from engineers to doctors to finance professionals.</p>
-      <p class="tool-wh">End result</p>
-      <p class="tool-desc">Obsolescence score, timeline, what AI does better than you and what to develop urgently.</p>
-      <div class="tool-pills">
-        <span class="pill">Streamlit</span>
-        <span class="pill">Groq LLaMA</span>
-        <span class="pill">Anthropic Research</span>
+    <a class="tool-c" href="https://huggingface.co/spaces/VenkyBaka/amIobsolete" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">Career AI &bull; Hugging Face</span>
+      <span class="tool-title">Am I Obsolete?</span>
+      <p class="tool-kicker">What it does</p>
+      <p class="tool-body">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Enter your domain and skills &mdash; get a brutally honest assessment of your AI obsolescence risk.</p>
+      <p class="tool-kicker">Who uses it</p>
+      <p class="tool-body">Anyone in any profession wondering how AI will affect their career.</p>
+      <p class="tool-kicker">End result</p>
+      <p class="tool-body">Obsolescence score, timeline and specific skills to develop urgently.</p>
+      <div class="tool-tags">
+        <span class="tag">Streamlit</span><span class="tag">Groq LLaMA</span><span class="tag">Anthropic Research</span>
       </div>
     </a>
 
-    <a class="tool" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">Writing &bull; Substack</span>
-      <span class="tool-nm">Writing</span>
-      <p class="tool-wh">What it covers</p>
-      <p class="tool-desc">Finance, machine learning, systems thinking and broader reflections on how the world works. First principles applied to everything.</p>
-      <p class="tool-wh">Who reads it</p>
-      <p class="tool-desc">People curious about the intersection of finance and technology. Those building and learning in public.</p>
-      <p class="tool-wh">Why it exists</p>
-      <p class="tool-desc">A minimal digital space to think out loud, document ideas and build in public — honest, unpolished, continuous.</p>
-      <div class="tool-pills">
-        <span class="pill">Finance</span>
-        <span class="pill">AI</span>
-        <span class="pill">Systems</span>
-        <span class="pill">Learning</span>
+    <a class="tool-c" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">Writing &bull; Substack</span>
+      <span class="tool-title">Writing</span>
+      <p class="tool-kicker">What it covers</p>
+      <p class="tool-body">Finance, machine learning, systems thinking and broader reflections on how the world works. First principles applied to everything.</p>
+      <p class="tool-kicker">Who reads it</p>
+      <p class="tool-body">People curious about the intersection of finance and technology. Those learning and building in public.</p>
+      <p class="tool-kicker">Why it exists</p>
+      <p class="tool-body">A minimal space to think out loud, document ideas and build in public &mdash; honest and continuous.</p>
+      <div class="tool-tags">
+        <span class="tag">Finance</span><span class="tag">AI</span><span class="tag">Systems</span>
       </div>
     </a>
 
-    <a class="tool" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="tool-tag">ML &bull; Hugging Face Profile</span>
-      <span class="tool-nm">ML Models &amp; Spaces</span>
-      <p class="tool-wh">What is here</p>
-      <p class="tool-desc">All deployed AI models and Streamlit apps — financial due diligence, health screening, career analysis and more. All open and accessible.</p>
-      <p class="tool-wh">Who uses it</p>
-      <p class="tool-desc">Anyone exploring AI-powered finance and health tools. Developers who want to see how the models work.</p>
-      <p class="tool-wh">End result</p>
-      <p class="tool-desc">A living portfolio of working AI applications — not prototypes, not demos. Shipped tools.</p>
-      <div class="tool-pills">
-        <span class="pill">Python</span>
-        <span class="pill">Scikit-learn</span>
-        <span class="pill">Groq</span>
-        <span class="pill">Streamlit</span>
+    <a class="tool-c" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
+      <span class="tool-arr">&#x2197;</span>
+      <span class="tool-cat">ML &bull; Hugging Face Profile</span>
+      <span class="tool-title">ML Models &amp; Spaces</span>
+      <p class="tool-kicker">What is here</p>
+      <p class="tool-body">All deployed AI models and Streamlit apps &mdash; financial due diligence, health screening, career analysis. All open and accessible.</p>
+      <p class="tool-kicker">Who uses it</p>
+      <p class="tool-body">Developers who want to see how the models work. Anyone exploring AI-powered finance and health tools.</p>
+      <p class="tool-kicker">End result</p>
+      <p class="tool-body">A living portfolio of working AI applications. Not prototypes &mdash; shipped tools.</p>
+      <div class="tool-tags">
+        <span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Groq</span>
       </div>
     </a>
 
   </div>
 </div>
 
-<!-- CONNECT -->
-<div class="section" id="connect">
-  <div class="section-marker">
-    <span class="section-num">03 &mdash; Connect</span>
-    <div class="section-bar"></div>
+<div class="sec" id="connect">
+  <div class="sec-label">
+    <span class="sec-num">03 &mdash; Connect</span>
+    <div class="sec-rule"></div>
   </div>
-  <div class="connect-grid">
-    <h2 class="connect-big">
+  <div class="connect-layout">
+    <h2 class="connect-display">
       Let us build<br>
       something<br>
       <em>interesting.</em>
     </h2>
-    <div class="c-links">
+    <div class="c-list">
       <a class="c-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
         <div class="c-left">
-          <span class="c-label">Professional</span>
-          <span class="c-name">LinkedIn</span>
+          <span class="c-lbl">Professional</span>
+          <span class="c-nm">LinkedIn</span>
         </div>
         <span class="c-arr">&#x2197;</span>
       </a>
       <a class="c-row" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
         <div class="c-left">
-          <span class="c-label">AI &amp; ML</span>
-          <span class="c-name">Hugging Face</span>
+          <span class="c-lbl">AI &amp; ML</span>
+          <span class="c-nm">Hugging Face</span>
         </div>
         <span class="c-arr">&#x2197;</span>
       </a>
       <a class="c-row" href="https://github.com/Venkatesh-kurosaki" target="_blank">
         <div class="c-left">
-          <span class="c-label">Code</span>
-          <span class="c-name">GitHub</span>
+          <span class="c-lbl">Code</span>
+          <span class="c-nm">GitHub</span>
         </div>
         <span class="c-arr">&#x2197;</span>
       </a>
       <a class="c-row" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
         <div class="c-left">
-          <span class="c-label">Writing</span>
-          <span class="c-name">Substack</span>
+          <span class="c-lbl">Writing</span>
+          <span class="c-nm">Substack</span>
         </div>
         <span class="c-arr">&#x2197;</span>
       </a>
@@ -854,24 +639,5 @@ footer {
   <span class="ft">Bengaluru, India &mdash; Built with curiosity</span>
 </footer>
 
-<script>
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  cursor.style.left=mx+'px';
-  cursor.style.top=my+'px';
-});
-(function loop(){
-  rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
-  requestAnimationFrame(loop);
-})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.classList.add('hover');ring.classList.add('hover');});
-  el.addEventListener('mouseleave',()=>{cursor.classList.remove('hover');ring.classList.remove('hover');});
-});
-</script>
 </body>
 </html>
