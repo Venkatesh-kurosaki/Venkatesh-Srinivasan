@@ -4,24 +4,136 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<title>Venkatesh</title>
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#0a0906;
-  --ink:#ede8df;
-  --dim:#6e6860;
-  --line:rgba(237,232,223,0.08);
-  --warm:#c4a882;
-  --mid:#141210;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;
+
+:root {
+  --bg: #0a0906;
+  --ink: #ede8df;
+  --dim: #6e6860;
+  --warm: #c4a882;
 }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+/* 🔥 FLUID BACKGROUND */
+.gradient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  filter: blur(80px);
+}
+
+/* blobs */
+.blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: float 20s infinite ease-in-out;
+}
+
+/* different gradient blobs */
+.blob1 {
+  background: radial-gradient(circle, #c4a882, transparent 60%);
+  top: 10%;
+  left: 10%;
+}
+
+.blob2 {
+  background: radial-gradient(circle, #3a2f1f, transparent 60%);
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 5s;
+}
+
+.blob3 {
+  background: radial-gradient(circle, #6e6860, transparent 60%);
+  top: 50%;
+  left: 50%;
+  animation-delay: 10s;
+}
+
+/* animation */
+@keyframes float {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(100px, -80px) scale(1.2); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+/* content */
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: var(--dim);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* subtle glass effect */
+.card {
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 fluid gradient layer -->
+<div class="gradient-bg">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h1>Venkatesh</h1>
+    <p>
+      Finance, fitness, and systems thinking.
+      Building models, writing ideas, and exploring modern digital ownership.
+    </p>
+  </div>
+</div>
 
 /* CUSTOM CURSOR */
 .cur{
