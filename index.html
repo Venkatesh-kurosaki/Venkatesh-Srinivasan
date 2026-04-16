@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="./style.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
   --bg:#0a0a0a;
   --fg:#ede8e0;
@@ -16,17 +14,14 @@
   --warm:#c4aa88;
   --line:rgba(237,232,224,0.08);
 }
-
 html{scroll-behavior:smooth;}
-
 body{
   background:var(--bg);
   color:var(--fg);
   font-family:'DM Sans',sans-serif;
   overflow-x:hidden;
 }
-<style>
-
+ 
 /* CURSOR */
 .cur{
   position:fixed;
@@ -49,7 +44,7 @@ body{
   transform:translate(-50%,-50%);
   transition:all 0.2s ease;
 }
-
+ 
 /* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;
@@ -70,7 +65,7 @@ nav{
   text-decoration:none;transition:color 0.2s;
 }
 .n-links a:hover{color:var(--fg);}
-
+ 
 /* HERO */
 .hero{
   min-height:100vh;
@@ -79,13 +74,13 @@ nav{
   padding:7rem 3.5rem 5rem;
   position:relative;overflow:hidden;
 }
-
+ 
 /* Morphing word animation */
 .morph-wrap{
   margin-bottom:1.5rem;
   overflow:hidden;
 }
-
+ 
 .hero-pre{
   font-family:'Space Mono',monospace;
   font-size:0.58rem;letter-spacing:0.22em;
@@ -93,7 +88,7 @@ nav{
   margin-bottom:2rem;
   opacity:0;animation:fadeUp 0.6s ease forwards 0.2s;
 }
-
+ 
 .hero-h{
   font-family:'DM Serif Display',serif;
   font-size:clamp(4.5rem,10vw,9rem);
@@ -104,7 +99,7 @@ nav{
   margin-bottom:0;
   overflow:hidden;
 }
-
+ 
 .hero-h .line{
   display:block;
   opacity:0;
@@ -114,14 +109,14 @@ nav{
 .hero-h .line:nth-child(1){animation-delay:0.3s;}
 .hero-h .line:nth-child(2){animation-delay:0.45s;}
 .hero-h .line:nth-child(3){animation-delay:0.6s;}
-
+ 
 .hero-h .word-swap{
   display:inline-block;
   font-style:italic;
   color:var(--warm);
   position:relative;
 }
-
+ 
 .hero-mid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -131,7 +126,7 @@ nav{
   opacity:0;
   animation:fadeUp 0.7s ease forwards 1s;
 }
-
+ 
 .hero-desc{
   font-size:1.05rem;
   font-weight:300;
@@ -140,7 +135,7 @@ nav{
   max-width:28rem;
 }
 .hero-desc strong{color:var(--fg);font-weight:400;}
-
+ 
 .hero-tags{
   display:flex;flex-direction:column;gap:0;
 }
@@ -155,7 +150,7 @@ nav{
   font-size:0.5rem;letter-spacing:0.1em;
   text-transform:uppercase;color:var(--muted);
 }
-
+ 
 .hero-foot{
   margin-top:4rem;
   display:flex;gap:1.5rem;align-items:center;
@@ -175,7 +170,7 @@ nav{
   color:var(--muted);text-decoration:none;transition:color 0.2s;
 }
 .btn-sec:hover{color:var(--fg);}
-
+ 
 /* SCROLL INDICATOR */
 .scroll-ind{
   position:absolute;bottom:3rem;left:50%;
@@ -199,6 +194,14 @@ nav{
   text-transform:uppercase;color:var(--muted);
   writing-mode:vertical-rl;
 }
+ 
+/* ABOUT */
+.about{
+  padding:10rem 3.5rem;
+  border-top:0.5px solid var(--line);
+  max-width:1380px;margin:0 auto;
+}
+
 
 /* ABOUT */
 .about{
