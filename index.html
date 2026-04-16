@@ -3,196 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venkatesh Srinivasan | Dark Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg: #050505;
-            --fg: #ffffff;
-            --warm: #c4aa88;
-            --muted: #666;
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: var(--bg);
-            color: var(--fg);
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scrollbar */
-        }
-
-        /* Netflix Guide Navigation */
-        nav {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            padding: 2rem 3.5rem;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            mix-blend-mode: difference;
-        }
-
-        .n-logo { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
-
-        /* Horizontal Container */
-        .container {
-            display: flex;
-            width: 400vw; /* 4 sections = 400% width */
-            height: 100vh;
-        }
-
-        section {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            border-right: 1px solid var(--border);
-            position: relative;
-        }
-
-        /* Typography Styling */
-        h1, h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(3rem, 8vw, 7rem);
-            line-height: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .section-num {
-            position: absolute;
-            top: 20%;
-            left: 5%;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--warm);
-        }
-
-        p { max-width: 500px; color: var(--muted); line-height: 1.6; font-size: 1.1rem; }
-        em { color: var(--warm); font-style: italic; }
-
-        /* Work Grid inside Horizontal Section */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 3rem;
-            width: 80vw;
-        }
-
-        .card {
-            border: 1px solid var(--border);
-            padding: 2rem;
-            text-decoration: none;
-            color: var(--fg);
-            transition: background 0.3s;
-        }
-
-        .card:hover { background: #111; border-color: var(--warm); }
-
-        .card h3 { font-family: 'DM Serif Display', serif; margin-bottom: 0.5rem; }
-        .card span { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--warm); }
-
-        /* Footer / Progress Indicator */
-        .progress-bar {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 2px;
-            background: var(--border);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--warm);
-            width: 0%;
-        }
-
-        @media (max-width: 768px) {
-            .container { width: 100%; height: auto; flex-direction: column; }
-            section { width: 100%; height: auto; padding: 100px 20px; border-right: none; border-bottom: 1px solid var(--border); }
-            .work-grid { grid-template-columns: 1fr; width: 100%; }
-        }
-    </style>
+    <title>Venkatesh Srinivasan | Strategic Orchestrator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav>
-        <div class="n-logo">Venkatesh Srinivasan</div>
-        <div class="n-logo">Scroll to Explore</div>
-    </nav>
-
-    <div class="progress-bar"><div class="progress-fill"></div></div>
-
-    <div class="container">
-        <section id="hero">
-            <span class="section-num">// 00</span>
-            <h1>I tinker.<br>I explore.<br>I <em>build.</em></h1>
-            <p>Chartered Accountant &middot; Builder &middot; Finance Enthusiast.</p>
-        </section>
-
-        <section id="about">
-            <span class="section-num">// 01</span>
-            <h2>Finance,<br>Structured.</h2>
-            <p>At heart, I am a learner. Exploring machine learning applications in finance to build models that make analysis sharper.</p>
-        </section>
-
-        <section id="work">
-            <span class="section-num">// 02</span>
-            <h2>Shipped Tools.</h2>
-            <div class="work-grid">
-                <a href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" class="card" target="_blank">
-                    <span>FINANCE AI</span>
-                    <h3>FDD AI Toolkit</h3>
-                </a>
-                <a href="https://longevitybro.lovable.app" class="card" target="_blank">
-                    <span>HEALTH AI</span>
-                    <h3>LongevityBro</h3>
-                </a>
-                <a href="https://substack.com/@venkateshsrinivasann23" class="card" target="_blank">
-                    <span>WRITING</span>
-                    <h3>Substack</h3>
-                </a>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">VS.</div>
+            <nav>
+                <a href="#hero" class="nav-link">Perspective</a>
+                <a href="#work" class="nav-link">Inventory</a>
+                <a href="#ami" class="nav-link">AMIObselete</a>
+                <a href="#roadmap" class="nav-link">The Roadmap</a>
+                <a href="#connect" class="nav-link">Interface</a>
+            </nav>
+            <div class="status-indicator">
+                <span class="pulse"></span> System Status: Building
             </div>
-        </section>
+        </aside>
 
-        <section id="connect">
-            <span class="section-num">// 03</span>
-            <h2>Let's build<br>something <em>new.</em></h2>
-            <p>Reach out via <a href="#" style="color: var(--warm);">LinkedIn</a> or <a href="#" style="color: var(--warm);">GitHub</a>.</p>
-        </section>
+        <main class="content">
+            <section id="hero" class="hero-minimal">
+                <span class="label">Observed Exposure: 75% (Computer Programming)</span>
+                <h1>Beyond the <br> Baseline.</h1>
+                <p class="subtext">Chartered Accountant bridging the gap between financial rigour and machine intelligence.</p>
+            </section>
+
+            <section id="ami" class="ami-module">
+                <div class="ami-header">
+                    <span class="label">Diagnostic Space</span>
+                    <h2>AMIObselete</h2>
+                    <p>Built to interpret Anthropic's Labour Market Reports into actionable career pivots.</p>
+                </div>
+                
+                <div class="diagnostic-grid">
+                    <div class="diag-card build">
+                        <h4>WHAT TO BUILD</h4>
+                        <ul>
+                            <li><strong>AI Harnesses:</strong> Domain-specific wrappers for high-stakes financial workflows.</li>
+                            <li><strong>Judgment Layers:</strong> Systems designed for human-in-the-loop validation.</li>
+                        </ul>
+                    </div>
+                    <div class="diag-card shed">
+                        <h4>WHAT TO SHED</h4>
+                        <ul>
+                            <li><strong>Syntactic Coding:</strong> Pure generation without architectural intent.</li>
+                            <li><strong>Routine Synthesis:</strong> Standardized data extraction and financial summaries.</li>
+                        </ul>
+                    </div>
+                    <div class="diag-card timeline">
+                        <h4>THE TIMELINE</h4>
+                        <p><strong>6–12 Months:</strong> Transition from "Author" to "Editor" for code-heavy tasks.</p>
+                        <p><strong>2026-2030:</strong> Deep integration of "Directive" AI in professional services.</p>
+                    </div>
+                </div>
+                <a href="https://huggingface.co/spaces/VenkateshSrinivasan/AMIObselete" class="cta-button" target="_blank">Launch Diagnostic Space</a>
+            </section>
+
+            <section id="work" class="bento-container">
+                <div class="bento-item tall">
+                    <span class="category">Financial Intelligence</span>
+                    <h3>FDD AI Toolkit</h3>
+                    <p>Scaling scalable oversight for Due Diligence.</p>
+                    <a href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" class="arrow-link">→</a>
+                </div>
+                <div class="bento-item wide">
+                    <span class="category">Agentic Workflows</span>
+                    <h3>LongevityBro</h3>
+                    <p>Personalized health-span data orchestration.</p>
+                    <a href="https://longevitybro.lovable.app" class="arrow-link">→</a>
+                </div>
+            </section>
+
+            <section id="connect" class="minimal-footer">
+                <span class="label">Ready to interface</span>
+                <h2>Let's build the <br> <em>Capability</em>.</h2>
+                <div class="social-links">
+                    <a href="https://github.com/venkatesh-srinivasan">GitHub</a>
+                    <a href="https://www.linkedin.com/in/venkatesh-s-001/">LinkedIn</a>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        let sections = gsap.utils.toArray("section");
-
-        // Horizontal Scroll Animation
-        gsap.to(sections, {
-            xPercent: -100 * (sections.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".container",
-                pin: true,
-                scrub: 1,
-                snap: 1 / (sections.length - 1),
-                end: () => "+=" + document.querySelector(".container").offsetWidth,
-                onUpdate: (self) => {
-                    // Updates the progress bar at the bottom
-                    gsap.to(".progress-fill", { width: self.progress * 100 + "%", duration: 0.1 });
-                }
-            }
-        });
-    </script>
 </body>
 </html>
