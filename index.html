@@ -7,21 +7,20 @@
 <title>Venkatesh Srinivasan</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0a0a0a;
-  --fg:#ede8e0;
-  --muted:#6b6560;
-  --warm:#c4aa88;
-  --line:rgba(237,232,224,0.08);
+  --bg:#000000;                 /* true black base */
+  --bg-soft:#0a0a0a;            /* layer 1 */
+  --bg-elev:#111111;            /* layer 2 */
+
+  --fg:#e6e6e6;                 /* main text */
+  --fg-dim:#8a8a8a;             /* secondary */
+
+  --line:rgba(255,255,255,0.08);
+  --glass:rgba(255,255,255,0.03);
 }
+
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--fg);
-  font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;
-}
+</style>
 
 /* CURSOR */
 .cur{
