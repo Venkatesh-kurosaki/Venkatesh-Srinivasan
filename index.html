@@ -1,6 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+body {
+  background: #0b0b0c;
+  color: #e8e8e8;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* 🔥 BACKGROUND IMAGE */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
+    url("./images/Oni%20vs%20Samurai%20cyber%20duel.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+/* NAV GLASS */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  padding: 10px 24px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TEXT EFFECT */
+.hero h1 {
+  font-size: 3rem;
+
+  background: linear-gradient(90deg, #fff, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* LINKS */
+.links {
+  margin-top: 40px;
+  width: 300px;
+}
+
+.link {
+  display: block;
+  padding: 16px;
+  margin-bottom: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.1);
+}
+
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
