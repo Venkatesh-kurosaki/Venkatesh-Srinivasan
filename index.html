@@ -1,92 +1,761 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venkatesh Srinivasan | Strategic Orchestrator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800&family=Space+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venkatesh Srinivasan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0a;
+  --fg:#ede8e0;
+  --muted:#6b6560;
+  --warm:#c4aa88;
+  --line:rgba(237,232,224,0.08);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+
+/* CURSOR */
+.cur{
+  position:fixed;
+  width:8px;height:8px;
+  background:var(--fg);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:transform 0.15s;
+}
+.cur-f{
+  position:fixed;
+  width:36px;height:36px;
+  border:0.5px solid rgba(237,232,224,0.2);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all 0.2s ease;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.75rem 3.5rem;
+}
+.n-logo{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.18em;
+  color:var(--muted);text-transform:uppercase;
+}
+.n-links{display:flex;gap:2.5rem;list-style:none;}
+.n-links a{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color 0.2s;
+}
+.n-links a:hover{color:var(--fg);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:7rem 3.5rem 5rem;
+  position:relative;overflow:hidden;
+}
+
+/* Morphing word animation */
+.morph-wrap{
+  margin-bottom:1.5rem;
+  overflow:hidden;
+}
+
+.hero-pre{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--warm);
+  margin-bottom:2rem;
+  opacity:0;animation:fadeUp 0.6s ease forwards 0.2s;
+}
+
+.hero-h{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(4.5rem,10vw,9rem);
+  font-weight:400;
+  line-height:0.92;
+  letter-spacing:-0.025em;
+  color:var(--fg);
+  margin-bottom:0;
+  overflow:hidden;
+}
+
+.hero-h .line{
+  display:block;
+  opacity:0;
+  transform:translateY(100%);
+  animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hero-h .line:nth-child(1){animation-delay:0.3s;}
+.hero-h .line:nth-child(2){animation-delay:0.45s;}
+.hero-h .line:nth-child(3){animation-delay:0.6s;}
+
+.hero-h .word-swap{
+  display:inline-block;
+  font-style:italic;
+  color:var(--warm);
+  position:relative;
+}
+
+.hero-mid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  margin-top:4rem;
+  align-items:start;
+  opacity:0;
+  animation:fadeUp 0.7s ease forwards 1s;
+}
+
+.hero-desc{
+  font-size:1.05rem;
+  font-weight:300;
+  line-height:1.85;
+  color:var(--muted);
+  max-width:28rem;
+}
+.hero-desc strong{color:var(--fg);font-weight:400;}
+
+.hero-tags{
+  display:flex;flex-direction:column;gap:0;
+}
+.h-tag{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.8rem 0;border-bottom:0.5px solid var(--line);
+  font-size:0.88rem;color:var(--fg);font-weight:400;
+}
+.h-tag:first-child{border-top:0.5px solid var(--line);}
+.h-tag-n{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+.hero-foot{
+  margin-top:4rem;
+  display:flex;gap:1.5rem;align-items:center;
+  opacity:0;animation:fadeUp 0.7s ease forwards 1.2s;
+}
+.btn-main{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.85rem 2rem;border-radius:100px;
+  text-decoration:none;transition:all 0.25s;
+  background:var(--fg);color:var(--bg);
+}
+.btn-main:hover{background:var(--warm);}
+.btn-sec{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color 0.2s;
+}
+.btn-sec:hover{color:var(--fg);}
+
+/* SCROLL INDICATOR */
+.scroll-ind{
+  position:absolute;bottom:3rem;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.75rem;
+  opacity:0;animation:fadeUp 0.7s ease forwards 1.5s;
+}
+.scroll-track{
+  width:0.5px;height:4rem;
+  background:var(--line);position:relative;overflow:hidden;
+}
+.scroll-track::after{
+  content:'';position:absolute;
+  top:-100%;left:0;right:0;height:100%;
+  background:var(--warm);
+  animation:scrollDrop 2s ease-in-out infinite 2s;
+}
+.scroll-lbl{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  writing-mode:vertical-rl;
+}
+
+/* ABOUT */
+.about{
+  padding:10rem 3.5rem;
+  border-top:0.5px solid var(--line);
+  max-width:1380px;margin:0 auto;
+}
+
+.s-marker{
+  display:flex;align-items:center;gap:1.25rem;
+  margin-bottom:6rem;
+}
+.s-num{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--warm);
+}
+.s-bar{width:3.5rem;height:0.5px;background:var(--muted);}
+
+.about-wrap{
+  display:grid;grid-template-columns:1.15fr 1fr;
+  gap:8rem;
+}
+
+.a-big{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,3.8vw,3.4rem);
+  font-weight:400;line-height:1.12;
+  letter-spacing:-0.015em;
+  margin-bottom:3rem;
+}
+.a-big em{font-style:italic;color:var(--warm);}
+
+.a-p{
+  font-size:0.97rem;font-weight:300;
+  line-height:1.95;color:var(--muted);
+  margin-bottom:1.2rem;
+}
+.a-p strong{color:var(--fg);font-weight:400;}
+
+.gita-block{
+  margin-top:2.5rem;
+  padding:1.5rem 0 1.5rem 1.5rem;
+  border-left:1.5px solid var(--warm);
+}
+.gita-q{
+  font-family:'DM Serif Display',serif;
+  font-size:1.05rem;font-style:italic;
+  color:var(--warm);line-height:1.7;
+  margin-bottom:0.5rem;
+}
+.gita-r{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+.a-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--line);
+  margin-bottom:3rem;
+}
+.a-stat{background:var(--bg);padding:1.5rem 1.25rem;}
+.a-sn{
+  font-family:'DM Serif Display',serif;
+  font-size:2.8rem;color:var(--fg);
+  margin-bottom:0.25rem;
+}
+.a-sl{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+.int-rows{display:flex;flex-direction:column;}
+.ir{
+  display:flex;align-items:center;gap:1rem;
+  padding:0.85rem 0;border-bottom:0.5px solid var(--line);
+}
+.ir:first-child{border-top:0.5px solid var(--line);}
+.ir-d{width:3px;height:3px;border-radius:50%;background:var(--warm);flex-shrink:0;}
+.ir-t{font-size:0.9rem;font-weight:400;color:var(--fg);flex:1;}
+.ir-s{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;
+}
+
+/* WORK */
+.work{
+  padding:0 3.5rem 10rem;
+  border-top:0.5px solid var(--line);
+  padding-top:8rem;
+  max-width:1380px;margin:0 auto;
+}
+
+.w-head{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:end;margin-bottom:5rem;
+}
+.w-h{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,3.5vw,3.2rem);
+  font-weight:400;line-height:1.1;
+  letter-spacing:-0.015em;
+}
+.w-sub{
+  font-size:0.95rem;font-weight:300;
+  line-height:1.8;color:var(--muted);
+}
+
+.w-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
+}
+
+.w-card{
+  background:var(--bg);padding:2.25rem;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:0.7rem;
+  position:relative;transition:background 0.25s;
+}
+.w-card:hover{background:#111;}
+.w-card:hover .w-title{color:var(--warm);}
+.w-card:hover .w-arr{transform:translate(3px,-3px);color:var(--fg);}
+
+.w-arr{
+  position:absolute;top:2.25rem;right:2.25rem;
+  font-size:0.85rem;color:var(--muted);transition:all 0.2s;
+}
+.w-cat{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--warm);
+}
+.w-title{
+  font-family:'DM Serif Display',serif;
+  font-size:1.2rem;font-weight:400;
+  color:var(--fg);letter-spacing:-0.01em;
+  padding-right:2rem;transition:color 0.2s;
+}
+.w-kicker{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--warm);
+  margin-top:0.2rem;
+}
+.w-body{
+  font-size:0.78rem;font-weight:300;
+  line-height:1.7;color:var(--muted);
+}
+.w-pills{
+  display:flex;flex-wrap:wrap;gap:0.3rem;
+  margin-top:auto;padding-top:1rem;
+  border-top:0.5px solid var(--line);
+}
+.w-pill{
+  font-family:'Space Mono',monospace;
+  font-size:0.46rem;letter-spacing:0.07em;
+  text-transform:uppercase;color:var(--muted);
+  padding:0.15rem 0.45rem;
+  border:0.5px solid var(--line);border-radius:100px;
+}
+
+/* CONNECT */
+.connect{
+  padding:8rem 3.5rem;
+  border-top:0.5px solid var(--line);
+  max-width:1380px;margin:0 auto;
+}
+
+.c-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:8rem;align-items:center;
+}
+
+.c-big{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.8rem,5.5vw,5rem);
+  font-weight:400;line-height:1;
+  letter-spacing:-0.025em;
+}
+.c-big em{font-style:italic;color:var(--warm);}
+
+.c-rows{display:flex;flex-direction:column;}
+.c-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.35rem 0;border-bottom:0.5px solid var(--line);
+  text-decoration:none;color:inherit;transition:all 0.2s;
+}
+.c-row:first-child{border-top:0.5px solid var(--line);}
+.c-row:hover .c-name{color:var(--warm);}
+.c-row:hover .c-arrow{transform:translate(3px,-3px);color:var(--warm);}
+.c-left{display:flex;flex-direction:column;gap:0.15rem;}
+.c-lbl{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+.c-name{
+  font-family:'DM Serif Display',serif;
+  font-size:1.15rem;font-weight:400;
+  color:var(--fg);transition:color 0.2s;
+}
+.c-arrow{font-size:0.85rem;color:var(--muted);transition:all 0.2s;}
+
+footer{
+  padding:2.25rem 3.5rem;
+  border-top:0.5px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1380px;margin:0 auto;
+}
+.ft{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(100%);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes scrollDrop{
+  0%{top:-100%;}
+  100%{top:100%;}
+}
+
+/* Word cycling animation */
+.w-cycle{
+  display:inline-block;
+  font-style:italic;
+  color:var(--warm);
+  position:relative;
+  min-width:6ch;
+}
+
+@media(max-width:900px){
+  nav{padding:1.25rem 1.5rem;}
+  .n-links{gap:1.5rem;}
+  .hero{padding:7rem 1.5rem 5rem;}
+  .hero-mid{grid-template-columns:1fr;gap:2.5rem;}
+  .about,.work,.connect{padding-left:1.5rem;padding-right:1.5rem;}
+  .about-wrap,.w-head,.c-layout{grid-template-columns:1fr;gap:3rem;}
+  .w-grid{grid-template-columns:1fr;}
+  footer{padding:2rem 1.5rem;flex-direction:column;gap:0.75rem;text-align:center;}
+}
+</style>
 </head>
 <body>
 
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="logo">VS.</div>
-            <nav>
-                <a href="#hero" class="nav-link">Perspective</a>
-                <a href="#work" class="nav-link">Inventory</a>
-                <a href="#ami" class="nav-link">AMIObselete</a>
-                <a href="#roadmap" class="nav-link">The Roadmap</a>
-                <a href="#connect" class="nav-link">Interface</a>
-            </nav>
-            <div class="status-indicator">
-                <span class="pulse"></span> System Status: Building
-            </div>
-        </aside>
+<div class="cur" id="cur"></div>
+<div class="cur-f" id="curf"></div>
 
-        <main class="content">
-            <section id="hero" class="hero-minimal">
-                <span class="label">Observed Exposure: 75% (Computer Programming)</span>
-                <h1>Beyond the <br> Baseline.</h1>
-                <p class="subtext">Chartered Accountant bridging the gap between financial rigour and machine intelligence.</p>
-            </section>
+<nav>
+  <span class="n-logo">Venkatesh Srinivasan</span>
+  <ul class="n-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
 
-            <section id="ami" class="ami-module">
-                <div class="ami-header">
-                    <span class="label">Diagnostic Space</span>
-                    <h2>AMIObselete</h2>
-                    <p>Built to interpret Anthropic's Labour Market Reports into actionable career pivots.</p>
-                </div>
-                
-                <div class="diagnostic-grid">
-                    <div class="diag-card build">
-                        <h4>WHAT TO BUILD</h4>
-                        <ul>
-                            <li><strong>AI Harnesses:</strong> Domain-specific wrappers for high-stakes financial workflows.</li>
-                            <li><strong>Judgment Layers:</strong> Systems designed for human-in-the-loop validation.</li>
-                        </ul>
-                    </div>
-                    <div class="diag-card shed">
-                        <h4>WHAT TO SHED</h4>
-                        <ul>
-                            <li><strong>Syntactic Coding:</strong> Pure generation without architectural intent.</li>
-                            <li><strong>Routine Synthesis:</strong> Standardized data extraction and financial summaries.</li>
-                        </ul>
-                    </div>
-                    <div class="diag-card timeline">
-                        <h4>THE TIMELINE</h4>
-                        <p><strong>6–12 Months:</strong> Transition from "Author" to "Editor" for code-heavy tasks.</p>
-                        <p><strong>2026-2030:</strong> Deep integration of "Directive" AI in professional services.</p>
-                    </div>
-                </div>
-                <a href="https://huggingface.co/spaces/VenkateshSrinivasan/AMIObselete" class="cta-button" target="_blank">Launch Diagnostic Space</a>
-            </section>
-
-            <section id="work" class="bento-container">
-                <div class="bento-item tall">
-                    <span class="category">Financial Intelligence</span>
-                    <h3>FDD AI Toolkit</h3>
-                    <p>Scaling scalable oversight for Due Diligence.</p>
-                    <a href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" class="arrow-link">→</a>
-                </div>
-                <div class="bento-item wide">
-                    <span class="category">Agentic Workflows</span>
-                    <h3>LongevityBro</h3>
-                    <p>Personalized health-span data orchestration.</p>
-                    <a href="https://longevitybro.lovable.app" class="arrow-link">→</a>
-                </div>
-            </section>
-
-            <section id="connect" class="minimal-footer">
-                <span class="label">Ready to interface</span>
-                <h2>Let's build the <br> <em>Capability</em>.</h2>
-                <div class="social-links">
-                    <a href="https://github.com/venkatesh-srinivasan">GitHub</a>
-                    <a href="https://www.linkedin.com/in/venkatesh-s-001/">LinkedIn</a>
-                </div>
-            </section>
-        </main>
+<div class="hero">
+  <p class="hero-pre">Chartered Accountant &nbsp;&middot;&nbsp; Builder &nbsp;&middot;&nbsp; Bengaluru</p>
+  <h1 class="hero-h">
+    <span class="line">I tinker.</span>
+    <span class="line">I explore.</span>
+    <span class="line">I <span class="w-cycle" id="wc">build.</span></span>
+  </h1>
+  <div class="hero-mid">
+    <p class="hero-desc">
+      By profession, I work in <strong>finance</strong> &mdash; audit, financial due diligence and data-driven analysis.<br><br>
+      At heart, I am a <strong>learner</strong>. Curious about everything. Currently funmaxxing. Everything is in the process.
+    </p>
+    <div class="hero-tags">
+      <div class="h-tag">
+        <span>Finance &amp; Due Diligence</span>
+        <span class="h-tag-n">Domain</span>
+      </div>
+      <div class="h-tag">
+        <span>Machine Learning</span>
+        <span class="h-tag-n">Exploring</span>
+      </div>
+      <div class="h-tag">
+        <span>First Principles</span>
+        <span class="h-tag-n">Thinking</span>
+      </div>
+      <div class="h-tag">
+        <span>In the process</span>
+        <span class="h-tag-n">Status</span>
+      </div>
     </div>
+  </div>
+  <div class="hero-foot">
+    <a href="#work" class="btn-main">See my work</a>
+    <a href="#connect" class="btn-sec">Get in touch &rarr;</a>
+  </div>
+  <div class="scroll-ind">
+    <div class="scroll-track"></div>
+    <span class="scroll-lbl">Scroll</span>
+  </div>
+</div>
+
+<div class="about" id="about">
+  <div class="s-marker">
+    <span class="s-num">01 &mdash; About</span>
+    <div class="s-bar"></div>
+  </div>
+  <div class="about-wrap">
+    <div>
+      <h2 class="a-big">
+        Finance, structured<br>
+        thinking, and a mind<br>
+        that <em>never stops.</em>
+      </h2>
+      <p class="a-p">I work in the <strong>finance domain</strong> &mdash; across audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking, whether that means breaking down complex financial systems or building models to extract insight from data.</p>
+      <p class="a-p">Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning applications in finance &mdash; predictive modelling, decision frameworks and tools that make financial analysis sharper and faster.</p>
+      <p class="a-p">I value <strong>clarity, discipline and continuous improvement</strong>. I train consistently &mdash; exercise is how I stay grounded. I am also building a minimal digital space to write, think and document ideas.</p>
+      <div class="gita-block">
+        <p class="gita-q">&ldquo;You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.&rdquo;</p>
+        <p class="gita-r">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
+      </div>
+    </div>
+    <div>
+      <div class="a-stats">
+        <div class="a-stat">
+          <div class="a-sn">CA</div>
+          <div class="a-sl">Qualified</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sn">5+</div>
+          <div class="a-sl">AI Tools Shipped</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sn">87%</div>
+          <div class="a-sl">ML Accuracy</div>
+        </div>
+        <div class="a-stat">
+          <div class="a-sn">&infin;</div>
+          <div class="a-sl">Left to Explore</div>
+        </div>
+      </div>
+      <div class="int-rows">
+        <div class="ir"><div class="ir-d"></div><span class="ir-t">Finance &amp; Due Diligence</span><span class="ir-s">CA background</span></div>
+        <div class="ir"><div class="ir-d"></div><span class="ir-t">Machine Learning in Finance</span><span class="ir-s">Actively building</span></div>
+        <div class="ir"><div class="ir-d"></div><span class="ir-t">Exercise &amp; Fitness</span><span class="ir-s">Daily discipline</span></div>
+        <div class="ir"><div class="ir-d"></div><span class="ir-t">Writing &amp; Systems Thinking</span><span class="ir-s">Substack</span></div>
+        <div class="ir"><div class="ir-d"></div><span class="ir-t">Anime &amp; Philosophy</span><span class="ir-s">Always</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="work" id="work">
+  <div class="s-marker">
+    <span class="s-num">02 &mdash; Work &amp; Tools</span>
+    <div class="s-bar"></div>
+  </div>
+  <div class="w-head">
+    <h2 class="w-h">Things I have<br>built and shipped.</h2>
+    <p class="w-sub">Every tool here was built to solve a real problem &mdash; for myself or for anyone who needs it. Finance meets AI, shipped in public.</p>
+  </div>
+  <div class="w-grid">
+
+    <a class="w-card" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Finance AI &bull; Hugging Face</span>
+      <span class="w-title">FDD AI Toolkit</span>
+      <p class="w-kicker">What it does</p>
+      <p class="w-body">AI-powered Financial Due Diligence &mdash; Quality of Earnings, working capital, debt structuring and deal considerations. Graham, Buffett and Munger frameworks.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">Red flag scoring and an IC memo from your financial data.</p>
+      <div class="w-pills"><span class="w-pill">Streamlit</span><span class="w-pill">Groq LLaMA</span><span class="w-pill">Pandas</span></div>
+    </a>
+
+    <a class="w-card" href="https://huggingface.co/spaces/VenkyBaka/VenkyDoesDD" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Finance AI &bull; Hugging Face</span>
+      <span class="w-title">VenkyDoesDD</span>
+      <p class="w-kicker">What it does</p>
+      <p class="w-body">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">Finance analysts, VC associates, anyone evaluating a company or investment.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">Rigorous analysis guided by Munger&apos;s inversion framework.</p>
+      <div class="w-pills"><span class="w-pill">Streamlit</span><span class="w-pill">Groq LLaMA</span><span class="w-pill">Industry KPIs</span></div>
+    </a>
+
+    <a class="w-card" href="https://longevitybro.lovable.app" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Health AI &bull; Lovable</span>
+      <span class="w-title">LongevityBro</span>
+      <p class="w-kicker">What it does</p>
+      <p class="w-body">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max and lab markers. Trained on 13,000+ real patient records.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">Anyone wanting to understand their health numbers beyond a standard report.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">Risk scores, percentiles and lifestyle recommendations from published research.</p>
+      <div class="w-pills"><span class="w-pill">React</span><span class="w-pill">Scikit-learn</span><span class="w-pill">ADA/AHA</span></div>
+    </a>
+
+    <a class="w-card" href="https://huggingface.co/spaces/VenkyBaka/amIobsolete" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Career AI &bull; Hugging Face</span>
+      <span class="w-title">Am I Obsolete?</span>
+      <p class="w-kicker">What it does</p>
+      <p class="w-body">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Brutally honest assessment of your AI obsolescence risk.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">Anyone in any profession wondering how AI will affect their career.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">Obsolescence score, timeline and skills to develop urgently.</p>
+      <div class="w-pills"><span class="w-pill">Streamlit</span><span class="w-pill">Groq LLaMA</span><span class="w-pill">Anthropic Research</span></div>
+    </a>
+
+    <a class="w-card" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Writing &bull; Substack</span>
+      <span class="w-title">Writing</span>
+      <p class="w-kicker">What it covers</p>
+      <p class="w-body">Finance, machine learning, systems thinking and broader reflections. First principles applied to everything.</p>
+      <p class="w-kicker">Who reads it</p>
+      <p class="w-body">People curious about finance and technology. Those learning and building in public.</p>
+      <p class="w-kicker">Why it exists</p>
+      <p class="w-body">A minimal space to think out loud and document ideas &mdash; honest and continuous.</p>
+      <div class="w-pills"><span class="w-pill">Finance</span><span class="w-pill">AI</span><span class="w-pill">Systems</span></div>
+    </a>
+
+      <a class="w-card" href="https://huggingface.co/spaces/VenkyBaka/amIobsolete" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">Career AI &bull; Hugging Face</span>
+      <span class="w-title">Am I Obsolete?</span>
+      <p class="w-kicker">What it does</p>
+      <p class="w-body">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Brutally honest assessment of your AI obsolescence risk.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">Anyone in any profession wondering how AI will affect their career.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">Obsolescence score, timeline and skills to develop urgently.</p>
+      <div class="w-pills"><span class="w-pill">Streamlit</span><span class="w-pill">Groq LLaMA</span><span class="w-pill">Anthropic Research</span></div>
+    </a>
+      
+    <a class="w-card" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
+      <span class="w-arr">&#x2197;</span>
+      <span class="w-cat">ML &bull; Hugging Face</span>
+      <span class="w-title">ML Models &amp; Spaces</span>
+      <p class="w-kicker">What is here</p>
+      <p class="w-body">All deployed AI models and Streamlit apps &mdash; financial due diligence, health screening, career analysis. Open and accessible.</p>
+      <p class="w-kicker">Who uses it</p>
+      <p class="w-body">Developers exploring AI-powered finance tools. Anyone curious about the models.</p>
+      <p class="w-kicker">End result</p>
+      <p class="w-body">A living portfolio of working AI applications. Not prototypes &mdash; shipped tools.</p>
+      <div class="w-pills"><span class="w-pill">Python</span><span class="w-pill">Scikit-learn</span><span class="w-pill">Groq</span></div>
+    </a>
+
+  </div>
+</div>
+
+<div class="connect" id="connect">
+  <div class="s-marker">
+    <span class="s-num">03 &mdash; Connect</span>
+    <div class="s-bar"></div>
+  </div>
+  <div class="c-layout">
+    <h2 class="c-big">
+      Let us build<br>
+      something<br>
+      <em>interesting.</em>
+    </h2>
+    <div class="c-rows">
+      <a class="c-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
+        <div class="c-left"><span class="c-lbl">Professional</span><span class="c-name">LinkedIn</span></div>
+        <span class="c-arrow">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
+        <div class="c-left"><span class="c-lbl">AI &amp; ML</span><span class="c-name">Hugging Face</span></div>
+        <span class="c-arrow">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://github.com/Venkatesh-kurosaki" target="_blank">
+        <div class="c-left"><span class="c-lbl">Code</span><span class="c-name">GitHub</span></div>
+        <span class="c-arrow">&#x2197;</span>
+      </a>
+      <a class="c-row" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+        <div class="c-left"><span class="c-lbl">Writing</span><span class="c-name">Substack</span></div>
+        <span class="c-arrow">&#x2197;</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="ft">Venkatesh Srinivasan &copy; 2026</span>
+  <span class="ft">Bengaluru &mdash; Built with curiosity</span>
+</footer>
+
+<script>
+/* Cursor */
+const cur = document.getElementById('cur');
+const curf = document.getElementById('curf');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function loop(){
+  fx+=(mx-fx)*0.13; fy+=(my-fy)*0.13;
+  curf.style.left=fx+'px'; curf.style.top=fy+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.transform='translate(-50%,-50%) scale(2.5)';
+    curf.style.width='52px'; curf.style.height='52px';
+    curf.style.borderColor='rgba(196,170,136,0.35)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.transform='translate(-50%,-50%) scale(1)';
+    curf.style.width='36px'; curf.style.height='36px';
+    curf.style.borderColor='rgba(237,232,224,0.2)';
+  });
+});
+
+/* Word cycling on hero */
+const words = ['build.','question.','create.','ship.','learn.','solve.'];
+let wi=0;
+const wc = document.getElementById('wc');
+function cycleWord(){
+  wc.style.opacity='0';
+  wc.style.transform='translateY(8px)';
+  setTimeout(()=>{
+    wi=(wi+1)%words.length;
+    wc.textContent=words[wi];
+    wc.style.opacity='1';
+    wc.style.transform='translateY(0)';
+  },300);
+}
+wc.style.transition='opacity 0.3s ease, transform 0.3s ease';
+setInterval(cycleWord, 2200);
+
+/* Intersection observer for scroll animations */
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.w-card,.a-stat,.ir').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  obs.observe(el);
+});
+</script>
 
 </body>
 </html>
