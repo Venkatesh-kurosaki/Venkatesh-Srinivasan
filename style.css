@@ -7,24 +7,9 @@
 
 /* BODY */
 body {
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #0b0b0c;
   color: #e8e8e8;
-  overflow-x: hidden;
-}
-
-/* BACKGROUND */
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-
-  background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
-    url("./images/Oni%20vs%20Samurai%20cyber%20duel.png");
-
-  background-size: cover;
-  background-position: center;
 }
 
 /* NAV */
@@ -33,21 +18,26 @@ nav {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
   z-index: 10;
+}
 
-  padding: 10px 24px;
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+
   border-radius: 999px;
 
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
   backdrop-filter: blur(20px);
 
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 /* HERO */
 .hero {
-  position: relative;
-  z-index: 2;
   height: 100vh;
 
   display: flex;
@@ -72,10 +62,7 @@ nav {
 
 /* LINKS */
 .links {
-  position: relative;
-  z-index: 2;
-
-  max-width: 400px;
+  max-width: 500px;
   margin: auto;
   padding: 40px 20px;
 }
@@ -83,15 +70,15 @@ nav {
 /* CARDS */
 .card {
   display: block;
-  padding: 16px;
+  padding: 18px;
   margin-bottom: 12px;
 
-  border-radius: 12px;
+  border-radius: 14px;
 
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
 
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
 
   text-decoration: none;
   color: white;
@@ -101,20 +88,19 @@ nav {
 
 .card:hover {
   transform: translateY(-4px);
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
 }
 
 /* EMBED */
 .embed {
-  position: relative;
-  z-index: 2;
-
-  padding: 40px 20px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
+  padding: 40px 20px;
 }
 
 iframe {
+  width: 100%;
+  height: 500px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
 }
