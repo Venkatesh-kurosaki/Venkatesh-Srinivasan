@@ -7,21 +7,95 @@
 <title>Venkatesh Srinivasan</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
 :root{
-  --bg:#000000;                 /* true black base */
-  --bg-soft:#0a0a0a;            /* layer 1 */
-  --bg-elev:#111111;            /* layer 2 */
-
-  --fg:#e6e6e6;                 /* main text */
-  --fg-dim:#8a8a8a;             /* secondary */
-
-  --line:rgba(255,255,255,0.08);
-  --glass:rgba(255,255,255,0.03);
+  --bg:#0a0a0a;
+  --fg:#ede8e0;
+  --muted:#6b6560;
+  --warm:#c4aa88;
+  --line:rgba(237,232,224,0.08);
 }
 
 html{scroll-behavior:smooth;}
-</style>
 
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+<style>
+
+/* 🔥 DEPTH — keeps your color, adds life */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(196,170,136,0.06), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03), transparent 40%);
+}
+
+/* HERO TEXT — same tone, better rendering */
+h1{
+  font-size:3.5rem;
+  letter-spacing:-0.02em;
+
+  background:linear-gradient(180deg, var(--fg), #a8a29e);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* SUBTEXT */
+p{
+  color:var(--muted);
+}
+
+/* 🔥 CARDS — glass but warm */
+.card{
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--line);
+  backdrop-filter:blur(12px);
+
+  padding:18px;
+  border-radius:14px;
+  margin-bottom:12px;
+
+  transition:all 0.3s ease;
+}
+
+/* HOVER — subtle warm lift */
+.card:hover{
+  transform:translateY(-4px);
+  background:rgba(196,170,136,0.08);
+  border-color:rgba(196,170,136,0.25);
+}
+
+/* NAV */
+nav{
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(20px);
+
+  border:1px solid var(--line);
+  border-radius:999px;
+
+  padding:10px 20px;
+}
+
+/* LINKS */
+a{
+  color:var(--fg);
+  text-decoration:none;
+}
+
+a:hover{
+  color:var(--warm);
+}
+
+</style>
 /* CURSOR */
 .cur{
   position:fixed;
