@@ -1,0 +1,120 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0b0c;
+  color: #e8e8e8;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
+    url("./images/Oni%20vs%20Samurai%20cyber%20duel.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  padding: 10px 24px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* HERO TEXT */
+.hero h1 {
+  font-size: 3rem;
+
+  background: linear-gradient(90deg, #fff, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  margin-top: 10px;
+  color: #aaa;
+}
+
+/* LINKS */
+.links {
+  position: relative;
+  z-index: 2;
+
+  max-width: 400px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* CARDS */
+.card {
+  display: block;
+  padding: 16px;
+  margin-bottom: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  text-decoration: none;
+  color: white;
+
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.1);
+}
+
+/* EMBED */
+.embed {
+  position: relative;
+  z-index: 2;
+
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+iframe {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
