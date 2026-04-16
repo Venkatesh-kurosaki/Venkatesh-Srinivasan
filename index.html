@@ -1,681 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="./styles.css">
-  <head>
-  <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venkatesh Srinivasan | Dark Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --fg: #ffffff;
+            --warm: #c4aa88;
+            --muted: #666;
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: all 0.25s ease;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  background: #0b0b0c;
-  color: #e8e8e8;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-}
-/* 🔥 BACKGROUND IMAGE */
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
 
-  background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
-    url("./images/Oni%20vs%20Samurai%20cyber%20duel.png");
+        /* Netflix Guide Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 2rem 3.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            mix-blend-mode: difference;
+        }
 
-  background-size: cover;
-  background-position: center;
-}
+        .n-logo { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
 
-/* NAV GLASS */
-nav {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+        /* Horizontal Container */
+        .container {
+            display: flex;
+            width: 400vw; /* 4 sections = 400% width */
+            height: 100vh;
+        }
 
-  padding: 10px 24px;
-  border-radius: 999px;
+        section {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
 
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
+        /* Typography Styling */
+        h1, h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
 
-  border: 1px solid rgba(255,255,255,0.1);
-}
+        .section-num {
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+        }
 
-/* HERO */
-.hero {
-  position: relative;
-  z-index: 2;
-  height: 100vh;
+        p { max-width: 500px; color: var(--muted); line-height: 1.6; font-size: 1.1rem; }
+        em { color: var(--warm); font-style: italic; }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+        /* Work Grid inside Horizontal Section */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 3rem;
+            width: 80vw;
+        }
 
-/* TEXT EFFECT */
-.hero h1 {
-  font-size: 3rem;
+        .card {
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--fg);
+            transition: background 0.3s;
+        }
 
-  background: linear-gradient(90deg, #fff, #888);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .card:hover { background: #111; border-color: var(--warm); }
 
-/* LINKS */
-.links {
-  margin-top: 40px;
-  width: 300px;
-}
+        .card h3 { font-family: 'DM Serif Display', serif; margin-bottom: 0.5rem; }
+        .card span { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--warm); }
 
-.link {
-  display: block;
-  padding: 16px;
-  margin-bottom: 12px;
+        /* Footer / Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: var(--border);
+        }
 
-  border-radius: 12px;
+        .progress-fill {
+            height: 100%;
+            background: var(--warm);
+            width: 0%;
+        }
 
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  text-decoration: none;
-  color: white;
-}
-
-.link:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.1);
-}
-
-</style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#0a0906;
-  --ink:#ede8df;
-  --dim:#6e6860;
-  --line:rgba(237,232,223,0.08);
-  --warm:#c4a882;
-  --mid:#141210;
-}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;
-}
-
-/* CUSTOM CURSOR */
-.cur{
-  position:fixed;width:8px;height:8px;
-  background:var(--warm);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform 0.15s ease,opacity 0.2s;
-  mix-blend-mode:screen;
-}
-
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;
-  z-index:100;padding:1.75rem 3.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.n-logo{
-  font-family:'DM Mono',monospace;font-size:0.58rem;
-  letter-spacing:0.14em;color:var(--dim);text-transform:uppercase;
-}
-.n-links{display:flex;gap:2.5rem;list-style:none;}
-.n-links a{
-  font-family:'DM Mono',monospace;font-size:0.55rem;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--dim);text-decoration:none;
-  transition:color 0.25s;
-}
-.n-links a:hover{color:var(--ink);}
-
-/* HERO — full screen, breathing text */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  justify-content:flex-end;
-  padding:0 3.5rem 5rem;
-  position:relative;
-}
-
-.hero-intro{
-  font-family:'DM Mono',monospace;font-size:0.56rem;
-  letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--warm);margin-bottom:2rem;
-  transform:translateY(20px);opacity:0;
-  animation:rise 0.8s ease forwards 0.3s;
-}
-
-.hero-title{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(3.5rem,8.5vw,8rem);
-  font-weight:400;line-height:1;
-  letter-spacing:-0.02em;
-  color:var(--ink);
-  max-width:14ch;
-  transform:translateY(30px);opacity:0;
-  animation:rise 1s ease forwards 0.5s;
-}
-
-.hero-title .light{
-  font-style:italic;color:var(--warm);
-}
-
-.hero-bottom{
-  margin-top:4rem;
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:0;align-items:end;
-  border-top:0.5px solid var(--line);
-  padding-top:2rem;
-  transform:translateY(20px);opacity:0;
-  animation:rise 0.8s ease forwards 1s;
-}
-
-.hero-desc{
-  font-size:0.95rem;font-weight:300;
-  line-height:1.8;color:var(--dim);
-  grid-column:1/3;padding-right:4rem;
-}
-.hero-desc strong{color:var(--ink);font-weight:400;}
-
-.hero-cta{
-  display:flex;flex-direction:column;gap:1rem;
-  align-items:flex-end;
-}
-.h-btn{
-  font-family:'DM Mono',monospace;font-size:0.55rem;
-  letter-spacing:0.14em;text-transform:uppercase;
-  text-decoration:none;padding:0.75rem 1.5rem;
-  border-radius:100px;transition:all 0.25s;
-}
-.h-btn-fill{background:var(--ink);color:var(--bg);}
-.h-btn-fill:hover{background:var(--warm);}
-.h-btn-ghost{color:var(--dim);border:0.5px solid var(--line);}
-.h-btn-ghost:hover{color:var(--ink);border-color:rgba(237,232,223,0.25);}
-
-/* MARQUEE */
-.marquee-wrap{
-  border-top:0.5px solid var(--line);
-  border-bottom:0.5px solid var(--line);
-  padding:1rem 0;overflow:hidden;
-  white-space:nowrap;
-}
-.marquee-track{
-  display:inline-flex;gap:3rem;
-  animation:scroll 22s linear infinite;
-}
-.marquee-track span{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;font-size:1.1rem;
-  color:var(--dim);letter-spacing:0.02em;
-}
-.marquee-track .dot{color:var(--warm);font-style:normal;}
-
-/* WRAP */
-.wrap{max-width:1320px;margin:0 auto;}
-.sec{padding:8rem 3.5rem;border-top:0.5px solid var(--line);}
-
-.sec-badge{
-  display:inline-flex;align-items:center;gap:0.75rem;
-  margin-bottom:4rem;
-}
-.sec-badge-num{
-  font-family:'DM Mono',monospace;font-size:0.52rem;
-  letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--warm);
-}
-.sec-badge-line{width:2.5rem;height:0.5px;background:var(--warm);opacity:0.4;}
-
-/* ABOUT */
-.about-layout{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:7rem;align-items:start;
-}
-
-.about-lead{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.8rem,3.2vw,3rem);
-  font-weight:400;line-height:1.15;
-  letter-spacing:-0.015em;
-  margin-bottom:2.5rem;
-}
-.about-lead em{font-style:italic;color:var(--warm);}
-
-.about-p{
-  font-size:0.96rem;font-weight:300;
-  line-height:1.9;color:var(--dim);
-  margin-bottom:1.25rem;
-}
-.about-p strong{color:var(--ink);font-weight:400;}
-
-.gita-block{
-  margin-top:2.5rem;
-  padding:1.25rem 0 1.25rem 1.25rem;
-  border-left:1px solid rgba(196,168,130,0.35);
-}
-.gita-q{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;font-size:0.95rem;
-  color:var(--warm);line-height:1.75;
-  margin-bottom:0.4rem;
-}
-.gita-ref{
-  font-family:'DM Mono',monospace;font-size:0.48rem;
-  letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);
-}
-
-.facts{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--line);
-  margin-bottom:3rem;
-}
-.fact{background:var(--bg);padding:1.5rem 1.25rem;}
-.fact-n{
-  font-family:'DM Serif Display',serif;
-  font-size:2.4rem;color:var(--ink);
-  margin-bottom:0.2rem;
-}
-.fact-l{
-  font-family:'DM Mono',monospace;font-size:0.48rem;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);
-}
-
-.int-rows{display:flex;flex-direction:column;}
-.int-row{
-  display:flex;align-items:center;gap:1rem;
-  padding:0.9rem 0;border-bottom:0.5px solid var(--line);
-}
-.int-row:first-child{border-top:0.5px solid var(--line);}
-.int-dot{width:3px;height:3px;border-radius:50%;background:var(--warm);flex-shrink:0;}
-.int-name{font-size:0.88rem;color:var(--ink);font-weight:400;flex:1;}
-.int-note{
-  font-family:'DM Mono',monospace;font-size:0.46rem;
-  letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);
-  white-space:nowrap;
-}
-
-/* TINKER SECTION */
-.tinker-sec{
-  padding:8rem 3.5rem;
-  border-top:0.5px solid var(--line);
-  text-align:center;
-}
-.tinker-big{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(3rem,8vw,7rem);
-  font-weight:400;line-height:1;
-  letter-spacing:-0.025em;
-  color:var(--ink);margin-bottom:2rem;
-}
-.tinker-big em{font-style:italic;color:var(--warm);}
-.tinker-sub{
-  font-size:1rem;font-weight:300;
-  line-height:1.8;color:var(--dim);
-  max-width:36rem;margin:0 auto 4rem;
-}
-
-/* TOOLS */
-.tools-g{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--line);
-}
-.tool-c{
-  background:var(--bg);padding:2.5rem;
-  text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;gap:0.75rem;
-  position:relative;transition:background 0.25s;
-}
-.tool-c:hover{background:var(--mid);}
-.tool-c:hover .t-name{color:var(--warm);}
-.tool-c:hover .t-arrow{transform:translate(3px,-3px);opacity:1;}
-
-.t-arrow{
-  position:absolute;top:2.5rem;right:2.5rem;
-  font-size:0.9rem;color:var(--warm);
-  transition:all 0.25s;opacity:0.4;
-}
-.t-cat{
-  font-family:'DM Mono',monospace;font-size:0.5rem;
-  letter-spacing:0.12em;text-transform:uppercase;color:var(--warm);
-}
-.t-name{
-  font-family:'DM Serif Display',serif;
-  font-size:1.4rem;color:var(--ink);
-  padding-right:2rem;transition:color 0.25s;
-  line-height:1.2;
-}
-.t-kicker{
-  font-family:'DM Mono',monospace;font-size:0.48rem;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--warm);margin-top:0.1rem;
-}
-.t-body{
-  font-size:0.8rem;font-weight:300;
-  line-height:1.75;color:var(--dim);
-}
-.t-pills{
-  display:flex;flex-wrap:wrap;gap:0.35rem;
-  margin-top:auto;padding-top:1.25rem;
-  border-top:0.5px solid var(--line);
-}
-.pill{
-  font-family:'DM Mono',monospace;font-size:0.46rem;
-  letter-spacing:0.07em;text-transform:uppercase;
-  color:var(--dim);padding:0.15rem 0.45rem;
-  border:0.5px solid var(--line);border-radius:100px;
-}
-
-/* CONNECT */
-.connect-sec{padding:8rem 3.5rem;border-top:0.5px solid var(--line);}
-.connect-layout{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:8rem;align-items:center;
-}
-.connect-display{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(2.5rem,5vw,4.5rem);
-  font-weight:400;line-height:1.1;
-  letter-spacing:-0.02em;
-}
-.connect-display em{font-style:italic;color:var(--warm);}
-
-.c-rows{display:flex;flex-direction:column;}
-.c-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.35rem 0;border-bottom:0.5px solid var(--line);
-  text-decoration:none;color:inherit;transition:all 0.2s;
-}
-.c-row:first-child{border-top:0.5px solid var(--line);}
-.c-row:hover .c-name{color:var(--warm);}
-.c-row:hover .c-arr{transform:translate(3px,-3px);color:var(--warm);}
-.c-left{display:flex;flex-direction:column;gap:0.15rem;}
-.c-lbl{
-  font-family:'DM Mono',monospace;font-size:0.46rem;
-  letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);
-}
-.c-name{
-  font-family:'DM Serif Display',serif;
-  font-size:1.2rem;color:var(--ink);transition:color 0.2s;
-}
-.c-arr{font-size:0.85rem;color:var(--dim);transition:all 0.2s;}
-
-footer{
-  padding:2.25rem 3.5rem;
-  border-top:0.5px solid var(--line);
-  display:flex;justify-content:space-between;align-items:center;
-  max-width:1320px;margin:0 auto;
-}
-.ft{
-  font-family:'DM Mono',monospace;font-size:0.5rem;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);
-}
-
-@keyframes rise{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes scroll{
-  from{transform:translateX(0);}
-  to{transform:translateX(-50%);}
-}
-
-/* SCROLL REVEAL */
-.reveal{
-  opacity:0;transform:translateY(24px);
-  transition:opacity 0.7s ease,transform 0.7s ease;
-}
-.reveal.visible{opacity:1;transform:none;}
-
-@media(max-width:900px){
-  nav{padding:1.25rem 1.5rem;}
-  .n-links{gap:1.5rem;}
-  .hero,.sec,.tinker-sec,.connect-sec{padding-left:1.5rem;padding-right:1.5rem;}
-  .hero{padding-bottom:4rem;}
-  .hero-bottom,.about-layout,.connect-layout{grid-template-columns:1fr;gap:3rem;}
-  .tools-g{grid-template-columns:1fr;}
-  footer{padding:2rem 1.5rem;flex-direction:column;gap:0.75rem;text-align:center;}
-  .hero-desc{grid-column:1/2;padding-right:0;}
-}
-</style>
+        @media (max-width: 768px) {
+            .container { width: 100%; height: auto; flex-direction: column; }
+            section { width: 100%; height: auto; padding: 100px 20px; border-right: none; border-bottom: 1px solid var(--border); }
+            .work-grid { grid-template-columns: 1fr; width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="cur" id="cur"></div>
+    <nav>
+        <div class="n-logo">Venkatesh Srinivasan</div>
+        <div class="n-logo">Scroll to Explore</div>
+    </nav>
 
-<nav>
-  <span class="n-logo">Venkatesh Srinivasan</span>
-  <ul class="n-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#connect">Connect</a></li>
-  </ul>
-</nav>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
 
-<!-- HERO -->
-<div class="hero">
-  <p class="hero-intro">Chartered Accountant &nbsp;&middot;&nbsp; Builder &nbsp;&middot;&nbsp; Bengaluru</p>
-  <h1 class="hero-title">
-    I tinker,<br>
-    I explore,<br>
-    <span class="light">I build.</span>
-  </h1>
-  <div class="hero-bottom">
-    <p class="hero-desc">
-      Finance professional. <strong>Accidental AI builder.</strong> Curious about everything, committed to nothing ordinary. At heart, a learner &mdash; funmaxxing and figuring it out as I go.
-    </p>
-    <div></div>
-    <div class="hero-cta">
-      <a href="#work" class="h-btn h-btn-fill">See my work</a>
-      <a href="#connect" class="h-btn h-btn-ghost">Say hello</a>
+    <div class="container">
+        <section id="hero">
+            <span class="section-num">// 00</span>
+            <h1>I tinker.<br>I explore.<br>I <em>build.</em></h1>
+            <p>Chartered Accountant &middot; Builder &middot; Finance Enthusiast.</p>
+        </section>
+
+        <section id="about">
+            <span class="section-num">// 01</span>
+            <h2>Finance,<br>Structured.</h2>
+            <p>At heart, I am a learner. Exploring machine learning applications in finance to build models that make analysis sharper.</p>
+        </section>
+
+        <section id="work">
+            <span class="section-num">// 02</span>
+            <h2>Shipped Tools.</h2>
+            <div class="work-grid">
+                <a href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" class="card" target="_blank">
+                    <span>FINANCE AI</span>
+                    <h3>FDD AI Toolkit</h3>
+                </a>
+                <a href="https://longevitybro.lovable.app" class="card" target="_blank">
+                    <span>HEALTH AI</span>
+                    <h3>LongevityBro</h3>
+                </a>
+                <a href="https://substack.com/@venkateshsrinivasann23" class="card" target="_blank">
+                    <span>WRITING</span>
+                    <h3>Substack</h3>
+                </a>
+            </div>
+        </section>
+
+        <section id="connect">
+            <span class="section-num">// 03</span>
+            <h2>Let's build<br>something <em>new.</em></h2>
+            <p>Reach out via <a href="#" style="color: var(--warm);">LinkedIn</a> or <a href="#" style="color: var(--warm);">GitHub</a>.</p>
+        </section>
     </div>
-  </div>
-</div>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Financial Due Diligence</span><span class="dot">&bull;</span>
-    <span>Machine Learning</span><span class="dot">&bull;</span>
-    <span>AI Tools</span><span class="dot">&bull;</span>
-    <span>First Principles</span><span class="dot">&bull;</span>
-    <span>Tinkering</span><span class="dot">&bull;</span>
-    <span>Building in Public</span><span class="dot">&bull;</span>
-    <span>Chartered Accountancy</span><span class="dot">&bull;</span>
-    <span>Exercise &amp; Discipline</span><span class="dot">&bull;</span>
-    <span>Financial Due Diligence</span><span class="dot">&bull;</span>
-    <span>Machine Learning</span><span class="dot">&bull;</span>
-    <span>AI Tools</span><span class="dot">&bull;</span>
-    <span>First Principles</span><span class="dot">&bull;</span>
-    <span>Tinkering</span><span class="dot">&bull;</span>
-    <span>Building in Public</span><span class="dot">&bull;</span>
-    <span>Chartered Accountancy</span><span class="dot">&bull;</span>
-    <span>Exercise &amp; Discipline</span><span class="dot">&bull;</span>
-  </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-<div class="wrap">
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
 
-<!-- ABOUT -->
-<div class="sec" id="about">
-  <div class="sec-badge reveal">
-    <span class="sec-badge-num">01 &mdash; About</span>
-    <div class="sec-badge-line"></div>
-  </div>
-  <div class="about-layout">
-    <div class="reveal">
-      <h2 class="about-lead">
-        Finance, structured thinking,<br>
-        and a mind that<br>
-        <em>never stops.</em>
-      </h2>
-      <p class="about-p">By profession, I work in <strong>finance</strong> &mdash; audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking, whether breaking down complex financial systems or building models to extract insight from data.</p>
-      <p class="about-p">Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning in finance &mdash; predictive modelling, decision frameworks and tools that make financial analysis sharper.</p>
-      <p class="about-p">I value <strong>clarity, discipline and continuous improvement</strong>. Exercise keeps me grounded. Writing keeps me honest. Building keeps me curious.</p>
-      <div class="gita-block">
-        <p class="gita-q">&ldquo;You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.&rdquo;</p>
-        <p class="gita-ref">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
-      </div>
-    </div>
-    <div>
-      <div class="facts reveal">
-        <div class="fact"><div class="fact-n">CA</div><div class="fact-l">Qualified</div></div>
-        <div class="fact"><div class="fact-n">5+</div><div class="fact-l">AI Tools Shipped</div></div>
-        <div class="fact"><div class="fact-n">87%</div><div class="fact-l">ML Accuracy</div></div>
-        <div class="fact"><div class="fact-n">&infin;</div><div class="fact-l">Left to Explore</div></div>
-      </div>
-      <div class="int-rows reveal">
-        <div class="int-row"><div class="int-dot"></div><span class="int-name">Finance &amp; Due Diligence</span><span class="int-note">CA background</span></div>
-        <div class="int-row"><div class="int-dot"></div><span class="int-name">Machine Learning in Finance</span><span class="int-note">Building now</span></div>
-        <div class="int-row"><div class="int-dot"></div><span class="int-name">Exercise &amp; Fitness</span><span class="int-note">Daily</span></div>
-        <div class="int-row"><div class="int-dot"></div><span class="int-name">Writing &amp; Systems Thinking</span><span class="int-note">Substack</span></div>
-        <div class="int-row"><div class="int-dot"></div><span class="int-name">Anime &amp; Philosophy</span><span class="int-note">Always</span></div>
-      </div>
-    </div>
-  </div>
-</div>
+        let sections = gsap.utils.toArray("section");
 
-<!-- TINKER -->
-<div class="tinker-sec reveal" id="work">
-  <h2 class="tinker-big">
-    The joy of<br>
-    <em>tinkering.</em>
-  </h2>
-  <p class="tinker-sub">Every tool below started as a question I could not answer with existing software. So I built the answer. Finance meets AI, shipped in public.</p>
-  <div class="tools-g">
-
-    <a class="tool-c" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="t-cat">Finance AI &bull; Hugging Face</span>
-      <span class="t-name">FDD AI Toolkit</span>
-      <p class="t-kicker">What it does</p>
-      <p class="t-body">AI-powered Financial Due Diligence &mdash; Quality of Earnings, working capital analysis, debt structuring and deal considerations. Thinks like Graham, Buffett and Munger.</p>
-      <p class="t-kicker">Who uses it</p>
-      <p class="t-body">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
-      <p class="t-kicker">End result</p>
-      <p class="t-body">Red flag scoring, deal considerations and an IC memo from your financial data.</p>
-      <div class="t-pills"><span class="pill">Streamlit</span><span class="pill">Groq LLaMA</span><span class="pill">Pandas</span><span class="pill">Plotly</span></div>
-    </a>
-
-    <a class="tool-c" href="https://huggingface.co/spaces/VenkyBaka/VenkyDoesDD" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="t-cat">Finance AI &bull; Hugging Face</span>
-      <span class="t-name">VenkyDoesDD</span>
-      <p class="t-kicker">What it does</p>
-      <p class="t-body">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
-      <p class="t-kicker">Who uses it</p>
-      <p class="t-body">Finance analysts, VC associates, students learning financial analysis.</p>
-      <p class="t-kicker">End result</p>
-      <p class="t-body">A rigorous analysis session guided by Munger&apos;s inversion framework.</p>
-      <div class="t-pills"><span class="pill">Streamlit</span><span class="pill">Groq LLaMA</span><span class="pill">Industry KPIs</span></div>
-    </a>
-
-    <a class="tool-c" href="https://longevitybro.lovable.app" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="t-cat">Health AI &bull; Lovable</span>
-      <span class="t-name">LongevityBro</span>
-      <p class="t-kicker">What it does</p>
-      <p class="t-body">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max and lab markers. ML models trained on 13,000+ real patient records.</p>
-      <p class="t-kicker">Who uses it</p>
-      <p class="t-body">Anyone wanting to understand their health numbers beyond a standard report.</p>
-      <p class="t-kicker">End result</p>
-      <p class="t-body">Risk scores, population percentiles and lifestyle recommendations.</p>
-      <div class="t-pills"><span class="pill">React</span><span class="pill">Scikit-learn</span><span class="pill">ADA/AHA</span></div>
-    </a>
-
-    <a class="tool-c" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
-      <span class="t-arrow">&#x2197;</span>
-      <span class="t-cat">Writing &bull; Substack</span>
-      <span class="t-name">Writing</span>
-      <p class="t-kicker">What it covers</p>
-      <p class="t-body">Finance, machine learning, systems thinking and broader reflections on how the world works. First principles applied to everything. Honest and unpolished.</p>
-      <p class="t-kicker">Why it exists</p>
-      <p class="t-body">A minimal space to think out loud, document ideas and build in public.</p>
-      <p class="t-kicker">Who reads it</p>
-      <p class="t-body">People curious about finance and technology. Those learning in public.</p>
-      <div class="t-pills"><span class="pill">Finance</span><span class="pill">AI</span><span class="pill">Systems</span></div>
-    </a>
-
-  </div>
-</div>
-
-<!-- CONNECT -->
-<div class="connect-sec reveal" id="connect">
-  <div class="sec-badge">
-    <span class="sec-badge-num">03 &mdash; Connect</span>
-    <div class="sec-badge-line"></div>
-  </div>
-  <div class="connect-layout">
-    <h2 class="connect-display">
-      Let us build<br>
-      something<br>
-      <em>interesting.</em>
-    </h2>
-    <div class="c-rows">
-      <a class="c-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
-        <div class="c-left"><span class="c-lbl">Professional</span><span class="c-name">LinkedIn</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
-        <div class="c-left"><span class="c-lbl">AI &amp; ML</span><span class="c-name">Hugging Face</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://github.com/Venkatesh-kurosaki" target="_blank">
-        <div class="c-left"><span class="c-lbl">Code</span><span class="c-name">GitHub</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
-        <div class="c-left"><span class="c-lbl">Writing</span><span class="c-name">Substack</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<footer>
-  <span class="ft">Venkatesh Srinivasan &copy; 2026</span>
-  <span class="ft">Bengaluru &mdash; Built with curiosity</span>
-</footer>
-
-<script>
-const cur = document.getElementById('cur');
-let mx=0,my=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-});
-
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-},{threshold:0.15});
-
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+        // Horizontal Scroll Animation
+        gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".container",
+                pin: true,
+                scrub: 1,
+                snap: 1 / (sections.length - 1),
+                end: () => "+=" + document.querySelector(".container").offsetWidth,
+                onUpdate: (self) => {
+                    // Updates the progress bar at the bottom
+                    gsap.to(".progress-fill", { width: self.progress * 100 + "%", duration: 0.1 });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
