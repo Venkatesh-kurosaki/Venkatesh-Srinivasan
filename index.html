@@ -635,7 +635,269 @@ footer {
     </div>
   </div>
 </div>
-
+!-- ═══════════ AMA VENKY SECTION ═══════════ -->
+<div class="section" id="ama" style="border-top:.5px solid var(--line);">
+  <div class="section-marker">
+    <span class="section-num">04 &mdash; Ask Venky</span>
+    <div class="section-bar"></div>
+  </div>
+  <div style="max-width:680px;">
+    <h2 class="about-headline sr" style="margin-bottom:1rem;">
+      Ask me<br><em>anything.</em>
+    </h2>
+    <p class="about-body sr" style="font-size:.9rem;color:var(--fg-dim);margin-bottom:2.5rem;line-height:1.85;">
+      Thinks like Naval Ravikant and Shane Parrish. Questions your question before answering it. No flattery, no vague advice.
+    </p>
+ 
+    <!-- Chat window -->
+    <div id="ama-window" style="
+      min-height:240px;max-height:480px;overflow-y:auto;
+      background:var(--surface);
+      border:.5px solid var(--line-vis);
+      border-radius:4px;
+      padding:1.5rem;
+      display:flex;flex-direction:column;gap:1rem;
+      margin-bottom:1rem;
+      scroll-behavior:smooth;
+    ">
+      <div class="ama-msg ama-bot" style="
+        background:var(--lift);
+        border:.5px solid var(--line-vis);
+        border-radius:0 8px 8px 8px;
+        padding:.9rem 1.1rem;
+        font-size:.88rem;line-height:1.8;
+        color:var(--fg);max-width:88%;
+      ">
+        <span style="font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);display:block;margin-bottom:.5rem;">AMA VENKY</span>
+        Ask anything. I will question your question before I answer it &mdash; because the surface question is rarely the real one.
+      </div>
+    </div>
+ 
+    <!-- Suggested questions -->
+    <div id="ama-suggestions" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+      <button onclick="askSuggested(this)" class="ama-chip" data-q="How do I know if I am working on the right thing?">Right thing?</button>
+      <button onclick="askSuggested(this)" class="ama-chip" data-q="How do I actually get better at making decisions?">Better decisions</button>
+      <button onclick="askSuggested(this)" class="ama-chip" data-q="What is the difference between being busy and making progress?">Busy vs progress</button>
+      <button onclick="askSuggested(this)" class="ama-chip" data-q="How do I build specific knowledge that compounds?">Specific knowledge</button>
+      <button onclick="askSuggested(this)" class="ama-chip" data-q="How do I stop overthinking and just start?">Stop overthinking</button>
+    </div>
+ 
+    <!-- Input row -->
+    <div style="display:flex;gap:.75rem;align-items:stretch;">
+      <input id="ama-input" type="text"
+        placeholder="Ask something real..."
+        style="
+          flex:1;
+          background:var(--surface);
+          border:.5px solid var(--line-vis);
+          border-radius:4px;
+          padding:.85rem 1.1rem;
+          font-family:'Cormorant Garamond',serif;
+          font-size:1rem;
+          color:var(--fg);
+          outline:none;
+          transition:border-color .2s;
+        "
+        onkeydown="if(event.key==='Enter')sendAMA()"
+        onfocus="this.style.borderColor='rgba(184,147,90,.4)'"
+        onblur="this.style.borderColor='var(--line-vis)'"
+      />
+      <button onclick="sendAMA()" id="ama-btn" style="
+        background:var(--fg);color:var(--void);
+        border:none;border-radius:4px;
+        padding:.85rem 1.5rem;
+        font-family:'Space Mono',monospace;
+        font-size:.52rem;letter-spacing:.14em;
+        text-transform:uppercase;
+        cursor:none;
+        transition:background .2s;
+        white-space:nowrap;
+      "
+      onmouseenter="this.style.background='var(--warm)'"
+      onmouseleave="this.style.background='var(--fg)'"
+      >Ask &rarr;</button>
+    </div>
+ 
+    <p style="font-family:'Space Mono',monospace;font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-ghost);margin-top:.75rem;">
+      Powered by Groq LLaMA 3.3 &mdash; responds as Venkatesh Srinivasan
+    </p>
+  </div>
+</div>
+ 
+<style>
+.ama-chip {
+  font-family:'Space Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--fg-dim);
+  background:transparent;
+  border:.5px solid var(--line-vis);
+  border-radius:100px;
+  padding:.3rem .8rem;
+  cursor:none;
+  transition:all .2s;
+}
+.ama-chip:hover {color:var(--warm);border-color:rgba(184,147,90,.35);}
+.ama-user-msg {
+  background:rgba(184,147,90,.08);
+  border:.5px solid rgba(184,147,90,.2);
+  border-radius:8px 0 8px 8px;
+  padding:.9rem 1.1rem;
+  font-size:.88rem;line-height:1.8;
+  color:var(--fg);
+  max-width:80%;
+  align-self:flex-end;
+  margin-left:auto;
+}
+.ama-bot-msg {
+  background:var(--lift);
+  border:.5px solid var(--line-vis);
+  border-radius:0 8px 8px 8px;
+  padding:.9rem 1.1rem;
+  font-size:.88rem;line-height:1.85;
+  color:var(--fg);
+  max-width:88%;
+}
+.ama-thinking {
+  background:var(--lift);
+  border:.5px solid var(--line-vis);
+  border-radius:0 8px 8px 8px;
+  padding:.9rem 1.1rem;
+  font-family:'Space Mono',monospace;
+  font-size:.5rem;letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--warm);
+  animation:pulse .9s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+</style>
+ 
+<script>
+const VENKY_SYSTEM = `You are AMAVenky. You think and respond like Naval Ravikant and Shane Parrish combined.
+ 
+THINKING FRAMEWORK:
+- Naval: specific knowledge, leverage, compounding, wealth vs money, long-term thinking, first principles, reading, meditation, accountability
+- Shane Parrish (Farnam Street): mental models, decision-making, inversion, second-order thinking, learning from the best, avoiding stupidity over seeking brilliance
+ 
+HOW YOU RESPOND:
+1. CROSS-QUESTION FIRST — Before answering, identify what the person REALLY wants to know. Surface questions hide deeper ones. Name the real question in one line, then answer that.
+2. FIRST PRINCIPLES — Strip the question to its foundation. Reject all assumptions that cannot be proven.
+3. INVERT — Ask what leads to failure before explaining success. Munger: "Invert, always invert."
+4. BE SPECIFIC NOT VAGUE — Vague advice is worse than no advice. If you cannot be specific, say so.
+5. SECOND ORDER THINKING — What happens next? And then what? Most people stop at first-order effects.
+6. SHORT THEN DEEP — Give the sharp version first. One to three sentences. Then offer to go deeper if they want.
+7. NO FLATTERY — Never say "great question." Just engage. Directness is respect.
+8. HONEST ABOUT UNCERTAINTY — "I don't know" is a complete answer. Confidence without knowledge is noise.
+9. CONNECT ACROSS DOMAINS — The best mental models transfer. Finance, health, code, philosophy — same underlying patterns.
+10. END WITH A QUESTION — If the conversation warrants it, end with one sharp question that makes them think harder.
+ 
+WHAT NAVAL WOULD SAY:
+- Seek specific knowledge that cannot be taught in school
+- Accountability and leverage are the levers of wealth
+- Double down on your strengths, hire your weaknesses
+- Play long-term games with long-term people
+- The most important skill is learning how to learn
+- Retirement is when you stop sacrificing today for an imaginary tomorrow
+- Desire is a contract you make with yourself to be unhappy until you get what you want
+- Read what you love until you love to read
+- A fit body, a calm mind, a house full of love — these things cannot be bought, they must be earned
+ 
+WHAT SHANE PARRISH WOULD SAY:
+- Avoiding stupidity is easier than seeking brilliance
+- The quality of your thinking is determined by the mental models you have available
+- Most people are not thinking, they are remembering
+- Slow down to speed up — understanding the problem is solving the problem
+- The map is not the territory — your model of reality is not reality
+- Invert: instead of asking how to succeed, ask how to guarantee failure and avoid that
+- First-order thinking is easy, second-order thinking is rare and valuable
+- You do not rise to the level of your goals, you fall to the level of your systems
+- Read to understand principles, not to collect facts
+ 
+TONE:
+- Calm, direct, unimpressed by noise
+- No hedging, no corporate speak, no "it depends" without explaining what it depends on
+- Philosophical when the question deserves it, practical when it does not
+- Treat every question as if the person asking is intelligent and deserves a real answer
+- Maximum 200 words unless depth is genuinely required`;
+ 
+let amaHistory = [];
+ 
+async function sendAMA() {
+  const input = document.getElementById('ama-input');
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+  appendMessage(q, 'user');
+  amaHistory.push({role:'user', content:q});
+  const thinking = appendThinking();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:600,
+        system: VENKY_SYSTEM,
+        messages: amaHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Something went wrong — try again.';
+    thinking.remove();
+    appendMessage(reply, 'bot');
+    amaHistory.push({role:'assistant', content:reply});
+    if (amaHistory.length > 20) amaHistory = amaHistory.slice(-20);
+  } catch(e) {
+    thinking.remove();
+    appendMessage('Could not reach the agent right now. Try again in a moment.', 'bot');
+  }
+}
+ 
+function askSuggested(btn) {
+  document.getElementById('ama-input').value = btn.dataset.q;
+  document.getElementById('ama-suggestions').style.display = 'none';
+  sendAMA();
+}
+ 
+function appendMessage(text, type) {
+  const win = document.getElementById('ama-window');
+  const div = document.createElement('div');
+  div.className = type === 'user' ? 'ama-user-msg' : 'ama-bot-msg';
+  if (type === 'bot') {
+    const label = '<span style="font-family:monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);display:block;margin-bottom:.5rem;">AMA VENKY</span>';
+  div.innerHTML = label + text.replace(/\n/g,'<br>');
+  } else {
+    div.textContent = text;
+  }
+  win.appendChild(div);
+  win.scrollTop = win.scrollHeight;
+  return div;
+}
+ 
+function appendThinking() {
+  const win = document.getElementById('ama-window');
+  const div = document.createElement('div');
+  div.className = 'ama-thinking';
+  div.textContent = 'Thinking...';
+  win.appendChild(div);
+  win.scrollTop = win.scrollHeight;
+  return div;
+}
+</script>
+ 
+<!-- ═══════════════════════════ CONNECT ═══════════════════════════ -->
+<div class="section" id="connect">
+  <div class="section-marker">
+    <span class="section-num">05 &mdash; Connect</span>
+    <div class="section-bar"></div>
+  </div>
+  <div class="connect-layout">
+    <h2 class="connect-display sr">
+      LET US<br>BUILD
+      <span class="italic-line">something interesting.</span>
+    </h2>
+    <div class="connect-links sr">
+      <a class="connect-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
 <!-- ═══════════════════════════ WORK ═══════════════════════════ -->
 <div class="section" id="work">
   <div class="section-marker">
