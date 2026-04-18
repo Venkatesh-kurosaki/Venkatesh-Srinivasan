@@ -635,7 +635,7 @@ footer {
     </div>
   </div>
 </div>
-!-- ═══════════ AMA VENKY SECTION ═══════════ -->
+<!-- ═══════════ AMA VENKY SECTION ═══════════ -->
 <div class="section" id="ama" style="border-top:.5px solid var(--line);">
   <div class="section-marker">
     <span class="section-num">04 &mdash; Ask Venky</span>
@@ -831,18 +831,21 @@ async function sendAMA() {
   amaHistory.push({role:'user', content:q});
   const thinking = appendThinking();
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const messages = [{role:'system', content: VENKY_SYSTEM}, ...amaHistory];
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':''
+      },
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:600,
-        system: VENKY_SYSTEM,
-        messages: amaHistory
+        model:'llama-3.3-70b-versatile',
+        max_tokens:400,
+        messages: messages
       })
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Something went wrong — try again.';
+    const reply = data.choices?.[0]?.message?.content || 'Something went wrong — try again.';
     thinking.remove();
     appendMessage(reply, 'bot');
     amaHistory.push({role:'assistant', content:reply});
@@ -884,21 +887,8 @@ function appendThinking() {
   return div;
 }
 </script>
- 
-<!-- ═══════════════════════════ CONNECT ═══════════════════════════ -->
-<div class="section" id="connect">
-  <div class="section-marker">
-    <span class="section-num">05 &mdash; Connect</span>
-    <div class="section-bar"></div>
-  </div>
-  <div class="connect-layout">
-    <h2 class="connect-display sr">
-      LET US<br>BUILD
-      <span class="italic-line">something interesting.</span>
-    </h2>
-    <div class="connect-links sr">
-      <a class="connect-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
-<!-- ═══════════════════════════ WORK ═══════════════════════════ -->
+   
+   <!-- ═══════════════════════════ WORK ═══════════════════════════ -->
 <div class="section" id="work">
   <div class="section-marker">
     <span class="section-num">02 &mdash; Work &amp; Tools</span>
