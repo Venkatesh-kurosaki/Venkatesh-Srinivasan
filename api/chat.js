@@ -1,22 +1,16 @@
-export const config = { runtime: 'edge' };
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-export default async function handler(req) {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      }
-    });
-  }
-
-  if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).end();
 
   try {
-    const { messages, system } = await req.json();
+    let body = req.body;
+    if (typeof body === 'string') body = JSON.parse(body);
+
+    const { messages, system } = body;
 
     const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -36,18 +30,9 @@ export default async function handler(req) {
 
     const data = await groqRes.json();
     const reply = data.choices?.[0]?.message?.content || 'Something went wrong.';
-
-    return new Response(JSON.stringify({ reply }), {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
+    return res.status(200).json({ reply });
 
   } catch (err) {
-    return new Response(JSON.stringify({ reply: 'Could not reach the agent. Try again.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return res.status(500).json({ reply: err.message || 'Error occurred.' });
   }
 }
