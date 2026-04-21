@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
 
 <style>
@@ -14,13 +13,12 @@
 :root{
   --white:#ffffff;
   --black:#0a0a0a;
-  --muted:#a1a1a1;
-  --line:#e8e8e6;
+  --muted:#9a9a9a;
+  --line:rgba(255,255,255,0.08);
 }
 
 /* Base */
 html{scroll-behavior:smooth;font-size:16px;}
-
 body{
   background:var(--black);
   color:var(--white);
@@ -32,15 +30,12 @@ body{
 /* Selection */
 ::selection{background:var(--white);color:var(--black);}
 
-/* ─── LOADER ─── */
+/* Loader */
 .loader{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:var(--black);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
   z-index:9999;
   transition:opacity .6s ease, visibility .6s ease;
 }
@@ -52,7 +47,6 @@ body{
   letter-spacing:.25em;
   text-transform:uppercase;
 }
-
 .loader-text span{
   display:inline-block;
   transform:translateY(100%);
@@ -64,54 +58,65 @@ body{
 .loader-text span:nth-child(4){animation-delay:.4s;}
 
 .loader-bar{
-  width:120px;
-  height:1px;
+  width:120px;height:1px;
   background:rgba(255,255,255,.2);
-  margin-top:1.5rem;
-  position:relative;
-  overflow:hidden;
+  margin-top:1.5rem;position:relative;overflow:hidden;
 }
 .loader-bar::after{
-  content:'';
-  position:absolute;
-  top:0;left:0;
-  height:100%;
-  background:var(--white);
-  width:0%;
+  content:'';position:absolute;left:0;top:0;height:100%;
+  background:var(--white);width:0%;
   animation:loadBar 1.6s ease forwards;
 }
 
-/* ─── HERO ─── */
+/* Nav */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;
+  padding:1.5rem 3rem;
+  background:rgba(10,10,10,.6);
+  backdrop-filter:blur(10px);
+  z-index:100;
+}
+nav a{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;
+  letter-spacing:.15em;
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:2rem;
+}
+nav a:hover{color:var(--white);}
+
+/* Hero */
 .hero{
   min-height:100vh;
-  display:flex;
-  align-items:flex-end;
+  display:flex;align-items:flex-end;
   padding:0 8vw 6rem;
 }
-
 .hero-name{
   font-family:'Playfair Display',serif;
   font-size:clamp(4rem,10vw,10rem);
   line-height:.9;
 }
-
-/* Reveal */
 .reveal{display:block;overflow:hidden;}
-.reveal span{
-  display:block;
-  transform:translateY(110%);
-}
+.reveal span{display:block;transform:translateY(110%);}
 
-/* ─── SECTION ─── */
+/* Sections */
 .sec{
   padding:6rem 8vw;
   border-top:1px solid var(--line);
 }
-
-.sec h2{
+.sec-title{
   font-family:'Playfair Display',serif;
   font-size:2rem;
   margin-bottom:2rem;
+}
+
+/* About */
+.about p{
+  max-width:600px;
+  color:var(--muted);
+  line-height:1.7;
 }
 
 /* Portfolio */
@@ -124,6 +129,38 @@ body{
   transition:transform .4s cubic-bezier(.16,1,.3,1);
 }
 .p-item:hover{transform:translateX(10px);}
+.p-name{font-size:1.1rem;}
+.p-desc{font-size:.85rem;color:var(--muted);}
+
+/* Closing */
+.closing{
+  text-align:center;
+  padding:6rem 8vw;
+}
+.closing h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,4rem);
+}
+
+/* Connect */
+.connect{
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+  padding-bottom:3rem;
+}
+.connect a{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;
+  color:var(--muted);
+  text-decoration:none;
+  border:1px solid var(--line);
+  padding:.6rem 1.2rem;
+}
+.connect a:hover{
+  background:var(--white);
+  color:var(--black);
+}
 
 /* Animations */
 @keyframes slideUp{
@@ -139,7 +176,7 @@ body{
 
 <body>
 
-<!-- LOADER -->
+<!-- Loader -->
 <div class="loader" id="loader">
   <div class="loader-text">
     <span>Venkatesh</span>
@@ -150,7 +187,17 @@ body{
   <div class="loader-bar"></div>
 </div>
 
-<!-- HERO -->
+<!-- Nav -->
+<nav>
+  <div>VS</div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#connect">Connect</a>
+  </div>
+</nav>
+
+<!-- Hero -->
 <section class="hero">
   <h1 class="hero-name">
     <span class="reveal"><span>Venkatesh</span></span>
@@ -158,81 +205,65 @@ body{
   </h1>
 </section>
 
-<!-- ABOUT -->
-<section class="sec">
-  <h2 class="sr">About</h2>
-  <p class="sr">
-    Chartered Accountant working on systems thinking, finance and AI.
-    Focused on second-order effects and building intelligent tools.
+<!-- About -->
+<section class="sec about" id="about">
+  <h2 class="sec-title">About</h2>
+  <p>
+    Chartered Accountant working on systems thinking, second-order effects, finance and AI.
+    I focus on building tools that don’t just answer what happens — but what happens next.
   </p>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="sec">
-  <h2 class="sr">Portfolio</h2>
+<!-- Portfolio -->
+<section class="sec" id="portfolio">
+  <h2 class="sec-title">Portfolio</h2>
 
-  <a class="p-item sr" href="https://huggingface.co/" target="_blank">
-    FDD AI Toolkit
+  <a class="p-item" href="https://huggingface.co/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+    <div class="p-name">FDD AI Toolkit</div>
+    <div class="p-desc">AI-powered financial due diligence system.</div>
   </a>
 
-  <a class="p-item sr" href="#">
-    VenkyDoesDD
+  <a class="p-item" href="https://huggingface.co/VenkateshSrinivasan/VenkyDoesDD" target="_blank">
+    <div class="p-name">VenkyDoesDD</div>
+    <div class="p-desc">Conversational due diligence assistant.</div>
   </a>
 
-  <a class="p-item sr" href="#">
-    First Principles Ponder
+  <a class="p-item" href="https://first-principles-ponder.lovable.app/" target="_blank">
+    <div class="p-name">First Principles Ponder</div>
+    <div class="p-desc">Thinking tool for first-principles reasoning.</div>
   </a>
 
 </section>
 
-<!-- GSAP -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- Closing -->
+<section class="closing" id="connect">
+  <h2>I Tinker. I Explore. I Learn.</h2>
+</section>
 
-<!-- Lenis Smooth Scroll -->
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.0.35/bundled/lenis.min.js"></script>
+<!-- Connect -->
+<div class="connect">
+  <a href="https://linkedin.com">LinkedIn</a>
+  <a href="https://github.com">GitHub</a>
+  <a href="https://substack.com">Substack</a>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 
 <script>
-/* Loader */
-window.addEventListener("load", () => {
-  setTimeout(() => {
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
     document.getElementById("loader").classList.add("hide");
-  }, 1500);
+  },1500);
 });
 
-/* Smooth scroll */
-const lenis = new Lenis();
-function raf(time){
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-/* GSAP */
-gsap.registerPlugin(ScrollTrigger);
-
-/* Hero reveal */
-gsap.to(".reveal span", {
-  y: "0%",
-  duration: 1,
-  stagger: 0.12,
-  ease: "power4.out",
-  delay: 0.6
-});
-
-/* Scroll reveal */
-gsap.utils.toArray(".sr").forEach((el,i)=>{
-  gsap.from(el,{
-    y:60,
-    opacity:0,
-    duration:1,
-    ease:"power3.out",
-    delay:i*0.05,
-    scrollTrigger:{
-      trigger:el,
-      start:"top 85%"
-    }
-  });
+/* Hero animation */
+gsap.to(".reveal span",{
+  y:"0%",
+  duration:1,
+  stagger:0.12,
+  ease:"power4.out",
+  delay:.6
 });
 </script>
 
