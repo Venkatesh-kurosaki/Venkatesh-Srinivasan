@@ -4,445 +4,454 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#000000;
-  --fg:#f0ece4;
-  --muted:#4a4845;
-  --warm:#c8a97e;
-  --glass:rgba(255,255,255,0.04);
-  --glass-border:rgba(255,255,255,0.08);
-  --glass-hover:rgba(255,255,255,0.07);
+  --white:#ffffff;
+  --black:#0a0a0a;
+  --grey:#888;
+  --light:#f4f4f2;
+  --line:#e8e8e6;
+  --accent:#0a0a0a;
 }
 html{scroll-behavior:smooth;font-size:16px;}
 body{
-  background:var(--bg);
-  color:var(--fg);
-  font-family:'Syne',sans-serif;
+  background:var(--white);
+  color:var(--black);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
   overflow-x:hidden;
-  cursor:none;
 }
+::selection{background:var(--black);color:var(--white);}
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-track{background:var(--white);}
+::-webkit-scrollbar-thumb{background:var(--black);}
 
-/* ── NOISE TEXTURE ── */
-body::before{
+/* ─── LOADER ─── */
+.loader{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--white);
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  gap:.5rem;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+.loader.hide{opacity:0;visibility:hidden;}
+.loader-line{
+  display:flex;overflow:hidden;
+}
+.loader-word{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(.65rem,.9vw,.8rem);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--black);
+  transform:translateY(100%);
+  animation:loaderUp .5s cubic-bezier(.16,1,.3,1) forwards;
+}
+.loader-line:nth-child(1) .loader-word{animation-delay:.1s;}
+.loader-line:nth-child(2) .loader-word{animation-delay:.25s;}
+.loader-line:nth-child(3) .loader-word{animation-delay:.4s;}
+.loader-line:nth-child(4) .loader-word{animation-delay:.55s;}
+.loader-progress{
+  width:120px;height:1px;
+  background:var(--line);
+  margin-top:1.5rem;
+  position:relative;overflow:hidden;
+}
+.loader-progress::after{
   content:'';
-  position:fixed;inset:0;z-index:0;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-size:150px;
-  opacity:0.025;
-  mix-blend-mode:overlay;
+  position:absolute;top:0;left:0;
+  height:100%;background:var(--black);
+  animation:loaderBar 1.4s cubic-bezier(.4,0,.2,1) forwards .1s;
 }
+@keyframes loaderUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+@keyframes loaderBar{from{width:0;}to{width:100%;}}
 
-/* ── CURSOR ── */
-.cur{position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference;}
-.cur-dot{width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);transition:transform .15s ease;}
-.cur-ring{position:fixed;z-index:9998;pointer-events:none;width:36px;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
-body:has(a:hover) .cur-dot{transform:translate(-50%,-50%) scale(2.5);}
-body:has(a:hover) .cur-ring{width:56px;height:56px;border-color:rgba(200,169,126,.4);}
-
-/* ── NAV ── */
+/* ─── NAV ─── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;justify-content:space-between;align-items:center;
-  padding:1.75rem 3rem;
+  padding:1.5rem 3.5rem;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
-.nav-logo{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.nav-name{
+  font-family:'Space Mono',monospace;
+  font-size:.58rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--grey);
+}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{font-family:'Syne Mono',monospace;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;}
-.nav-links a:hover{color:var(--fg);}
+.nav-links a{
+  font-family:'Space Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grey);
+  text-decoration:none;
+  position:relative;transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;
+  width:0;height:1px;background:var(--black);
+  transition:width .25s ease;
+}
+.nav-links a:hover{color:var(--black);}
+.nav-links a:hover::after{width:100%;}
 
-/* ── HERO ── */
+/* ─── HERO ─── */
 .hero{
   min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:8rem 3rem 5rem;
-  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:0 3.5rem 5rem;
+  border-bottom:1px solid var(--line);
 }
-
-/* Floating orbs background */
-.orb{
-  position:absolute;border-radius:50%;filter:blur(80px);
-  animation:orbFloat linear infinite;
-  pointer-events:none;
-}
-.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(200,169,126,.06),transparent 70%);top:-10%;left:-10%;animation-duration:25s;}
-.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(100,80,200,.04),transparent 70%);bottom:0;right:-5%;animation-duration:30s;animation-direction:reverse;}
-.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(200,169,126,.03),transparent 70%);top:40%;left:40%;animation-duration:20s;animation-delay:-8s;}
-
-@keyframes orbFloat{
-  0%{transform:translate(0,0) scale(1);}
-  33%{transform:translate(30px,-20px) scale(1.05);}
-  66%{transform:translate(-20px,30px) scale(0.97);}
-  100%{transform:translate(0,0) scale(1);}
-}
-
-/* HERO text */
-.hero-label{
-  font-family:'Syne Mono',monospace;font-size:.56rem;
-  letter-spacing:.26em;text-transform:uppercase;color:var(--warm);
-  margin-bottom:2rem;display:flex;align-items:center;gap:1rem;
-  opacity:0;animation:fadeUp .8s ease forwards .2s;
-}
-.hero-label::before{content:'';width:2rem;height:1px;background:var(--warm);}
 
 .hero-name{
-  font-size:clamp(4.5rem,11vw,10rem);font-weight:800;
-  line-height:.9;letter-spacing:-.03em;
-  opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) forwards .4s;
-}
-.hero-name .line{display:block;overflow:hidden;}
-.hero-name .word{display:block;transform:translateY(110%);animation:slideUp 1s cubic-bezier(.16,1,.3,1) forwards;}
-.hero-name .line:nth-child(1) .word{animation-delay:.4s;}
-.hero-name .line:nth-child(2) .word{animation-delay:.55s;}
-
-.hero-sub-row{
-  display:flex;align-items:center;gap:2rem;margin-top:2.5rem;
-  opacity:0;animation:fadeUp .8s ease forwards 1s;
-}
-.hero-rule{flex:1;height:1px;background:rgba(255,255,255,.06);}
-.hero-sub{font-size:clamp(.85rem,1.4vw,1.1rem);font-weight:300;color:var(--muted);white-space:nowrap;}
-
-.hero-bottom{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-top:3.5rem;
-  opacity:0;animation:fadeUp .8s ease forwards 1.2s;
-}
-.hero-desc{font-size:1rem;font-weight:400;line-height:1.75;color:var(--muted);max-width:30rem;}
-.hero-desc strong{color:var(--fg);font-weight:600;}
-.hero-meta{
-  font-family:'Syne Mono',monospace;font-size:.52rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);text-align:right;line-height:2.2;
-}
-
-/* ── SECTIONS ── */
-.sec{padding:8rem 3rem;max-width:1400px;margin:0 auto;}
-.sec-border{border-top:1px solid rgba(255,255,255,.06);}
-.sec-marker{display:flex;align-items:center;gap:1.5rem;margin-bottom:5rem;}
-.sec-num{font-family:'Syne Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);}
-.sec-bar{width:4rem;height:1px;background:var(--muted);}
-
-/* ── ABOUT ── */
-.about-split{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start;}
-.about-head{font-size:clamp(2rem,3.5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.025em;margin-bottom:2.5rem;}
-.about-head em{font-style:italic;font-weight:600;color:var(--warm);}
-.about-p{font-size:.97rem;font-weight:400;line-height:1.9;color:var(--muted);margin-bottom:1.2rem;}
-.about-p strong{color:var(--fg);font-weight:600;}
-
-.gita{margin-top:2.5rem;padding:1.5rem 0 1.5rem 1.5rem;border-left:1.5px solid var(--warm);}
-.gita-q{font-size:1rem;font-style:italic;color:var(--warm);line-height:1.7;margin-bottom:.4rem;}
-.gita-r{font-family:'Syne Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);margin-bottom:2.5rem;}
-.stat{background:#000;padding:1.5rem 1.25rem;}
-.stat-n{font-size:2.8rem;font-weight:800;letter-spacing:-.03em;color:var(--fg);margin-bottom:.2rem;}
-.stat-l{font-family:'Syne Mono',monospace;font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-
-.int-list{display:flex;flex-direction:column;}
-.int-row{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
-.int-row:first-child{border-top:1px solid rgba(255,255,255,.05);}
-.int-d{width:3px;height:3px;border-radius:50%;background:var(--warm);flex-shrink:0;}
-.int-t{font-size:.9rem;font-weight:500;color:var(--fg);flex:1;}
-.int-s{font-family:'Syne Mono',monospace;font-size:.46rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
-
-/* ── 3D TILT CARDS (CubiFlow style) ── */
-.cards-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
-.cards-head{font-size:clamp(2rem,3.2vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.025em;}
-.cards-sub{font-size:.93rem;font-weight:400;line-height:1.8;color:var(--muted);}
-
-.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
-
-.card-3d{
-  position:relative;
-  background:var(--glass);
-  border:1px solid var(--glass-border);
-  border-radius:16px;
-  padding:2rem;
-  text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;gap:.75rem;
-  transform-style:preserve-3d;
-  transition:transform .1s ease, box-shadow .3s ease, background .3s ease;
-  will-change:transform;
+  font-size:clamp(5rem,13vw,12rem);
+  font-weight:600;
+  line-height:.88;
+  letter-spacing:-.04em;
+  color:var(--black);
+  margin-bottom:3rem;
   overflow:hidden;
-  min-height:280px;
+}
+.hero-name .nl{display:block;overflow:hidden;}
+.hero-name .nw{
+  display:block;
+  transform:translateY(110%);
+  animation:slideUp 1s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-name .nl:nth-child(1) .nw{animation-delay:.8s;}
+.hero-name .nl:nth-child(2) .nw{animation-delay:.95s;}
+
+.hero-footer{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:2rem;align-items:end;
+  opacity:0;animation:fadeIn .8s ease forwards 1.6s;
+}
+.hf-label{
+  font-family:'Space Mono',monospace;
+  font-size:.52rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--grey);
+  display:block;margin-bottom:.5rem;
+}
+.hf-val{font-size:.95rem;font-weight:400;color:var(--black);line-height:1.5;}
+.hf-center{text-align:center;}
+.hf-right{text-align:right;}
+
+/* ─── SECTIONS ─── */
+.sec{padding:6rem 3.5rem;border-bottom:1px solid var(--line);max-width:1440px;margin:0 auto;}
+.sec-top{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:4rem;
+}
+.sec-title{
+  font-size:clamp(1.6rem,2.8vw,2.4rem);
+  font-weight:600;letter-spacing:-.025em;color:var(--black);
+}
+.sec-num{
+  font-family:'Space Mono',monospace;
+  font-size:.52rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--grey);
 }
 
-/* Shimmer layer */
-.card-3d::before{
-  content:'';position:absolute;inset:0;border-radius:16px;
-  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.06) 0%, transparent 60%);
-  opacity:0;transition:opacity .3s;pointer-events:none;z-index:1;
+/* ─── ABOUT ─── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+.about-lead{
+  font-size:clamp(1.1rem,1.8vw,1.4rem);
+  font-weight:400;line-height:1.7;
+  color:var(--black);margin-bottom:2rem;
 }
-.card-3d:hover::before{opacity:1;}
-.card-3d:hover{
-  background:var(--glass-hover);
-  box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
+.about-body{font-size:.95rem;font-weight:300;line-height:1.95;color:var(--grey);}
+.about-body strong{color:var(--black);font-weight:500;}
+.gita{
+  margin-top:2.5rem;padding:1.25rem 1.5rem;
+  border-left:2px solid var(--black);
+  background:var(--light);
 }
-.card-3d:hover .card-arr{transform:translate(4px,-4px);color:var(--fg);}
-.card-3d:hover .card-title{color:var(--warm);}
+.gita-q{font-size:.92rem;font-style:italic;font-weight:400;color:var(--black);line-height:1.65;margin-bottom:.35rem;}
+.gita-r{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
 
-.card-arr{position:absolute;top:2rem;right:2rem;font-size:.9rem;color:var(--muted);transition:all .25s;z-index:2;}
-.card-tag{font-family:'Syne Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);z-index:2;}
-.card-title{font-size:1.15rem;font-weight:700;letter-spacing:-.015em;color:var(--fg);padding-right:2rem;transition:color .25s;z-index:2;}
-.card-kicker{font-family:'Syne Mono',monospace;font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm);margin-top:.25rem;z-index:2;}
-.card-body{font-size:.78rem;font-weight:400;line-height:1.75;color:var(--muted);z-index:2;}
-.card-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);z-index:2;}
-.pill{font-family:'Syne Mono',monospace;font-size:.44rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:.15rem .5rem;border:1px solid rgba(255,255,255,.08);border-radius:100px;}
+.about-right{display:flex;flex-direction:column;gap:0;}
+.about-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:.9rem 0;border-bottom:1px solid var(--line);
+}
+.about-row:first-child{border-top:1px solid var(--line);}
+.ar-label{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);}
+.ar-val{font-size:.9rem;font-weight:500;color:var(--black);}
 
-/* ── CONNECT ── */
-.connect-layout{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;}
-.connect-big{font-size:clamp(3rem,7vw,6rem);font-weight:800;line-height:.95;letter-spacing:-.035em;}
-.connect-big em{font-style:italic;font-weight:600;color:var(--warm);}
-
-.c-rows{display:flex;flex-direction:column;}
-.c-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.4rem 0;border-bottom:1px solid rgba(255,255,255,.06);
+/* ─── PORTFOLIO ─── */
+.portfolio-list{display:flex;flex-direction:column;gap:0;}
+.p-item{
+  display:grid;grid-template-columns:3rem 1fr auto 1.5rem;
+  align-items:center;gap:2rem;
+  padding:1.75rem 0;
+  border-bottom:1px solid var(--line);
   text-decoration:none;color:inherit;
-  transition:all .2s;
-  position:relative;overflow:hidden;
+  transition:background .2s;
+  position:relative;
 }
-.c-row::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--warm);transition:width .3s ease;}
-.c-row:hover::after{width:100%;}
-.c-row:first-child{border-top:1px solid rgba(255,255,255,.06);}
-.c-row:hover .c-name{color:var(--warm);}
-.c-row:hover .c-arr{transform:translate(4px,-4px);color:var(--warm);}
-.c-left{display:flex;flex-direction:column;gap:.15rem;}
-.c-lbl{font-family:'Syne Mono',monospace;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
-.c-name{font-size:1.15rem;font-weight:700;color:var(--fg);transition:color .2s;}
-.c-arr{font-size:.9rem;color:var(--muted);transition:all .2s;}
+.p-item:first-child{border-top:1px solid var(--line);}
+.p-item::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:0;
+  background:var(--black);
+  transition:width .3s cubic-bezier(.16,1,.3,1);
+}
+.p-item:hover::before{width:2px;}
+.p-item:hover .p-name{color:var(--black);}
+.p-item:hover .p-arr{transform:translate(3px,-3px);}
+.p-idx{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--grey);letter-spacing:.08em;}
+.p-info{display:flex;flex-direction:column;gap:.25rem;}
+.p-name{font-size:1.05rem;font-weight:500;color:var(--black);transition:color .2s;}
+.p-desc{font-size:.8rem;font-weight:300;color:var(--grey);line-height:1.5;}
+.p-tag{
+  font-family:'Space Mono',monospace;font-size:.48rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--grey);padding:.2rem .6rem;
+  border:1px solid var(--line);white-space:nowrap;
+}
+.p-arr{font-size:.85rem;color:var(--grey);transition:all .2s;}
+
+/* ─── CLOSING ─── */
+.closing{
+  padding:6rem 3.5rem;
+  border-bottom:1px solid var(--line);
+  text-align:center;
+  max-width:1440px;margin:0 auto;
+}
+.closing-big{
+  font-size:clamp(2rem,5vw,5rem);
+  font-weight:600;letter-spacing:-.035em;
+  line-height:1;color:var(--black);
+  margin-bottom:2rem;
+}
+.closing-big span{
+  display:inline-block;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp .7s ease forwards;
+}
+.closing-big span:nth-child(1){animation-delay:0s;}
+.closing-big span:nth-child(2){animation-delay:.08s;}
+.closing-big span:nth-child(3){animation-delay:.16s;}
+.closing-sub{font-size:1rem;font-weight:300;color:var(--grey);margin-bottom:3rem;}
+
+/* ─── CONNECT ─── */
+.connect-grid{
+  display:flex;justify-content:center;
+  flex-wrap:wrap;gap:1rem;
+  max-width:1440px;margin:0 auto;
+  padding:0 3.5rem 3rem;
+}
+.connect-link{
+  display:flex;align-items:center;gap:.6rem;
+  font-family:'Space Mono',monospace;
+  font-size:.55rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey);
+  text-decoration:none;padding:.65rem 1.25rem;
+  border:1px solid var(--line);
+  transition:all .2s;
+}
+.connect-link:hover{background:var(--black);color:var(--white);border-color:var(--black);}
+.connect-link::after{content:'↗';font-size:.7rem;}
 
 footer{
-  padding:2rem 3rem;border-top:1px solid rgba(255,255,255,.06);
+  padding:1.75rem 3.5rem;
   display:flex;justify-content:space-between;align-items:center;
-  max-width:1400px;margin:0 auto;
+  border-top:1px solid var(--line);
+  max-width:1440px;margin:0 auto;
 }
-.ft{font-family:'Syne Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.ft{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);}
 
-/* ── SCROLL REVEAL ── */
-.sr{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+/* ─── SCROLL REVEAL ─── */
+.sr{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
 .sr.in{opacity:1;transform:translateY(0);}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+/* ─── KEYFRAMES ─── */
 @keyframes slideUp{from{transform:translateY(110%);}to{transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
   nav{padding:1.25rem 1.5rem;}
   .nav-links{gap:1.5rem;}
-  .hero,.sec{padding-left:1.5rem;padding-right:1.5rem;}
-  .hero{padding-top:7rem;}
-  .hero-bottom,.about-split,.cards-header,.connect-layout{grid-template-columns:1fr;gap:2.5rem;}
-  .cards-grid{grid-template-columns:1fr;}
-  footer{padding:2rem 1.5rem;flex-direction:column;gap:.75rem;text-align:center;}
+  .hero,.sec,.closing,.connect-grid,footer{padding-left:1.5rem;padding-right:1.5rem;}
+  .hero{padding-top:6rem;}
+  .hero-footer{grid-template-columns:1fr;gap:1.25rem;}
+  .hf-center,.hf-right{text-align:left;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .p-item{grid-template-columns:2rem 1fr 1.5rem;gap:1rem;}
+  .p-tag{display:none;}
+  footer{flex-direction:column;gap:.75rem;text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<div class="cur" id="cur"><div class="cur-dot" id="curDot"></div></div>
-<div class="cur-ring" id="curRing"></div>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-line"><span class="loader-word">Venkatesh Srinivasan</span></div>
+  <div class="loader-line"><span class="loader-word">CA &nbsp;&middot;&nbsp; Finance &nbsp;&middot;&nbsp; Builder</span></div>
+  <div class="loader-line"><span class="loader-word">Bengaluru, India</span></div>
+  <div class="loader-line"><span class="loader-word">Loading &mdash;</span></div>
+  <div class="loader-progress"></div>
+</div>
 
+<!-- NAV -->
 <nav>
-  <span class="nav-logo">Venkatesh Srinivasan</span>
+  <span class="nav-name">VS</span>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#connect">Connect</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <p class="hero-label">Chartered Accountant &nbsp;&middot;&nbsp; Builder &nbsp;&middot;&nbsp; Bengaluru</p>
-
   <h1 class="hero-name">
-    <span class="line"><span class="word">VENKATESH</span></span>
-    <span class="line"><span class="word">SRINIVASAN.</span></span>
+    <span class="nl"><span class="nw">Venkatesh</span></span>
+    <span class="nl"><span class="nw">Srinivasan.</span></span>
   </h1>
-
-  <div class="hero-sub-row">
-    <div class="hero-rule"></div>
-    <span class="hero-sub">Finance &times; Technology &times; Continuous Learning</span>
-    <div class="hero-rule"></div>
-  </div>
-
-  <div class="hero-bottom">
-    <p class="hero-desc">
-      By profession, I work in <strong>finance</strong> &mdash; audit, financial due diligence and data-driven analysis.<br>
-      At heart, I am a <strong>learner</strong>. I tinker, I explore, I build things. Currently funmaxxing.
-    </p>
-    <div class="hero-meta">
-      <div>Finance &amp; FDD</div>
-      <div>ML in Finance</div>
-      <div>First Principles</div>
-      <div>Funmaxxing</div>
+  <div class="hero-footer">
+    <div>
+      <span class="hf-label">Profession</span>
+      <span class="hf-val">Finance, Audit &amp;<br>Due Diligence</span>
+    </div>
+    <div class="hf-center">
+      <span class="hf-label">Currently</span>
+      <span class="hf-val">Funmaxxing &nbsp;&middot;&nbsp; Smilemaxxing<br>Curiositymaxxing</span>
+    </div>
+    <div class="hf-right">
+      <span class="hf-label">Location</span>
+      <span class="hf-val">Bengaluru, India</span>
     </div>
   </div>
 </div>
 
 <!-- ABOUT -->
-<div class="sec sec-border" id="about">
-  <div class="sec-marker">
-    <span class="sec-num">01 &mdash; About</span>
-    <div class="sec-bar"></div>
+<div class="sec" id="about">
+  <div class="sec-top">
+    <h2 class="sec-title sr">About</h2>
+    <span class="sec-num">01</span>
   </div>
-  <div class="about-split">
+  <div class="about-grid">
     <div>
-      <h2 class="about-head sr">Finance, structured<br>thinking, and a mind<br>that <em>never stops.</em></h2>
-      <p class="about-p sr">I work in the <strong>finance domain</strong> &mdash; across audit, financial due diligence and data-driven analysis. My work sits at the intersection of finance and structured thinking.</p>
-      <p class="about-p sr">Beyond work, I am deeply interested in <strong>building things</strong>. Currently exploring machine learning applications in finance &mdash; predictive modelling, decision frameworks and tools that make financial analysis sharper and faster.</p>
-      <p class="about-p sr">I value <strong>clarity, discipline and continuous improvement</strong>. Exercise is how I stay grounded. Building a minimal digital space to write, think and document ideas.</p>
+      <p class="about-lead sr">
+        I am Venkatesh. By qualification, a Chartered Accountant.
+      </p>
+      <div class="about-body sr">
+        <p>I work on <strong>systems thinking, second-order effects, finance and AI</strong>. The kind of thinking that asks not just what happens, but what happens next &mdash; and then what.</p>
+        <br>
+        <p>Beyond work, I seek solace in <strong>fitness, health, nutrition, AI and nature</strong>. These are not hobbies. They are how I stay grounded, focused and genuinely curious about the world.</p>
+      </div>
       <div class="gita sr">
         <p class="gita-q">&ldquo;You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.&rdquo;</p>
-        <p class="gita-r">Bhagavad Gita 2.47 &mdash; The philosophy I live by</p>
+        <p class="gita-r">Bhagavad Gita 2.47</p>
       </div>
     </div>
-    <div>
-      <div class="stats-grid sr">
-        <div class="stat"><div class="stat-n">CA</div><div class="stat-l">Qualified</div></div>
-        <div class="stat"><div class="stat-n">5+</div><div class="stat-l">AI Tools Shipped</div></div>
-        <div class="stat"><div class="stat-n">87%</div><div class="stat-l">ML Accuracy</div></div>
-        <div class="stat"><div class="stat-n">&infin;</div><div class="stat-l">Left to Explore</div></div>
-      </div>
-      <div class="int-list sr">
-        <div class="int-row"><div class="int-d"></div><span class="int-t">Finance &amp; Due Diligence</span><span class="int-s">CA background</span></div>
-        <div class="int-row"><div class="int-d"></div><span class="int-t">Machine Learning in Finance</span><span class="int-s">Actively building</span></div>
-        <div class="int-row"><div class="int-d"></div><span class="int-t">Exercise &amp; Fitness</span><span class="int-s">Daily discipline</span></div>
-        <div class="int-row"><div class="int-d"></div><span class="int-t">Writing &amp; Systems Thinking</span><span class="int-s">Substack</span></div>
-        <div class="int-row"><div class="int-d"></div><span class="int-t">Anime &amp; Philosophy</span><span class="int-s">Always</span></div>
-      </div>
+    <div class="sr">
+      <div class="about-row"><span class="ar-label">Qualification</span><span class="ar-val">Chartered Accountant</span></div>
+      <div class="about-row"><span class="ar-label">Domain</span><span class="ar-val">Finance &amp; Due Diligence</span></div>
+      <div class="about-row"><span class="ar-label">Thinking</span><span class="ar-val">Systems &amp; First Principles</span></div>
+      <div class="about-row"><span class="ar-label">Building</span><span class="ar-val">ML in Finance</span></div>
+      <div class="about-row"><span class="ar-label">Solace</span><span class="ar-val">Fitness &middot; Health &middot; Nature &middot; AI</span></div>
+      <div class="about-row"><span class="ar-label">Status</span><span class="ar-val">Funmaxxing</span></div>
     </div>
   </div>
 </div>
 
-<!-- WORK — 3D TILT CARDS -->
-<div class="sec sec-border" id="work">
-  <div class="sec-marker">
-    <span class="sec-num">02 &mdash; Work &amp; Tools</span>
-    <div class="sec-bar"></div>
+<!-- PORTFOLIO -->
+<div class="sec" id="portfolio">
+  <div class="sec-top">
+    <h2 class="sec-title sr">Portfolio</h2>
+    <span class="sec-num">02</span>
   </div>
-  <div class="cards-header sr">
-    <h2 class="cards-head">Things I have<br>built and shipped.</h2>
-    <p class="cards-sub">Every tool here was built to solve a real problem &mdash; finance meets AI, shipped in public.</p>
-  </div>
-  <div class="cards-grid">
+  <div class="portfolio-list">
 
-    <a class="card-3d sr" href="https://huggingface.co/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">Finance AI &bull; Hugging Face</span>
-      <span class="card-title">FDD AI Toolkit</span>
-      <p class="card-kicker">What it does</p>
-      <p class="card-body">AI-powered Financial Due Diligence &mdash; QoE, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks.</p>
-      <p class="card-kicker">Who uses it</p>
-      <p class="card-body">PE analysts, M&amp;A bankers, finance students, founders preparing for investor scrutiny.</p>
-      <div class="card-pills"><span class="pill">Streamlit</span><span class="pill">Groq LLaMA</span><span class="pill">Pandas</span></div>
+    <a class="p-item sr" href="https://huggingface.co/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+      <span class="p-idx">01</span>
+      <div class="p-info">
+        <span class="p-name">FDD AI Toolkit</span>
+        <span class="p-desc">AI-powered Financial Due Diligence &mdash; QoE, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks.</span>
+      </div>
+      <span class="p-tag">Finance AI</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="card-3d sr" href="https://huggingface.co/VenkateshSrinivasan/VenkyDoesDD" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">Finance AI &bull; Hugging Face</span>
-      <span class="card-title">VenkyDoesDD</span>
-      <p class="card-kicker">What it does</p>
-      <p class="card-body">Conversational DD assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</p>
-      <p class="card-kicker">Who uses it</p>
-      <p class="card-body">Finance analysts, VC associates, anyone evaluating a company or investment.</p>
-      <div class="card-pills"><span class="pill">Streamlit</span><span class="pill">Groq LLaMA</span><span class="pill">Industry KPIs</span></div>
+    <a class="p-item sr" href="https://huggingface.co/VenkateshSrinivasan/VenkyDoesDD" target="_blank">
+      <span class="p-idx">02</span>
+      <div class="p-info">
+        <span class="p-name">VenkyDoesDD</span>
+        <span class="p-desc">Conversational due diligence assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</span>
+      </div>
+      <span class="p-tag">Finance AI</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="card-3d sr" href="https://longevitybro.lovable.app" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">Health AI &bull; Lovable</span>
-      <span class="card-title">LongevityBro</span>
-      <p class="card-kicker">What it does</p>
-      <p class="card-body">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max. ML models trained on 13,000+ patient records.</p>
-      <p class="card-kicker">Who uses it</p>
-      <p class="card-body">Anyone wanting to understand their health numbers beyond a standard report.</p>
-      <div class="card-pills"><span class="pill">React</span><span class="pill">Scikit-learn</span><span class="pill">ADA/AHA</span></div>
+    <a class="p-item sr" href="https://huggingface.co/VenkateshSrinivasan/amIobsolete" target="_blank">
+      <span class="p-idx">03</span>
+      <div class="p-info">
+        <span class="p-name">Am I Obsolete?</span>
+        <span class="p-desc">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Brutally honest AI obsolescence assessment for any profession.</span>
+      </div>
+      <span class="p-tag">Career AI</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="card-3d sr" href="https://first-principles-ponder.lovable.app" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">AMA AI &bull; Lovable</span>
-      <span class="card-title">FIRST PRINCIPLES</span>
-      <p class="card-kicker">What it does</p>
-      <p class="card-body">Answers from some of the best thinkers in the world</p>
-      <p class="card-kicker">Who uses it</p>
-      <p class="card-body">Anyone who needs an answer.</p>
-      <div class="card-pills"><span class="pill">React</span><span class="pill">LOVABLE</span><span class="pill">AMA</span></div>
-    </a>
-    
-    <a class="card-3d sr" href="https://huggingface.co/VenkateshSrinivasan/amIobsolete" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">Career AI &bull; Hugging Face</span>
-      <span class="card-title">Am I Obsolete?</span>
-      <p class="card-kicker">What it does</p>
-      <p class="card-body">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Brutally honest AI obsolescence assessment for any profession.</p>
-      <p class="card-kicker">End result</p>
-      <p class="card-body">Obsolescence score, timeline and specific skills to develop urgently.</p>
-      <div class="card-pills"><span class="pill">Streamlit</span><span class="pill">Groq LLaMA</span><span class="pill">Anthropic Research</span></div>
+    <a class="p-item sr" href="https://longevitybro.lovable.app" target="_blank">
+      <span class="p-idx">04</span>
+      <div class="p-info">
+        <span class="p-name">LongevityBro</span>
+        <span class="p-desc">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max. ML models trained on 13,000+ patient records.</span>
+      </div>
+      <span class="p-tag">Health AI</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="card-3d sr" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">Writing &bull; Substack</span>
-      <span class="card-title">Writing</span>
-      <p class="card-kicker">What it covers</p>
-      <p class="card-body">Finance, machine learning, systems thinking and broader reflections. First principles applied to everything. Thinking out loud in public.</p>
-      <p class="card-kicker">Why it exists</p>
-      <p class="card-body">A minimal space to document ideas &mdash; honest and continuous.</p>
-      <div class="card-pills"><span class="pill">Finance</span><span class="pill">AI</span><span class="pill">Systems</span></div>
+    <a class="p-item sr" href="https://first-principles-ponder.lovable.app/" target="_blank">
+      <span class="p-idx">05</span>
+      <div class="p-info">
+        <span class="p-name">First Principles Ponder</span>
+        <span class="p-desc">A thinking tool built around first principles reasoning &mdash; break any problem down to its foundations and reason upward from truth.</span>
+      </div>
+      <span class="p-tag">Thinking Tool</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="card-3d sr" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
-      <span class="card-arr">&#x2197;</span>
-      <span class="card-tag">ML &bull; Hugging Face Profile</span>
-      <span class="card-title">ML Models &amp; Spaces</span>
-      <p class="card-kicker">What is here</p>
-      <p class="card-body">All deployed AI models and Streamlit apps &mdash; financial due diligence, health screening, career analysis. Open and accessible.</p>
-      <p class="card-kicker">End result</p>
-      <p class="card-body">A living portfolio of working AI applications. Not prototypes &mdash; shipped tools.</p>
-      <div class="card-pills"><span class="pill">Python</span><span class="pill">Scikit-learn</span><span class="pill">Groq</span></div>
+    <a class="p-item sr" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+      <span class="p-idx">06</span>
+      <div class="p-info">
+        <span class="p-name">Writing</span>
+        <span class="p-desc">Finance, systems thinking, second-order effects and broader reflections. Thinking out loud in public &mdash; honest and continuous.</span>
+      </div>
+      <span class="p-tag">Substack</span>
+      <span class="p-arr">&#x2197;</span>
     </a>
 
   </div>
 </div>
 
-<!-- CONNECT -->
-<div class="sec sec-border" id="connect">
-  <div class="sec-marker">
-    <span class="sec-num">03 &mdash; Connect</span>
-    <div class="sec-bar"></div>
+<!-- CLOSING STATEMENT -->
+<div class="closing" id="connect">
+  <div class="closing-big">
+    <span>I&nbsp;Tinker.</span>&nbsp;
+    <span>I&nbsp;Explore.</span>&nbsp;
+    <span>I&nbsp;Learn.</span>
   </div>
-  <div class="connect-layout">
-    <h2 class="connect-big sr">Smile Maxxing<br>Fun Maxxing<br><em>CURIOUS.</em></h2>
-    <div class="c-rows sr">
-      <a class="c-row" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">
-        <div class="c-left"><span class="c-lbl">Professional</span><span class="c-name">LinkedIn</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">
-        <div class="c-left"><span class="c-lbl">AI &amp; ML</span><span class="c-name">Hugging Face</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://github.com/Venkatesh-kurosaki" target="_blank">
-        <div class="c-left"><span class="c-lbl">Code</span><span class="c-name">GitHub</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-      <a class="c-row" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
-        <div class="c-left"><span class="c-lbl">Writing</span><span class="c-name">Substack</span></div>
-        <span class="c-arr">&#x2197;</span>
-      </a>
-    </div>
-  </div>
+  <p class="closing-sub sr">Glad to connect &mdash; reach out on any of the platforms below.</p>
+</div>
+
+<!-- CONNECT LINKS -->
+<div class="connect-grid sr">
+  <a class="connect-link" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">LinkedIn</a>
+  <a class="connect-link" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">Hugging Face</a>
+  <a class="connect-link" href="https://github.com/Venkatesh-kurosaki" target="_blank">GitHub</a>
+  <a class="connect-link" href="https://substack.com/@venkateshsrinivasann23" target="_blank">Substack</a>
 </div>
 
 <footer>
@@ -451,77 +460,49 @@ footer{
 </footer>
 
 <script>
-/* ── Cursor ── */
-const curDot = document.getElementById('curDot');
-const curRing = document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => {
-  mx=e.clientX; my=e.clientY;
-  curDot.style.left=mx+'px'; curDot.style.top=my+'px';
-});
-(function loop(){
-  rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
-  curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
-  requestAnimationFrame(loop);
-})();
-
-/* ── 3D Card tilt ── */
-document.querySelectorAll('.card-3d').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
-    const dx = (e.clientX - cx) / (rect.width/2);
-    const dy = (e.clientY - cy) / (rect.height/2);
-    const tiltX = dy * -8;
-    const tiltY = dx * 8;
-    card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(4px)`;
-    /* shimmer position */
-    const px = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-    const py = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
-    card.style.setProperty('--mx', px+'%');
-    card.style.setProperty('--my', py+'%');
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-    card.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), box-shadow .3s, background .3s';
-    setTimeout(() => { card.style.transition = 'transform .1s ease, box-shadow .3s, background .3s'; }, 500);
-  });
-  card.addEventListener('mouseenter', () => {
-    card.style.transition = 'transform .1s ease, box-shadow .3s, background .3s';
-  });
+/* Loader */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+  }, 1800);
 });
 
-/* ── Scroll reveal ── */
+/* Scroll reveal */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
   });
-}, {threshold:.08, rootMargin:'0px 0px -40px 0px'});
+}, {threshold:.08, rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.sr').forEach((el,i) => {
-  el.style.transitionDelay = (i%5)*.1+'s';
+  el.style.transitionDelay = (i%4)*.1+'s';
   obs.observe(el);
 });
 
-/* ── Hero parallax on mouse ── */
-const hero = document.querySelector('.hero');
-document.addEventListener('mousemove', e => {
-  const xp = (e.clientX/window.innerWidth - .5) * 15;
-  const yp = (e.clientY/window.innerHeight - .5) * 10;
-  document.querySelectorAll('.orb').forEach((orb, i) => {
-    const factor = (i+1) * .4;
-    orb.style.transform += ` translate(${xp*factor}px,${yp*factor}px)`;
-  });
-});
-
-/* ── Progress bar ── */
+/* Progress bar */
 const pb = document.createElement('div');
-pb.style.cssText = 'position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,#7a5e34,#c8a97e);z-index:500;transition:width .1s linear;box-shadow:0 0 8px rgba(200,169,126,.4);';
+pb.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:var(--black);z-index:200;transition:width .1s linear;pointer-events:none;';
 document.body.appendChild(pb);
 window.addEventListener('scroll', () => {
   const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
   pb.style.width = Math.min(pct,100)+'%';
 });
+
+/* Closing statement — trigger when visible */
+const closingObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('span').forEach((s,i) => {
+        s.style.animationDelay = i*.1+'s';
+        s.style.opacity = '1';
+      });
+    }
+  });
+},{threshold:.3});
+const cb = document.querySelector('.closing-big');
+if(cb){
+  cb.querySelectorAll('span').forEach(s => s.style.opacity='0');
+  closingObs.observe(cb);
+}
 </script>
 </body>
 </html>
