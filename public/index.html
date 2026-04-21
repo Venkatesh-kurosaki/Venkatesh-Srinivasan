@@ -69,14 +69,77 @@
   }
 }
   html{scroll-behavior:smooth;font-size:16px;}
-body{
-  background:var(--white);
-  color:var(--black);
-  font-family:'Inter',sans-serif;
-  font-weight:300;
-  overflow-x:hidden;
+:root{
+  --white:#ffffff;
+  --black:#0a0a0a;
+  --muted:#a1a1a1;
 }
-::selection{background:var(--black);color:var(--white);}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+
+  overflow-x: hidden;
+}
+
+/* Editorial Headings */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+/* Hero style */
+h1 {
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: 1.1;
+}
+
+/* Subtle paragraph styling */
+p {
+  color: var(--muted);
+  max-width: 600px;
+  font-size: 1rem;
+}
+
+/* Elegant links */
+a {
+  color: var(--white);
+  text-decoration: none;
+  position: relative;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* Selection effect */
+::selection {
+  background: var(--white);
+  color: var(--black);
+}
+  ::selection{background:var(--black);color:var(--white);}
 ::-webkit-scrollbar{width:2px;}
 ::-webkit-scrollbar-track{background:var(--white);}
 ::-webkit-scrollbar-thumb{background:var(--black);}
