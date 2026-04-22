@@ -4,287 +4,371 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Venkatesh Srinivasan</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+/* ═══ MOUNTAIN PALETTE ═══ */
 :root{
-  --white:#ffffff;
-  --black:#0a0a0a;
-  --grey:#888;
-  --light:#f4f4f2;
-  --line:#e8e8e6;
-  --accent:#0a0a0a;
+  --stone:    #f5f2ee;   /* warm off-white — paper */
+  --parch:    #ede9e3;   /* parchment — card bg  */
+  --mist:     #d8d2c8;   /* light mist — borders */
+  --slate:    #8c8780;   /* mid slate — muted    */
+  --ridge:    #4a4540;   /* dark ridge — text    */
+  --peak:     #1e1a17;   /* near black — headings*/
+  --sage:     #7a8474;   /* mountain sage accent */
+  --rust:     #8b6355;   /* warm rust detail     */
 }
+
 html{scroll-behavior:smooth;font-size:16px;}
 body{
-  background:var(--white);
-  color:var(--black);
+  background:var(--stone);
+  color:var(--peak);
   font-family:'Inter',sans-serif;
   font-weight:300;
   overflow-x:hidden;
 }
-::selection{background:var(--black);color:var(--white);}
+::selection{background:var(--peak);color:var(--stone);}
 ::-webkit-scrollbar{width:2px;}
-::-webkit-scrollbar-track{background:var(--white);}
-::-webkit-scrollbar-thumb{background:var(--black);}
+::-webkit-scrollbar-track{background:var(--stone);}
+::-webkit-scrollbar-thumb{background:var(--mist);}
 
-/* ─── LOADER ─── */
-.loader{
-  position:fixed;inset:0;z-index:1000;
-  background:var(--white);
-  display:flex;flex-direction:column;
-  justify-content:center;align-items:center;
-  gap:.5rem;
-  transition:opacity .6s ease, visibility .6s ease;
+/* ═══ LOADER ═══ */
+#loader{
+  position:fixed;inset:0;z-index:2000;
+  background:var(--stone);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:2rem;
+  transition:opacity .8s ease, visibility .8s ease;
 }
-.loader.hide{opacity:0;visibility:hidden;}
-.loader-line{
-  display:flex;overflow:hidden;
+#loader.out{opacity:0;visibility:hidden;pointer-events:none;}
+
+.ld-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,6vw,5rem);
+  font-weight:300;
+  letter-spacing:.08em;
+  color:var(--peak);
+  overflow:hidden;
 }
-.loader-word{
+.ld-name span{
+  display:inline-block;
+  transform:translateY(110%);
+  animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards .2s;
+}
+
+.ld-bar-wrap{
+  width:160px;height:1px;
+  background:var(--mist);position:relative;overflow:hidden;
+}
+.ld-bar{
+  position:absolute;top:0;left:0;height:100%;
+  background:var(--sage);
+  animation:ldBar 1.6s cubic-bezier(.4,0,.2,1) forwards .3s;
+  width:0;
+}
+.ld-label{
   font-family:'Space Mono',monospace;
-  font-size:clamp(.65rem,.9vw,.8rem);
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--black);
-  transform:translateY(100%);
-  animation:loaderUp .5s cubic-bezier(.16,1,.3,1) forwards;
+  font-size:.48rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--slate);
 }
-.loader-line:nth-child(1) .loader-word{animation-delay:.1s;}
-.loader-line:nth-child(2) .loader-word{animation-delay:.25s;}
-.loader-line:nth-child(3) .loader-word{animation-delay:.4s;}
-.loader-line:nth-child(4) .loader-word{animation-delay:.55s;}
-.loader-progress{
-  width:120px;height:1px;
-  background:var(--line);
-  margin-top:1.5rem;
-  position:relative;overflow:hidden;
-}
-.loader-progress::after{
-  content:'';
-  position:absolute;top:0;left:0;
-  height:100%;background:var(--black);
-  animation:loaderBar 1.4s cubic-bezier(.4,0,.2,1) forwards .1s;
-}
-@keyframes loaderUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-@keyframes loaderBar{from{width:0;}to{width:100%;}}
+@keyframes ldBar{from{width:0}to{width:100%}}
 
-/* ─── NAV ─── */
+/* ═══ MOUNTAIN SVG BACKGROUND ═══ */
+.mountain-bg{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:0;pointer-events:none;
+  opacity:.07;
+}
+
+/* ═══ NAV ═══ */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;justify-content:space-between;align-items:center;
-  padding:1.5rem 3.5rem;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  padding:1.75rem 4rem;
+  background:rgba(245,242,238,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--mist);
 }
-.nav-name{
-  font-family:'Space Mono',monospace;
-  font-size:.58rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--grey);
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:400;
+  letter-spacing:.06em;color:var(--peak);
 }
-.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links{display:flex;gap:3rem;list-style:none;align-items:center;}
 .nav-links a{
   font-family:'Space Mono',monospace;
-  font-size:.55rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--grey);
+  font-size:.5rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--slate);
   text-decoration:none;
-  position:relative;transition:color .2s;
+  position:relative;
+  transition:color .3s;
 }
 .nav-links a::after{
-  content:'';position:absolute;bottom:-2px;left:0;
-  width:0;height:1px;background:var(--black);
-  transition:width .25s ease;
+  content:'';position:absolute;
+  left:0;bottom:-3px;
+  width:0;height:1px;
+  background:var(--sage);
+  transition:width .3s ease;
 }
-.nav-links a:hover{color:var(--black);}
+.nav-links a:hover{color:var(--peak);}
 .nav-links a:hover::after{width:100%;}
 
-/* ─── HERO ─── */
+/* ═══ HERO ═══ */
 .hero{
+  position:relative;z-index:10;
   min-height:100vh;
   display:flex;flex-direction:column;
   justify-content:flex-end;
-  padding:0 3.5rem 5rem;
-  border-bottom:1px solid var(--line);
+  padding:0 4rem 5.5rem;
+  border-bottom:1px solid var(--mist);
+  overflow:hidden;
 }
 
 .hero-name{
-  font-size:clamp(5rem,13vw,12rem);
-  font-weight:600;
-  line-height:.88;
-  letter-spacing:-.04em;
-  color:var(--black);
-  margin-bottom:3rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(5rem,12vw,11rem);
+  font-weight:300;
+  line-height:.9;
+  letter-spacing:-.01em;
+  color:var(--peak);
   overflow:hidden;
+  margin-bottom:3rem;
 }
 .hero-name .nl{display:block;overflow:hidden;}
 .hero-name .nw{
   display:block;
   transform:translateY(110%);
-  animation:slideUp 1s cubic-bezier(.16,1,.3,1) forwards;
+  animation:slideUp 1.1s cubic-bezier(.16,1,.3,1) forwards;
 }
-.hero-name .nl:nth-child(1) .nw{animation-delay:.8s;}
-.hero-name .nl:nth-child(2) .nw{animation-delay:.95s;}
+.hero-name .nl:nth-child(1) .nw{animation-delay:.9s;}
+.hero-name .nl:nth-child(2) .nw{animation-delay:1.05s;}
 
-.hero-footer{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:2rem;align-items:end;
-  opacity:0;animation:fadeIn .8s ease forwards 1.6s;
+.hero-meta{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:3rem;
+  opacity:0;animation:fadeIn .8s ease forwards 1.8s;
+  border-top:1px solid var(--mist);
+  padding-top:2rem;
 }
-.hf-label{
+.hm-item{}
+.hm-label{
   font-family:'Space Mono',monospace;
-  font-size:.52rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--grey);
-  display:block;margin-bottom:.5rem;
+  font-size:.46rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--slate);
+  display:block;margin-bottom:.6rem;
 }
-.hf-val{font-size:.95rem;font-weight:400;color:var(--black);line-height:1.5;}
-.hf-center{text-align:center;}
-.hf-right{text-align:right;}
+.hm-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:400;
+  color:var(--peak);line-height:1.5;
+}
 
-/* ─── SECTIONS ─── */
-.sec{padding:6rem 3.5rem;border-bottom:1px solid var(--line);max-width:1440px;margin:0 auto;}
-.sec-top{
-  display:flex;align-items:baseline;justify-content:space-between;
-  margin-bottom:4rem;
+/* ═══ SECTIONS ═══ */
+.wrap{max-width:1360px;margin:0 auto;}
+.sec{
+  position:relative;z-index:10;
+  padding:7rem 4rem;
+  border-bottom:1px solid var(--mist);
+}
+.sec-head{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:5rem;
 }
 .sec-title{
-  font-size:clamp(1.6rem,2.8vw,2.4rem);
-  font-weight:600;letter-spacing:-.025em;color:var(--black);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:300;letter-spacing:-.01em;
+  color:var(--peak);
 }
-.sec-num{
+.sec-n{
   font-family:'Space Mono',monospace;
-  font-size:.52rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--grey);
+  font-size:.48rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--slate);
+  padding-top:.5rem;
 }
 
-/* ─── ABOUT ─── */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+/* ═══ ABOUT ═══ */
+.about-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start;}
+
 .about-lead{
-  font-size:clamp(1.1rem,1.8vw,1.4rem);
-  font-weight:400;line-height:1.7;
-  color:var(--black);margin-bottom:2rem;
-}
-.about-body{font-size:.95rem;font-weight:300;line-height:1.95;color:var(--grey);}
-.about-body strong{color:var(--black);font-weight:500;}
-.gita{
-  margin-top:2.5rem;padding:1.25rem 1.5rem;
-  border-left:2px solid var(--black);
-  background:var(--light);
-}
-.gita-q{font-size:.92rem;font-style:italic;font-weight:400;color:var(--black);line-height:1.65;margin-bottom:.35rem;}
-.gita-r{font-family:'Space Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);}
-
-.about-right{display:flex;flex-direction:column;gap:0;}
-.about-row{
-  display:flex;align-items:baseline;justify-content:space-between;
-  padding:.9rem 0;border-bottom:1px solid var(--line);
-}
-.about-row:first-child{border-top:1px solid var(--line);}
-.ar-label{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);}
-.ar-val{font-size:.9rem;font-weight:500;color:var(--black);}
-
-/* ─── PORTFOLIO ─── */
-.portfolio-list{display:flex;flex-direction:column;gap:0;}
-.p-item{
-  display:grid;grid-template-columns:3rem 1fr auto 1.5rem;
-  align-items:center;gap:2rem;
-  padding:1.75rem 0;
-  border-bottom:1px solid var(--line);
-  text-decoration:none;color:inherit;
-  transition:background .2s;
-  position:relative;
-}
-.p-item:first-child{border-top:1px solid var(--line);}
-.p-item::before{
-  content:'';position:absolute;
-  left:0;top:0;bottom:0;width:0;
-  background:var(--black);
-  transition:width .3s cubic-bezier(.16,1,.3,1);
-}
-.p-item:hover::before{width:2px;}
-.p-item:hover .p-name{color:var(--black);}
-.p-item:hover .p-arr{transform:translate(3px,-3px);}
-.p-idx{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--grey);letter-spacing:.08em;}
-.p-info{display:flex;flex-direction:column;gap:.25rem;}
-.p-name{font-size:1.05rem;font-weight:500;color:var(--black);transition:color .2s;}
-.p-desc{font-size:.8rem;font-weight:300;color:var(--grey);line-height:1.5;}
-.p-tag{
-  font-family:'Space Mono',monospace;font-size:.48rem;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--grey);padding:.2rem .6rem;
-  border:1px solid var(--line);white-space:nowrap;
-}
-.p-arr{font-size:.85rem;color:var(--grey);transition:all .2s;}
-
-/* ─── CLOSING ─── */
-.closing{
-  padding:6rem 3.5rem;
-  border-bottom:1px solid var(--line);
-  text-align:center;
-  max-width:1440px;margin:0 auto;
-}
-.closing-big{
-  font-size:clamp(2rem,5vw,5rem);
-  font-weight:600;letter-spacing:-.035em;
-  line-height:1;color:var(--black);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,2vw,1.55rem);
+  font-weight:400;line-height:1.65;
+  color:var(--peak);
   margin-bottom:2rem;
 }
-.closing-big span{
-  display:inline-block;
-  opacity:0;transform:translateY(20px);
-  animation:fadeUp .7s ease forwards;
+.about-body{
+  font-size:.95rem;font-weight:300;
+  line-height:1.95;color:var(--slate);
+  margin-bottom:1.5rem;
 }
-.closing-big span:nth-child(1){animation-delay:0s;}
-.closing-big span:nth-child(2){animation-delay:.08s;}
-.closing-big span:nth-child(3){animation-delay:.16s;}
-.closing-sub{font-size:1rem;font-weight:300;color:var(--grey);margin-bottom:3rem;}
+.about-body strong{color:var(--ridge);font-weight:400;}
 
-/* ─── CONNECT ─── */
-.connect-grid{
-  display:flex;justify-content:center;
-  flex-wrap:wrap;gap:1rem;
-  max-width:1440px;margin:0 auto;
-  padding:0 3.5rem 3rem;
+.gita{
+  margin-top:2.5rem;
+  padding:1.5rem 0 1.5rem 2rem;
+  border-left:2px solid var(--sage);
 }
-.connect-link{
-  display:flex;align-items:center;gap:.6rem;
+.gita-q{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-style:italic;font-weight:400;
+  color:var(--ridge);line-height:1.7;
+  margin-bottom:.4rem;
+}
+.gita-r{
   font-family:'Space Mono',monospace;
-  font-size:.55rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--grey);
-  text-decoration:none;padding:.65rem 1.25rem;
-  border:1px solid var(--line);
-  transition:all .2s;
+  font-size:.44rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--slate);
 }
-.connect-link:hover{background:var(--black);color:var(--white);border-color:var(--black);}
-.connect-link::after{content:'↗';font-size:.7rem;}
 
+.about-right{display:flex;flex-direction:column;}
+.ar{
+  display:flex;align-items:baseline;
+  justify-content:space-between;
+  padding:1rem 0;
+  border-bottom:1px solid var(--mist);
+}
+.ar:first-child{border-top:1px solid var(--mist);}
+.ar-k{
+  font-family:'Space Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--slate);
+}
+.ar-v{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:400;color:var(--peak);
+}
+
+/* ═══ PORTFOLIO ═══ */
+.port-list{display:flex;flex-direction:column;}
+.p-row{
+  display:grid;grid-template-columns:2.5rem 1fr 9rem 1.5rem;
+  align-items:center;gap:3rem;
+  padding:2rem 0;
+  border-bottom:1px solid var(--mist);
+  text-decoration:none;color:inherit;
+  position:relative;
+  transition:background .2s;
+}
+.p-row:first-child{border-top:1px solid var(--mist);}
+.p-row::after{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;
+  width:0;background:var(--sage);
+  transition:width .35s cubic-bezier(.16,1,.3,1);
+}
+.p-row:hover::after{width:2px;}
+.p-row:hover .p-name{color:var(--sage);}
+.p-row:hover .p-arr{transform:translate(3px,-3px);color:var(--sage);}
+.p-idx{
+  font-family:'Space Mono',monospace;
+  font-size:.46rem;color:var(--slate);
+  letter-spacing:.08em;
+}
+.p-info{display:flex;flex-direction:column;gap:.3rem;}
+.p-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:400;
+  color:var(--peak);
+  transition:color .25s;
+  letter-spacing:-.005em;
+}
+.p-desc{
+  font-size:.8rem;font-weight:300;
+  color:var(--slate);line-height:1.55;
+}
+.p-tag{
+  font-family:'Space Mono',monospace;
+  font-size:.44rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate);
+  padding:.2rem .6rem;
+  border:1px solid var(--mist);
+  text-align:center;
+  justify-self:start;
+}
+.p-arr{font-size:.85rem;color:var(--mist);transition:all .25s;}
+
+/* ═══ CLOSING ═══ */
+.closing{
+  position:relative;z-index:10;
+  padding:7rem 4rem;
+  text-align:center;
+  border-bottom:1px solid var(--mist);
+}
+.closing-serif{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5.5vw,5.5rem);
+  font-weight:300;
+  letter-spacing:.04em;
+  line-height:1.15;
+  color:var(--peak);
+  margin-bottom:1.5rem;
+}
+.closing-italic{font-style:italic;color:var(--sage);}
+.closing-sub{
+  font-family:'Space Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--slate);
+  margin-bottom:3.5rem;
+}
+
+/* ═══ CONNECT ═══ */
+.connect-row{
+  display:flex;justify-content:center;
+  flex-wrap:wrap;gap:.75rem;
+}
+.c-link{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Space Mono',monospace;
+  font-size:.48rem;letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--slate);
+  text-decoration:none;
+  padding:.65rem 1.4rem;
+  border:1px solid var(--mist);
+  background:transparent;
+  transition:all .25s;
+}
+.c-link:hover{
+  background:var(--peak);
+  color:var(--stone);
+  border-color:var(--peak);
+}
+.c-link::after{content:' ↗';font-size:.6rem;}
+
+/* ═══ FOOTER ═══ */
 footer{
-  padding:1.75rem 3.5rem;
+  position:relative;z-index:10;
   display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid var(--line);
-  max-width:1440px;margin:0 auto;
+  padding:2rem 4rem;
+  max-width:1360px;margin:0 auto;
 }
-.ft{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);}
+.ft{
+  font-family:'Space Mono',monospace;
+  font-size:.46rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--slate);
+}
 
-/* ─── SCROLL REVEAL ─── */
-.sr{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
+/* ═══ SCROLL REVEAL ═══ */
+.sr{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease;}
 .sr.in{opacity:1;transform:translateY(0);}
 
-/* ─── KEYFRAMES ─── */
+/* ═══ KEYFRAMES ═══ */
 @keyframes slideUp{from{transform:translateY(110%);}to{transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* ─── RESPONSIVE ─── */
-@media(max-width:768px){
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
   nav{padding:1.25rem 1.5rem;}
-  .nav-links{gap:1.5rem;}
-  .hero,.sec,.closing,.connect-grid,footer{padding-left:1.5rem;padding-right:1.5rem;}
-  .hero{padding-top:6rem;}
-  .hero-footer{grid-template-columns:1fr;gap:1.25rem;}
-  .hf-center,.hf-right{text-align:left;}
-  .about-grid{grid-template-columns:1fr;gap:3rem;}
-  .p-item{grid-template-columns:2rem 1fr 1.5rem;gap:1rem;}
+  .nav-links{gap:1.75rem;}
+  .hero,.sec,.closing,footer{padding-left:1.5rem;padding-right:1.5rem;}
+  .hero{padding-top:7rem;}
+  .hero-meta{grid-template-columns:1fr;gap:1.5rem;}
+  .about-layout{grid-template-columns:1fr;gap:3.5rem;}
+  .p-row{grid-template-columns:2rem 1fr 1.5rem;gap:1.25rem;}
   .p-tag{display:none;}
   footer{flex-direction:column;gap:.75rem;text-align:center;}
 }
@@ -293,17 +377,21 @@ footer{
 <body>
 
 <!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="loader-line"><span class="loader-word">Venkatesh Srinivasan</span></div>
-  <div class="loader-line"><span class="loader-word">CA &nbsp;&middot;&nbsp; Finance &nbsp;&middot;&nbsp; Builder</span></div>
-  <div class="loader-line"><span class="loader-word">Bengaluru, India</span></div>
-  <div class="loader-line"><span class="loader-word">Loading &mdash;</span></div>
-  <div class="loader-progress"></div>
+<div id="loader">
+  <div class="ld-name"><span>Venkatesh Srinivasan</span></div>
+  <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+  <span class="ld-label">Loading</span>
 </div>
+
+<!-- MOUNTAIN SVG — subtle depth layer -->
+<svg class="mountain-bg" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 320L120 240L200 270L320 180L440 230L540 150L660 200L760 110L860 170L960 90L1080 160L1180 80L1300 140L1440 60L1440 320Z" fill="var(--ridge)"/>
+  <path d="M0 320L80 290L200 300L340 260L460 280L600 240L720 265L840 225L980 250L1100 210L1250 240L1440 200L1440 320Z" fill="var(--ridge)" opacity=".5"/>
+</svg>
 
 <!-- NAV -->
 <nav>
-  <span class="nav-name">VS</span>
+  <span class="nav-logo">Venkatesh Srinivasan</span>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
@@ -317,117 +405,114 @@ footer{
     <span class="nl"><span class="nw">Venkatesh</span></span>
     <span class="nl"><span class="nw">Srinivasan.</span></span>
   </h1>
-  <div class="hero-footer">
-    <div>
-      <span class="hf-label">Profession</span>
-      <span class="hf-val">Finance, Audit &amp;<br>Due Diligence</span>
+  <div class="hero-meta">
+    <div class="hm-item">
+      <span class="hm-label">By Profession</span>
+      <span class="hm-val">Finance &middot; Audit<br>Due Diligence &amp; Analytics</span>
     </div>
-    <div class="hf-center">
-      <span class="hf-label">Currently</span>
-      <span class="hf-val">Funmaxxing &nbsp;&middot;&nbsp; Smilemaxxing<br>Curiositymaxxing</span>
+    <div class="hm-item">
+      <span class="hm-label">Currently</span>
+      <span class="hm-val">Funmaxxing &middot; Smilemaxxing<br>Curiositymaxxing</span>
     </div>
-    <div class="hf-right">
-      <span class="hf-label">Location</span>
-      <span class="hf-val">Bengaluru, India</span>
+    <div class="hm-item">
+      <span class="hm-label">Based in</span>
+      <span class="hm-val">Bengaluru, India</span>
     </div>
   </div>
 </div>
 
+<div class="wrap">
+
 <!-- ABOUT -->
 <div class="sec" id="about">
-  <div class="sec-top">
+  <div class="sec-head">
     <h2 class="sec-title sr">About</h2>
-    <span class="sec-num">01</span>
+    <span class="sec-n">01</span>
   </div>
-  <div class="about-grid">
+  <div class="about-layout">
     <div>
-      <p class="about-lead sr">
-        I am Venkatesh. By qualification, a Chartered Accountant.
-      </p>
-      <div class="about-body sr">
-        <p>I work on <strong>systems thinking, second-order effects, finance and AI</strong>. The kind of thinking that asks not just what happens, but what happens next &mdash; and then what.</p>
-        <br>
-        <p>Beyond work, I seek solace in <strong>fitness, health, nutrition, AI and nature</strong>. These are not hobbies. They are how I stay grounded, focused and genuinely curious about the world.</p>
-      </div>
+      <p class="about-lead sr">I am Venkatesh. By qualification, a Chartered Accountant.</p>
+      <p class="about-body sr">I work on <strong>systems thinking, second-order effects, finance and AI.</strong> The kind of thinking that asks not just what happens — but what happens next, and then what.</p>
+      <p class="about-body sr">Beyond work, I seek solace in <strong>fitness, health, nutrition, AI and nature.</strong> These are not hobbies. They are how I stay grounded, focused and genuinely curious about the world.</p>
       <div class="gita sr">
         <p class="gita-q">&ldquo;You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions.&rdquo;</p>
-        <p class="gita-r">Bhagavad Gita 2.47</p>
+        <p class="gita-r">Bhagavad Gita &mdash; 2.47</p>
       </div>
     </div>
     <div class="sr">
-      <div class="about-row"><span class="ar-label">Qualification</span><span class="ar-val">Chartered Accountant</span></div>
-      <div class="about-row"><span class="ar-label">Domain</span><span class="ar-val">Finance &amp; Due Diligence</span></div>
-      <div class="about-row"><span class="ar-label">Thinking</span><span class="ar-val">Systems &amp; First Principles</span></div>
-      <div class="about-row"><span class="ar-label">Building</span><span class="ar-val">ML in Finance</span></div>
-      <div class="about-row"><span class="ar-label">Solace</span><span class="ar-val">Fitness &middot; Health &middot; Nature &middot; AI</span></div>
-      <div class="about-row"><span class="ar-label">Status</span><span class="ar-val">Funmaxxing</span></div>
+      <div class="ar"><span class="ar-k">Qualification</span><span class="ar-v">Chartered Accountant</span></div>
+      <div class="ar"><span class="ar-k">Domain</span><span class="ar-v">Finance &amp; Due Diligence</span></div>
+      <div class="ar"><span class="ar-k">Thinking</span><span class="ar-v">Systems &amp; First Principles</span></div>
+      <div class="ar"><span class="ar-k">Building</span><span class="ar-v">ML in Finance</span></div>
+      <div class="ar"><span class="ar-k">Solace</span><span class="ar-v">Fitness &middot; Health &middot; Nature &middot; AI</span></div>
+      <div class="ar"><span class="ar-k">Status</span><span class="ar-v">Funmaxxing</span></div>
     </div>
   </div>
 </div>
 
 <!-- PORTFOLIO -->
 <div class="sec" id="portfolio">
-  <div class="sec-top">
+  <div class="sec-head">
     <h2 class="sec-title sr">Portfolio</h2>
-    <span class="sec-num">02</span>
+    <span class="sec-n">02</span>
   </div>
-  <div class="portfolio-list">
+  <div class="port-list">
 
-    <a class="p-item sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
+    <a class="p-row sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit" target="_blank">
       <span class="p-idx">01</span>
       <div class="p-info">
         <span class="p-name">FDD AI Toolkit</span>
-        <span class="p-desc">AI-powered Financial Due Diligence &mdash; QoE, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks.</span>
+        <span class="p-desc">AI-powered Financial Due Diligence &mdash; Quality of Earnings, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks built in.</span>
       </div>
       <span class="p-tag">Finance AI</span>
       <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="p-item sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/VenkyyDoesDD" target="_blank">
+    <a class="p-row sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/VenkyDoesDD" target="_blank">
       <span class="p-idx">02</span>
       <div class="p-info">
         <span class="p-name">VenkyDoesDD</span>
-        <span class="p-desc">Conversational due diligence assistant with 8 industry profiles. Asks brutal questions, challenges assumptions, never accepts numbers at face value.</span>
+        <span class="p-desc">Conversational due diligence assistant with 8 industry profiles. Asks precise questions, challenges assumptions, never accepts numbers at face value.</span>
       </div>
       <span class="p-tag">Finance AI</span>
       <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="p-item sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/AMIObselete" target="_blank">
+    <a class="p-row sr" href="https://huggingface.co/spaces/VenkateshSrinivasan/amIobsolete" target="_blank">
       <span class="p-idx">03</span>
       <div class="p-info">
         <span class="p-name">Am I Obsolete?</span>
-        <span class="p-desc">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Brutally honest AI obsolescence assessment for any profession.</span>
+        <span class="p-desc">Career risk analyser built on Anthropic&apos;s 2026 Labor Market Report. Honest AI obsolescence assessment for any domain or profession.</span>
       </div>
       <span class="p-tag">Career AI</span>
       <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="p-item sr" href="https://longevitybro.lovable.app" target="_blank">
+    <a class="p-row sr" href="https://longevitybro.lovable.app" target="_blank">
       <span class="p-idx">04</span>
       <div class="p-info">
         <span class="p-name">LongevityBro</span>
-        <span class="p-desc">Evidence-based health screening using ADA and AHA guidelines. Diabetes, heart disease, VO2 max. ML models trained on 13,000+ patient records.</span>
+        <span class="p-desc">Evidence-based health screening using ADA and AHA clinical guidelines. ML models trained on 13,000+ patient records. Diabetes, heart disease, VO2 max.</span>
       </div>
       <span class="p-tag">Health AI</span>
       <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="p-item sr" href="https://first-principles-ponder.lovable.app/" target="_blank">
+    <a class="p-row sr" href="https://first-principles-ponder.lovable.app/" target="_blank">
       <span class="p-idx">05</span>
       <div class="p-info">
         <span class="p-name">First Principles Ponder</span>
-        <span class="p-desc">A thinking tool built around first principles reasoning &mdash; break any problem down to its foundations and reason upward from truth.</span>
+        <span class="p-desc">A structured thinking tool for breaking any problem down to its foundations. Reason upward from truth, not from assumption or convention.</span>
       </div>
       <span class="p-tag">Thinking Tool</span>
       <span class="p-arr">&#x2197;</span>
     </a>
 
-    <a class="p-item sr" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
+    <a class="p-row sr" href="https://substack.com/@venkateshsrinivasann23" target="_blank">
       <span class="p-idx">06</span>
       <div class="p-info">
         <span class="p-name">Writing</span>
-        <span class="p-desc">Finance, systems thinking, second-order effects and broader reflections. Thinking out loud in public &mdash; honest and continuous.</span>
+        <span class="p-desc">Finance, systems thinking, second-order effects and broader reflections. First principles applied to everything. Thinking out loud, continuously.</span>
       </div>
       <span class="p-tag">Substack</span>
       <span class="p-arr">&#x2197;</span>
@@ -436,73 +521,60 @@ footer{
   </div>
 </div>
 
-<!-- CLOSING STATEMENT -->
-<div class="closing" id="connect">
-  <div class="closing-big">
-    <span>I&nbsp;Tinker.</span>&nbsp;
-    <span>I&nbsp;Explore.</span>&nbsp;
-    <span>I&nbsp;Learn.</span>
-  </div>
-  <p class="closing-sub sr">Glad to connect &mdash; reach out on any of the platforms below.</p>
 </div>
 
-<!-- CONNECT LINKS -->
-<div class="connect-grid sr">
-  <a class="connect-link" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">LinkedIn</a>
-  <a class="connect-link" href="https://huggingface.co/spaces/VenkateshSrinivasan" target="_blank">Hugging Face</a>
-  <a class="connect-link" href="https://github.com/Venkatesh-kurosaki" target="_blank">GitHub</a>
-  <a class="connect-link" href="https://substack.com/@venkateshsrinivasann23" target="_blank">Substack</a>
+<!-- CLOSING -->
+<div class="closing" id="connect">
+  <p class="closing-serif sr">
+    I Tinker. I Explore.<br>
+    <span class="closing-italic">I Learn.</span>
+  </p>
+  <p class="closing-sub sr">Glad to connect &mdash; reach out on any platform below</p>
+  <div class="connect-row sr">
+    <a class="c-link" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">LinkedIn</a>
+    <a class="c-link" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">Hugging Face</a>
+    <a class="c-link" href="https://github.com/Venkatesh-kurosaki" target="_blank">GitHub</a>
+    <a class="c-link" href="https://substack.com/@venkateshsrinivasann23" target="_blank">Substack</a>
+  </div>
 </div>
 
 <footer>
   <span class="ft">Venkatesh Srinivasan &copy; 2026</span>
-  <span class="ft">Bengaluru &mdash; Built with curiosity</span>
+  <span class="ft">Bengaluru, India</span>
 </footer>
 
 <script>
 /* Loader */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hide');
-  }, 1800);
-});
-
-/* Scroll reveal */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
-  });
-}, {threshold:.08, rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.sr').forEach((el,i) => {
-  el.style.transitionDelay = (i%4)*.1+'s';
-  obs.observe(el);
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('out'),1800);
 });
 
 /* Progress bar */
-const pb = document.createElement('div');
-pb.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:var(--black);z-index:200;transition:width .1s linear;pointer-events:none;';
+const pb=document.createElement('div');
+pb.style.cssText='position:fixed;top:0;left:0;height:1.5px;background:var(--sage);z-index:200;transition:width .12s linear;pointer-events:none;';
 document.body.appendChild(pb);
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
-  pb.style.width = Math.min(pct,100)+'%';
+window.addEventListener('scroll',()=>{
+  pb.style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';
 });
 
-/* Closing statement — trigger when visible */
-const closingObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
+/* Scroll reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:.07,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.sr').forEach((el,i)=>{
+  el.style.transitionDelay=(i%5)*.1+'s';
+  obs.observe(el);
+});
+
+/* Closing text animate on scroll */
+const cobs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
     if(e.isIntersecting){
-      e.target.querySelectorAll('span').forEach((s,i) => {
-        s.style.animationDelay = i*.1+'s';
-        s.style.opacity = '1';
-      });
+      e.target.querySelectorAll('.sr').forEach((s,i)=>{s.style.transitionDelay=i*.15+'s';});
     }
   });
-},{threshold:.3});
-const cb = document.querySelector('.closing-big');
-if(cb){
-  cb.querySelectorAll('span').forEach(s => s.style.opacity='0');
-  closingObs.observe(cb);
-}
+},{threshold:.2});
+document.querySelector('.closing') && cobs.observe(document.querySelector('.closing'));
 </script>
 </body>
 </html>
