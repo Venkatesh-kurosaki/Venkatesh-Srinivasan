@@ -13,11 +13,6 @@
   --gold:#c8a96e;--line:rgba(200,210,220,0.1);--line2:rgba(200,210,220,0.18);
 }
 html{scroll-behavior:smooth;}
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
 body{background:var(--dark);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;}
 ::selection{background:var(--gold);color:var(--dark);}
 ::-webkit-scrollbar{width:2px;}
@@ -483,22 +478,19 @@ const CATS={
   txn:{label:'Transaction Advisory',projects:[
     {idx:'01',name:'FDD AI Toolkit',desc:'AI-powered Financial Due Diligence — QoE, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks.',stack:['Hugging Face','Python','Gradio','Claude API','ML'],tag:'Finance AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit'},
     {idx:'02',name:'VenkyDoesDD',desc:'Conversational DD assistant with 8 industry profiles. Asks precise questions, challenges assumptions, never accepts numbers at face value.',stack:['Hugging Face','Python','Gradio','Claude API','NLP'],tag:'Finance AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/VenkyDoesDD'},
-    {idx:'03',name:'Financial Modelling',desc:'Integrated financial modelling tool covering DCF, LBO, merger models and scenario analysis. Built for deal teams who need speed without sacrificing rigour.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Modelling',href:'financial-modelling.lovable.app'}
+    {idx:'03',name:'Financial Modelling',desc:'Integrated financial modelling tool covering DCF, LBO, merger models and scenario analysis. Built for deal teams who need speed without sacrificing rigour.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Modelling',href:'https://financial-modelling.lovable.app'}
   ]},
   analytics:{label:'Analytics',projects:[
-    {idx:'04',name:'AB Test Builder',desc:'Statistical significance engine for product and marketing experiments. Design tests, compute sample sizes, interpret results with Bayesian and frequentist methods.',stack:['Python','SciPy','Streamlit','GitHub','Statsmodels'],tag:'Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AuditAnalytics'},
-    {idx:'05',name:'KPI Builder',desc:'Define, track and contextualise business metrics across functions. Connects raw data to board-level narratives. Built for operators who think in frameworks.',stack:['Python','Pandas','Plotly','Streamlit','GitHub'],tag:'Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/KPI-Dashboard-Builder'},
-    {idx:'06',name:'Analytics Suite',desc:'An inbuilt analytics hub that tracks cohort retention, maps sales funnels, segments customers, and runs multivariate regression to understand what drives outcomes.',stack:['Hugging Face','Python','Pandas','Scikit Learn','Gradio','ML'],tag:'Analytics Suite',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AnalyticsSuite'},
-    {idx:'07',name:'Audit Analytics',desc:'Advanced audit analytics platform — Benford\'s Law, journal entry testing, trend analysis and anomaly detection. Built for serious audit practitioners who go beyond the surface.',stack:['Hugging Face','Python','Pandas','Plotly','Gradio','ML'],tag:'Audit Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AuditAnalytics'},
-    {idx:'08',name:'ESOP Valuation',desc:'End-to-end ESOP valuation engine using Black-Scholes and Monte Carlo methods. Handles vesting schedules, strike price scenarios and fair value outputs for startups and PE-backed companies.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Valuation',href:'https://esop-valuation.lovable.app'}
-  ]},
-  {idx:'09',name:'Data Storytelling Studio',desc:'A data storytelling platform that helps people at any designation learn, analyze, and communicate insights effectively through guided, visual, and interactive learning.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Data Storytelling',href:'https://storyflow-data-hub.lovable.app'}
+    {idx:'04',name:'AB Test Builder',desc:'Statistical significance engine for product and marketing experiments. Design tests, compute sample sizes, interpret results with Bayesian and frequentist methods.',stack:['Python','SciPy','Streamlit','GitHub','Statsmodels'],tag:'Analytics',href:'#'},
+    {idx:'05',name:'KPI Builder',desc:'Define, track and contextualise business metrics across functions. Connects raw data to board-level narratives. Built for operators who think in frameworks.',stack:['Python','Pandas','Plotly','Streamlit','GitHub'],tag:'Analytics',href:'#'},
+    {idx:'06',name:'Analytics Suite',desc:'Advanced audit analytics platform — Benford\'s Law, journal entry testing, trend analysis and anomaly detection. Built for serious audit practitioners who go beyond the surface.',stack:['Hugging Face','Python','Pandas','Plotly','Gradio','ML'],tag:'Audit Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AnalyticsSuite'},
+    {idx:'07',name:'ESOP Valuation',desc:'End-to-end ESOP valuation engine using Black-Scholes and Monte Carlo methods. Handles vesting schedules, strike price scenarios and fair value outputs for startups and PE-backed companies.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Valuation',href:'https://esop-valuation.lovable.app'}
   ]},
   health:{label:'Health & Longevity',projects:[
     {idx:'08',name:'LongevityBro',desc:'Evidence-based health screening using ADA and AHA guidelines. ML models trained on 13,000+ patient records. Diabetes, heart disease, VO2 max.',stack:['Lovable','Python','Scikit-learn','ML','GitHub'],tag:'Health AI',href:'https://longevitybro.lovable.app'}
   ]},
   others:{label:'Others',projects:[
-  
+    {idx:'09',name:'Am I Obsolete?',desc:"Career risk analyser built on Anthropic's 2026 Labor Market Report. Honest AI obsolescence assessment for any domain or profession.",stack:['Hugging Face','Python','Gradio','Claude API'],tag:'Career AI',href:'https://huggingface.co/spaces/VenkyBaka/amIobsolete'},
     {idx:'10',name:'First Principles Ponder',desc:'A structured thinking tool for breaking any problem to its foundations. Reason upward from truth, not from assumption or convention.',stack:['Lovable','React','Claude API','Cursor'],tag:'Thinking Tool',href:'https://first-principles-ponder.lovable.app/'},
     {idx:'11',name:'Valorant IQ',desc:'Tactical Valorant companion — agent picks, map strategies, role-based tips and meta analysis. For players who want to flex smarter, not just harder.',stack:['Lovable','React','Claude API','Cursor'],tag:'Gaming',href:'https://valorant-flex-guru.lovable.app'},
     {idx:'12',name:'Writing',desc:'Finance, systems thinking, second-order effects and broader reflections. First principles applied to everything. Thinking out loud, continuously.',stack:['Substack'],tag:'Substack',href:'https://substack.com/@venkateshsrinivasann23'}
@@ -542,17 +534,6 @@ document.getElementById('panClose').addEventListener('click',()=>{
   document.querySelectorAll('.cat-square').forEach(s=>{s.classList.remove('active');s.setAttribute('aria-expanded','false');});
   activeCat=null;
 });
-</script>
-  <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const loader = document.getElementById('loader');
-    if (loader) {
-      // Small timeout to ensure the animation looks smooth
-      setTimeout(() => {
-        loader.classList.add('out');
-      }, 1000); 
-    }
-  });
 </script>
 </body>
 </html>
