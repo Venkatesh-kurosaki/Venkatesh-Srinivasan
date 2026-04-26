@@ -202,6 +202,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .port-panel.open .proj-card:nth-child(1){animation-delay:.1s;}
 .port-panel.open .proj-card:nth-child(2){animation-delay:.19s;}
 .port-panel.open .proj-card:nth-child(3){animation-delay:.28s;}
+.port-panel.open .proj-card:nth-child(4){animation-delay:.37s;}
+.port-panel.open .proj-card:nth-child(5){animation-delay:.46s;}
 @keyframes cardIn{to{opacity:1;transform:translateY(0);}}
 
 .proj-card::before,.proj-card::after{content:'';position:absolute;width:12px;height:12px;transition:width .3s,height .3s,opacity .25s;opacity:.4;}
@@ -325,7 +327,7 @@ footer{padding:1.75rem 4rem;border-top:1px solid var(--line);display:flex;justif
   </svg>
   <div class="hero-veil"></div>
   <div class="hero-content">
-    <p class="hero-tagline">I TINKER &nbsp;&middot;&nbsp; I EXPLORE &nbsp;&middot;&nbsp; I BUILD</p>
+    <p class="hero-tagline">Chartered Accountant &nbsp;&middot;&nbsp; Builder &nbsp;&middot;&nbsp; Bengaluru</p>
     <h1 class="hero-name">
       <span class="nl"><span class="nw">Venkatesh</span></span>
       <span class="nl"><span class="nw">Srinivasan.</span></span>
@@ -394,7 +396,7 @@ footer{padding:1.75rem 4rem;border-top:1px solid var(--line);display:flex;justif
         <span class="cat-sq-num">01</span>
         <div class="cat-sq-body">
           <span class="cat-sq-name">Transaction<br>Advisory</span>
-          <span class="cat-sq-count">02 projects</span>
+          <span class="cat-sq-count">05 projects</span>
         </div>
       </div>
       <span class="cat-sq-arrow">&#x2197;</span>
@@ -427,7 +429,7 @@ footer{padding:1.75rem 4rem;border-top:1px solid var(--line);display:flex;justif
         <span class="cat-sq-num">04</span>
         <div class="cat-sq-body">
           <span class="cat-sq-name">Others</span>
-          <span class="cat-sq-count">03 projects</span>
+          <span class="cat-sq-count">04 projects</span>
         </div>
       </div>
       <span class="cat-sq-arrow">&#x2197;</span>
@@ -450,11 +452,11 @@ footer{padding:1.75rem 4rem;border-top:1px solid var(--line);display:flex;justif
 
 <!-- CLOSING -->
 <div class="closing" id="connect">
-  <p class="closing-text sr">I Tinker. I Explore.<em>I Learn.</em></p>
+  <p class="closing-text sr">I Tinker. I Explore.<em>The hard stuff starts now.</em></p>
   <p class="closing-sub sr">Glad to connect &mdash; reach out on any platform below</p>
   <div class="c-row sr">
     <a class="c-link" href="https://www.linkedin.com/in/venkatesh-srinivasann" target="_blank">LinkedIn</a>
-    <a class="c-link" href="https://huggingface.co/spaces/VenkateshSrinivasan" target="_blank">Hugging Face</a>
+    <a class="c-link" href="https://huggingface.co/VenkateshSrinivasan" target="_blank">Hugging Face</a>
     <a class="c-link" href="https://github.com/Venkatesh-kurosaki" target="_blank">GitHub</a>
     <a class="c-link" href="https://substack.com/@venkateshsrinivasann23" target="_blank">Substack</a>
   </div>
@@ -475,19 +477,23 @@ document.querySelectorAll('.sr').forEach((el,i)=>{el.style.transitionDelay=(i%5)
 const CATS={
   txn:{label:'Transaction Advisory',projects:[
     {idx:'01',name:'FDD AI Toolkit',desc:'AI-powered Financial Due Diligence — QoE, working capital, debt analysis and deal considerations. Graham, Buffett and Munger frameworks.',stack:['Hugging Face','Python','Gradio','Claude API','ML'],tag:'Finance AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/FDD-Toolkit'},
-    {idx:'02',name:'VenkyDoesDD',desc:'Conversational DD assistant with 8 industry profiles. Asks precise questions, challenges assumptions, never accepts numbers at face value.',stack:['Hugging Face','Python','Gradio','Claude API','NLP'],tag:'Finance AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/VenkyydoesDD'}
+    {idx:'02',name:'VenkyDoesDD',desc:'Conversational DD assistant with 8 industry profiles. Asks precise questions, challenges assumptions, never accepts numbers at face value.',stack:['Hugging Face','Python','Gradio','Claude API','NLP'],tag:'Finance AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/VenkyDoesDD'},
+    {idx:'03',name:'Analytics Suite',desc:'Advanced audit analytics platform — Benford\'s Law, journal entry testing, trend analysis and anomaly detection. Built for serious audit practitioners who go beyond the surface.',stack:['Hugging Face','Python','Pandas','Plotly','Gradio','ML'],tag:'Audit Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AnalyticsSuite'},
+    {idx:'04',name:'Financial Modelling',desc:'Integrated financial modelling tool covering DCF, LBO, merger models and scenario analysis. Built for deal teams who need speed without sacrificing rigour.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Modelling',href:'https://financial-modelling.lovable.app'},
+    {idx:'05',name:'ESOP Valuation',desc:'End-to-end ESOP valuation engine using Black-Scholes and Monte Carlo methods. Handles vesting schedules, strike price scenarios and fair value outputs for startups and PE-backed companies.',stack:['Lovable','React','JavaScript','Claude API','Cursor'],tag:'Valuation',href:'https://esop-valuation.lovable.app'}
   ]},
   analytics:{label:'Analytics',projects:[
-    {idx:'03',name:'AB Test Builder',desc:'Statistical significance engine for product and marketing experiments. Design tests, compute sample sizes, interpret results with Bayesian and frequentist methods.',stack:['Python','SciPy','Streamlit','GitHub','Statsmodels'],tag:'Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/ABTestAnalyser'},
-    {idx:'04',name:'KPI Builder',desc:'Define, track and contextualise business metrics across functions. Connects raw data to board-level narratives. Built for operators who think in frameworks.',stack:['Python','Pandas','Plotly','Streamlit','GitHub'],tag:'Analytics',href:'https://huggingface.co/spaces/VenkateshSrinivasan/KPI-Dashboard-Builder'}
+    {idx:'06',name:'AB Test Builder',desc:'Statistical significance engine for product and marketing experiments. Design tests, compute sample sizes, interpret results with Bayesian and frequentist methods.',stack:['Python','SciPy','Streamlit','GitHub','Statsmodels'],tag:'Analytics',href:'#'},
+    {idx:'07',name:'KPI Builder',desc:'Define, track and contextualise business metrics across functions. Connects raw data to board-level narratives. Built for operators who think in frameworks.',stack:['Python','Pandas','Plotly','Streamlit','GitHub'],tag:'Analytics',href:'#'}
   ]},
   health:{label:'Health & Longevity',projects:[
-    {idx:'05',name:'LongevityBro',desc:'Evidence-based health screening using ADA and AHA guidelines. ML models trained on 13,000+ patient records. Diabetes, heart disease, VO2 max.',stack:['Lovable','Python','Scikit-learn','ML','GitHub'],tag:'Health AI',href:'https://longevitybro.lovable.app'}
+    {idx:'08',name:'LongevityBro',desc:'Evidence-based health screening using ADA and AHA guidelines. ML models trained on 13,000+ patient records. Diabetes, heart disease, VO2 max.',stack:['Lovable','Python','Scikit-learn','ML','GitHub'],tag:'Health AI',href:'https://longevitybro.lovable.app'}
   ]},
   others:{label:'Others',projects:[
-    {idx:'06',name:'Am I Obselete?',desc:"Career risk analyser built on Anthropic's 2026 Labor Market Report. Honest AI obsolescence assessment for any domain or profession.",stack:['Hugging Face','Python','Gradio','Claude API'],tag:'Career AI',href:'https://huggingface.co/spaces/VenkateshSrinivasan/AMIObselete'},
-    {idx:'07',name:'First Principles Ponder',desc:'A structured thinking tool for breaking any problem to its foundations. Reason upward from truth, not from assumption or convention.',stack:['Lovable','React','Claude API','Cursor'],tag:'Thinking Tool',href:'https://first-principles-ponder.lovable.app/'},
-    {idx:'08',name:'Writing',desc:'Finance, systems thinking, second-order effects and broader reflections. First principles applied to everything. Thinking out loud, continuously.',stack:['Substack'],tag:'Substack',href:'https://substack.com/@venkateshsrinivasann23'}
+    {idx:'09',name:'Am I Obsolete?',desc:"Career risk analyser built on Anthropic's 2026 Labor Market Report. Honest AI obsolescence assessment for any domain or profession.",stack:['Hugging Face','Python','Gradio','Claude API'],tag:'Career AI',href:'https://huggingface.co/spaces/VenkyBaka/amIobsolete'},
+    {idx:'10',name:'First Principles Ponder',desc:'A structured thinking tool for breaking any problem to its foundations. Reason upward from truth, not from assumption or convention.',stack:['Lovable','React','Claude API','Cursor'],tag:'Thinking Tool',href:'https://first-principles-ponder.lovable.app/'},
+    {idx:'11',name:'Valorant IQ',desc:'Tactical Valorant companion — agent picks, map strategies, role-based tips and meta analysis. For players who want to flex smarter, not just harder.',stack:['Lovable','React','Claude API','Cursor'],tag:'Gaming',href:'https://valorant-flex-guru.lovable.app'},
+    {idx:'12',name:'Writing',desc:'Finance, systems thinking, second-order effects and broader reflections. First principles applied to everything. Thinking out loud, continuously.',stack:['Substack'],tag:'Substack',href:'https://substack.com/@venkateshsrinivasann23'}
   ]}
 };
 
