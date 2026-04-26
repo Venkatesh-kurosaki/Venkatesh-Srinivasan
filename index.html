@@ -538,5 +538,16 @@ document.getElementById('panClose').addEventListener('click',()=>{
   activeCat=null;
 });
 </script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+      // Small timeout to ensure the animation looks smooth
+      setTimeout(() => {
+        loader.classList.add('out');
+      }, 1000); 
+    }
+  });
+</script>
 </body>
 </html>
