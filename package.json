@@ -1,7 +1,0 @@
-{
-  "name": "portfolio",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "mkdir -p .vercel/output/static && cp index.html style.css .vercel/output/static/"
-  }
-}
