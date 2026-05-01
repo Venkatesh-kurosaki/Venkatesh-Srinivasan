@@ -1,0 +1,109 @@
+/* 
+  animations.css - Ausdata Enterprise AI Theme
+  Link this file in your <head> after your main <style> block:
+  <link rel="stylesheet" href="animations.css">
+*/
+
+/* ==========================================================================
+   1. NEBULA DRIFT (Ausdata Light Leaks)
+   Slowly morphs and shifts the indigo/violet nebula in the background.
+   ========================================================================== */
+@keyframes nebulaDrift {
+  0% { transform: scale(1) rotate(0deg) translate(0, 0); opacity: 0.8; }
+  50% { transform: scale(1.1) rotate(2deg) translate(-2%, 3%); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg) translate(0, 0); opacity: 0.8; }
+}
+
+.hero-nebula {
+  animation: nebulaDrift 25s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+/* ==========================================================================
+   2. FLARE FLOAT (Ausdata Glowing Nodes)
+   Floats the colored flares (teal, purple, gold) over the network.
+   ========================================================================== */
+@keyframes flareFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, -40px) scale(1.5); }
+}
+
+/* Note: The flare CSS classes are defined in index.html, 
+   but they utilize this flareFloat keyframe to gently orbit. */
+
+/* ==========================================================================
+   3. CATEGORY SQUARES ANTI-GRAVITY
+   Makes the 4 squares gently bob up and down, but stops immediately on hover.
+   ========================================================================== */
+@keyframes cardFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.cat-sq {
+  animation: cardFloat 7s ease-in-out infinite;
+}
+
+/* De-sync the floating so it looks organic and natural */
+.cat-sq:nth-child(1) { animation-delay: 0s; }
+.cat-sq:nth-child(2) { animation-delay: 1.5s; }
+.cat-sq:nth-child(3) { animation-delay: 0.7s; }
+.cat-sq:nth-child(4) { animation-delay: 2.2s; }
+
+/* Override the hover so it smoothly pauses the float */
+.cat-sq:hover, .cat-sq.active {
+  animation-play-state: paused;
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* ==========================================================================
+   4. STATS DRIFTING
+   ========================================================================== */
+@keyframes statsDrift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.hero-stats > div {
+  animation: statsDrift 8s ease-in-out infinite;
+}
+.hero-stats > div:nth-child(1) { animation-delay: 0s; }
+.hero-stats > div:nth-child(2) { animation-delay: 1.5s; }
+.hero-stats > div:nth-child(3) { animation-delay: 3s; }
+
+/* ==========================================================================
+   5. PROGRESS BAR GLOW (Indigo)
+   ========================================================================== */
+@keyframes pbGlow {
+  0% { box-shadow: 0 0 2px var(--gold); }
+  50% { box-shadow: 0 0 12px var(--gold); }
+  100% { box-shadow: 0 0 2px var(--gold); }
+}
+
+#pb {
+  animation: pbGlow 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   6. CONNECT LINKS LEVITATION
+   ========================================================================== */
+@keyframes linkFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+.con-link {
+  animation: linkFloat 5s ease-in-out infinite;
+}
+.con-link:nth-child(1) { animation-delay: 0s; }
+.con-link:nth-child(2) { animation-delay: 0.6s; }
+.con-link:nth-child(3) { animation-delay: 1.2s; }
+.con-link:nth-child(4) { animation-delay: 1.8s; }
+
+.con-link:hover {
+  animation-play-state: paused;
+  transform: translateY(-3px);
+}
